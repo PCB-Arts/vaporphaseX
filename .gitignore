@@ -36,3 +36,4 @@ packages/
 /firmware/.cproject
 /firmware/.settings/language.settings.xml
 
+/software/.cproject
