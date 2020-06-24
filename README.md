@@ -2,7 +2,7 @@
 
 Vapor Phase One brings the industry's most flexible PCB soldering process to hobbyists and development engineers alike. In contrast to infrared and convection soldering, the vapor phase process excels at handling high thermal mass assemblies. Large SMD capacitors, high-power inductors, and even metal substrate PCBs are no challenge for the Vapor Phase One, which can also solder fine-pitch structures and heat-sensitive components without risk. Finally, its homogenous temperature distribution minimizes warp and bow of the PCB, which decreases internal stresses on the assembly.
 
-![alt text](https://beta.pcb-arts.com/vpo-full.dbef7fe7.jpg)
+![Vapor Phase One Full Image](https://beta.pcb-arts.com/vpo-full.dbef7fe7.jpg)
 
 ## Features
 
