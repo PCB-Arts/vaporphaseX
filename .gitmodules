@@ -1,0 +1,42 @@
+[submodule "upstream/STM32CubeF3"]
+	path = upstream/STM32CubeF3
+	url = https://github.com/STMicroelectronics/STM32CubeF3
+[submodule "upstream/st-touchgfx"]
+	path = upstream/st-touchgfx
+	url = ssh://git@gitlab.pcb-arts.com:8822/yaseg/st-touchgfx-mirror.git
+	branch = release
+[submodule "upstream/st-freertos"]
+	path = upstream/st-freertos
+	url = https://github.com/STMicroelectronics/stm32_mw_freertos
+[submodule "upstream/st-hal-f4"]
+	path = upstream/st-hal-f4
+	url = https://github.com/STMicroelectronics/stm32f4xx_hal_driver
+[submodule "upstream/st-cmsis-f4"]
+	path = upstream/st-cmsis-f4
+	url = https://github.com/STMicroelectronics/cmsis_device_f4
+[submodule "upstream/st-bsp-f4"]
+	path = upstream/st-bsp-f4
+	url = ssh://git@gitlab.pcb-arts.com:8822/yaseg/stm32cubef4-subtrees.git
+	branch = bsp_tree
+[submodule "upstream/st-cmsis-core"]
+	path = upstream/st-cmsis-core
+	url = https://github.com/STMicroelectronics/cmsis_core
+[submodule "upstream/st-fonts"]
+	path = upstream/st-fonts
+	url = ssh://git@gitlab.pcb-arts.com:8822/yaseg/stm32cubef4-subtrees.git
+	branch = fonts_tree
+[submodule "core-fw/Upstream/cmsis_core"]
+	path = core-fw/Upstream/cmsis_core
+	url = https://github.com/STMicroelectronics/cmsis_core
+[submodule "core-fw/Upstream/cmsis_device"]
+	path = core-fw/Upstream/cmsis_device
+	url = https://github.com/STMicroelectronics/cmsis_device_f3
+[submodule "upstream/tinyprintf"]
+	path = upstream/tinyprintf
+	url = https://github.com/cjlano/tinyprintf
+[submodule "upstream/st-fatfs"]
+	path = upstream/st-fatfs
+	url = https://github.com/STMicroelectronics/stm32_mw_fatfs
+[submodule "upstream/mbedtls"]
+	path = upstream/mbedtls
+	url = https://github.com/ARMmbed/mbedtls
