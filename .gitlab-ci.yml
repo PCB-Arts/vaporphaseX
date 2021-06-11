@@ -1,0 +1,13 @@
+image: python:3.6
+
+stages:
+ - test
+
+before_script:
+  - "pip install -U platformio==5.1.0"
+
+core-unit-test:
+  stage: test
+  tags:
+    - vpo
+  script: "cd core-fw && pio test"

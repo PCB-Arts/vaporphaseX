@@ -1,0 +1,1218 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Components": [
+          {
+            "Type": "Box",
+            "Color": {
+              "Red": 0,
+              "Green": 1,
+              "Blue": 35
+            },
+            "Alpha": 255,
+            "Name": "background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "TextArea",
+            "TextId": "SingleUseId33",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "Alpha": 255,
+            "AutoSize": false,
+            "LineSpacing": 0,
+            "Wildcard1": {
+              "TextId": "SingleUseId40",
+              "UseBuffer": true,
+              "BufferSize": 10
+            },
+            "Name": "bootscreen_sw_version",
+            "X": 0,
+            "Y": 437,
+            "Width": 800,
+            "Height": 17,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Image",
+            "RelativeFilename": "PCB_ARTS_Wortlogo_weiss_RGB.png",
+            "Alpha": 255,
+            "Name": "logo",
+            "X": 200,
+            "Y": 190,
+            "Width": 400,
+            "Height": 100,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "bootwait",
+            "HasCompletedTrigger": true,
+            "Trigger": {
+              "Type": "TriggerScreenEntered"
+            },
+            "Action": {
+              "Type": "ActionDelay",
+              "Duration": 3500
+            }
+          },
+          {
+            "InteractionName": "boot_menu",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerInteractionCompleted",
+              "InteractionToTriggerOn": "bootwait"
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "menu"
+            }
+          }
+        ],
+        "Name": "bootscreen",
+        "OverrideDefaultBufferSize": false,
+        "CanvasBufferSize": 0
+      },
+      {
+        "Components": [
+          {
+            "Type": "Box",
+            "Color": {
+              "Red": 0,
+              "Green": 1,
+              "Blue": 35
+            },
+            "Alpha": 255,
+            "Name": "background",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Components": [
+              {
+                "Components": [
+                  {
+                    "Type": "ButtonWithLabel",
+                    "Pressed": "pushed-button.png",
+                    "Released": "empty-button.png",
+                    "Alpha": 255,
+                    "TextId": "SingleUseId25",
+                    "ReleasedColor": {
+                      "Red": 0,
+                      "Green": 1,
+                      "Blue": 35
+                    },
+                    "PressedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "TextRotation": "0",
+                    "Name": "Close_Lid",
+                    "X": 209,
+                    "Y": 319,
+                    "Width": 360,
+                    "Height": 70,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "ButtonWithLabel",
+                    "Pressed": "pushed-button.png",
+                    "Released": "empty-button.png",
+                    "Alpha": 255,
+                    "TextId": "SingleUseId23",
+                    "ReleasedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "PressedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "TextRotation": "0",
+                    "Name": "Open_Lid",
+                    "X": 209,
+                    "Y": 319,
+                    "Width": 360,
+                    "Height": 70,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "ButtonWithLabel",
+                    "Pressed": "pushed-button.png",
+                    "Released": "empty-button.png",
+                    "Alpha": 255,
+                    "TextId": "SingleUseId24",
+                    "ReleasedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "PressedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "TextRotation": "0",
+                    "Name": "Stop_Reflow",
+                    "X": 209,
+                    "Y": 224,
+                    "Width": 360,
+                    "Height": 70,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "ButtonWithLabel",
+                    "Pressed": "pushed-button.png",
+                    "Released": "empty-button.png",
+                    "Alpha": 255,
+                    "TextId": "SingleUseId3",
+                    "ReleasedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "PressedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "TextRotation": "0",
+                    "Name": "Start_Reflow",
+                    "X": 209,
+                    "Y": 224,
+                    "Width": 360,
+                    "Height": 70,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId4",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 255,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Name": "vapor_phase_one",
+                    "X": 232,
+                    "Y": 97,
+                    "Width": 315,
+                    "Height": 46,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  }
+                ],
+                "Type": "Container",
+                "IsCacheableContainer": false,
+                "Name": "start_stop",
+                "X": 0,
+                "Y": 0,
+                "Width": 800,
+                "Height": 480,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Components": [
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId22",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 150,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Name": "y_axis_naming",
+                    "X": 348,
+                    "Y": 443,
+                    "Width": 104,
+                    "Height": 17,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId21",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 150,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 2
+                    },
+                    "Name": "x_axis_naming",
+                    "X": 15,
+                    "Y": 237,
+                    "Width": 6,
+                    "Height": 17,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId20",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 150,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "TextId": "SingleUseId34",
+                      "UseBuffer": true,
+                      "BufferSize": 4
+                    },
+                    "Wildcard2": {
+                      "UseBuffer": true,
+                      "BufferSize": 2
+                    },
+                    "Name": "galden_tmp",
+                    "X": 594,
+                    "Y": 41,
+                    "Width": 117,
+                    "Height": 17,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Image",
+                    "RelativeFilename": "drop.png",
+                    "Alpha": 150,
+                    "Name": "galden",
+                    "X": 549,
+                    "Y": 31,
+                    "Width": 36,
+                    "Height": 36,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "DynamicGraph",
+                    "DataSeed": 1350399007,
+                    "NumberOfValues": 250,
+                    "MaxY": 250.0,
+                    "MinY": 0.0,
+                    "Precision": "1",
+                    "UseCustomVisibleDataPointRange": true,
+                    "FirstIndex": 0,
+                    "LastIndex": 249,
+                    "MapDataPointIndexToCustomValue": false,
+                    "XAxisOffset": 0.0,
+                    "XAxisScale": 1.0,
+                    "InsertRandomValues": false,
+                    "Alpha": 255,
+                    "LabelSizeTop": 15,
+                    "LabelSizeBottom": 20,
+                    "LabelSizeLeft": 25,
+                    "LabelSizeRight": 0,
+                    "PaddingTop": 0,
+                    "PaddingBottom": 12,
+                    "PaddingLeft": 10,
+                    "PaddingRight": 0,
+                    "GraphType": "GraphWrapClear",
+                    "GraphDrawers": [
+                      {
+                        "Type": "LineDrawer",
+                        "LineWidth": 2,
+                        "FileNameImage": "",
+                        "Color": {
+                          "Red": 20,
+                          "Green": 151,
+                          "Blue": 197
+                        },
+                        "Alpha": 255
+                      },
+                      {
+                        "Type": "LineDrawer",
+                        "LineWidth": 2,
+                        "Color": {
+                          "Red": 235,
+                          "Green": 70,
+                          "Blue": 95
+                        },
+                        "Alpha": 255
+                      }
+                    ],
+                    "XAxisGrid": {
+                      "Type": "GraphGrid",
+                      "Color": {
+                        "Red": 153,
+                        "Green": 153,
+                        "Blue": 153
+                      },
+                      "Interval": 20.0,
+                      "LineWidth": 1,
+                      "Alpha": 100
+                    },
+                    "YAxisGrid": {
+                      "Type": "GraphGrid",
+                      "Color": {
+                        "Red": 153,
+                        "Green": 153,
+                        "Blue": 153
+                      },
+                      "Interval": 50.0,
+                      "LineWidth": 1,
+                      "Alpha": 100
+                    },
+                    "XAxisLabel": {
+                      "Type": "GraphLabel",
+                      "Interval": 30.0,
+                      "NumberOfDecimals": 0,
+                      "DecimalSeparator": "Point",
+                      "TextColor": {
+                        "Red": 153,
+                        "Green": 153,
+                        "Blue": 153
+                      },
+                      "TextId": "SingleUseId41",
+                      "Alpha": 255,
+                      "TextRotation": "0",
+                      "Position": "Bottom"
+                    },
+                    "YAxisLabel": {
+                      "Type": "GraphLabel",
+                      "Interval": 50.0,
+                      "NumberOfDecimals": 0,
+                      "DecimalSeparator": "Point",
+                      "TextColor": {
+                        "Red": 153,
+                        "Green": 153,
+                        "Blue": 153
+                      },
+                      "TextId": "SingleUseId42",
+                      "Alpha": 255,
+                      "TextRotation": "0",
+                      "Position": "Left"
+                    },
+                    "Name": "dynamicGraph",
+                    "X": 35,
+                    "Y": 89,
+                    "Width": 719,
+                    "Height": 347,
+                    "Visible": true,
+                    "LockPosition": true,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId19",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 150,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "TextId": "SingleUseId33",
+                      "UseBuffer": true,
+                      "BufferSize": 4
+                    },
+                    "Wildcard2": {
+                      "UseBuffer": true,
+                      "BufferSize": 2
+                    },
+                    "Name": "watersystem_tmp",
+                    "X": 173,
+                    "Y": 41,
+                    "Width": 247,
+                    "Height": 17,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "AnimatedImage",
+                    "FileNameFirst": "arrow1.png",
+                    "FileNameLast": "arrow2.png",
+                    "UpdateTicksInterval": 500,
+                    "Alpha": 150,
+                    "StartOnLoad": true,
+                    "ReverseEnabled": false,
+                    "LoopEnabled": true,
+                    "AnimationEndedCallback": false,
+                    "Name": "watersystem",
+                    "X": 126,
+                    "Y": 31,
+                    "Width": 36,
+                    "Height": 36,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  }
+                ],
+                "Type": "Container",
+                "IsCacheableContainer": false,
+                "Name": "graphs",
+                "X": 0,
+                "Y": 0,
+                "Width": 800,
+                "Height": 480,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              },
+              {
+                "Components": [
+                  {
+                    "Type": "Circle",
+                    "Color": {
+                      "Red": 189,
+                      "Green": 189,
+                      "Blue": 189
+                    },
+                    "CenterX": 40,
+                    "CenterY": 40,
+                    "Radius": 7,
+                    "LineWidth": 0,
+                    "StartAngle": 0,
+                    "EndAngle": 360,
+                    "CapPrecision": "Butt",
+                    "Alpha": 255,
+                    "Name": "options_solder_profile_wheel_indicator",
+                    "X": 20,
+                    "Y": 344,
+                    "Width": 80,
+                    "Height": 80,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Button",
+                    "Pressed": "button-set-push.png",
+                    "Released": "button-set.png",
+                    "Alpha": 255,
+                    "Name": "options_solder_button_set",
+                    "X": 593,
+                    "Y": 354,
+                    "Width": 120,
+                    "Height": 60,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "ScrollWheel",
+                    "SelectedItemOffset": 63,
+                    "UseSelectedStyle": false,
+                    "ExtraSizeBefore": 0,
+                    "ExtraSizeAfter": 0,
+                    "MarginBefore": 0,
+                    "MarginAfter": 0,
+                    "IsHorizontal": false,
+                    "IsCircular": false,
+                    "ItemTemplateName": "custom_container_profile_select",
+                    "NumberofItems": 20,
+                    "InitialElement": 0,
+                    "ItemMargin": 0,
+                    "Easing": "Back",
+                    "EasingOption": "Out",
+                    "SwipeAcceleration": 1.0,
+                    "DragAcceleration": 1.0,
+                    "Name": "options_solder_profile_wheel",
+                    "X": 79,
+                    "Y": 300,
+                    "Width": 500,
+                    "Height": 178,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Box",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 1,
+                      "Blue": 35
+                    },
+                    "Alpha": 150,
+                    "Name": "options_solder_profile_whell_overlay_bottom",
+                    "X": 79,
+                    "Y": 408,
+                    "Width": 500,
+                    "Height": 70,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Box",
+                    "Color": {
+                      "Red": 0,
+                      "Green": 1,
+                      "Blue": 35
+                    },
+                    "Alpha": 150,
+                    "Name": "options_solder_profile_whell_overlay_top",
+                    "X": 79,
+                    "Y": 300,
+                    "Width": 500,
+                    "Height": 70,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId29",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 255,
+                    "AutoSize": false,
+                    "LineSpacing": 0,
+                    "Name": "options_solder_profile_label",
+                    "X": 35,
+                    "Y": 264,
+                    "Width": 214,
+                    "Height": 30,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Button",
+                    "Pressed": "open_lid_img\\celsius_90_choosen.png",
+                    "Released": "open_lid_img\\celsius_90.png",
+                    "Alpha": 255,
+                    "Name": "options_openlid_button_high",
+                    "X": 593,
+                    "Y": 185,
+                    "Width": 120,
+                    "Height": 60,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Button",
+                    "Pressed": "open_lid_img\\celsius_80_choosen.png",
+                    "Released": "open_lid_img\\celsius_80.png",
+                    "Alpha": 255,
+                    "Name": "options_openlid_button_medium",
+                    "X": 461,
+                    "Y": 186,
+                    "Width": 120,
+                    "Height": 60,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Button",
+                    "Pressed": "open_lid_img\\celsius_70_choosen.png",
+                    "Released": "open_lid_img\\celsius_70.png",
+                    "Alpha": 255,
+                    "Name": "options_openlid_button_low",
+                    "X": 327,
+                    "Y": 186,
+                    "Width": 120,
+                    "Height": 60,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId28",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 255,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Name": "lid_temp_label",
+                    "X": 37,
+                    "Y": 201,
+                    "Width": 211,
+                    "Height": 30,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "ButtonWithLabel",
+                    "Pressed": "button-mount-push-medium.png",
+                    "Released": "button-mount-medium.png",
+                    "Alpha": 255,
+                    "TextId": "SingleUseId30",
+                    "ReleasedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "PressedColor": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "TextRotation": "0",
+                    "Name": "options_sd_card_button",
+                    "X": 543,
+                    "Y": 110,
+                    "Width": 170,
+                    "Height": 60,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId27",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 255,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Name": "options_sd_card_label",
+                    "X": 37,
+                    "Y": 125,
+                    "Width": 94,
+                    "Height": 30,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "ToggleButton",
+                    "InitialStatePressed": false,
+                    "Pressed": "switch-fahrenheit-medium.png",
+                    "Released": "switch-celsius-medium.png",
+                    "Alpha": 255,
+                    "Name": "options_temp_unit_toggle",
+                    "X": 543,
+                    "Y": 32,
+                    "Width": 170,
+                    "Height": 60,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId26",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 255,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Name": "options_temp_unit_label",
+                    "X": 37,
+                    "Y": 46,
+                    "Width": 163,
+                    "Height": 30,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  }
+                ],
+                "Type": "Container",
+                "IsCacheableContainer": false,
+                "Name": "options",
+                "X": 0,
+                "Y": 0,
+                "Width": 800,
+                "Height": 480,
+                "Visible": true,
+                "LockPosition": false,
+                "Draggable": false,
+                "Clickable": false,
+                "Fadeable": false,
+                "Moveable": false
+              }
+            ],
+            "Type": "SwipeContainer",
+            "SwipeCutoff": 100,
+            "ShowPageIndicator": true,
+            "PageIndicatorX": 378,
+            "PageIndicatorY": 10,
+            "CenteredX": true,
+            "IndicatorImageNormal": "__designer\\Blue_PageIndicator_dot_indicator_small_normal.png",
+            "IndicatorImageHighlight": "__designer\\Blue_PageIndicator_dot_indicator_small_highlight.png",
+            "EndSwipeElasticWidth": 50,
+            "SelectedPage": "graphs",
+            "Style": "Style1",
+            "Name": "menu_container",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "StartButtonPush",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "Start_Reflow"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "StartButtonPush"
+            }
+          },
+          {
+            "InteractionName": "Start_Reflow_show",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "Stop_Reflow"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "Start_Reflow"
+            }
+          },
+          {
+            "InteractionName": "Start_Reflow_hide",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "Start_Reflow"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "Start_Reflow"
+            }
+          },
+          {
+            "InteractionName": "Open_Lid_show",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "Close_Lid"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "Open_Lid"
+            }
+          },
+          {
+            "InteractionName": "Open_Lid_hide",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "Open_Lid"
+            },
+            "Action": {
+              "Type": "ActionHide",
+              "ActionComponent": "Open_Lid"
+            }
+          },
+          {
+            "InteractionName": "setSolderProfile",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_solder_button_set"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "menu_container.setSelectedPage(1);"
+            }
+          },
+          {
+            "InteractionName": "TempUnitToggled",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_temp_unit_toggle"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "TempUnitToggled"
+            }
+          }
+        ],
+        "Name": "menu",
+        "OverrideDefaultBufferSize": false,
+        "CanvasBufferSize": 12000
+      }
+    ],
+    "CustomContainerDefinitions": [
+      {
+        "Components": [
+          {
+            "Type": "Box",
+            "Color": {
+              "Red": 0,
+              "Green": 1,
+              "Blue": 35
+            },
+            "Alpha": 255,
+            "Name": "box1",
+            "X": 0,
+            "Y": 0,
+            "Width": 500,
+            "Height": 50,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "TextArea",
+            "TextId": "SingleUseId31",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 189,
+              "Green": 189,
+              "Blue": 189
+            },
+            "Alpha": 255,
+            "AutoSize": true,
+            "LineSpacing": 0,
+            "Name": "textArea1",
+            "X": 30,
+            "Y": 13,
+            "Width": 308,
+            "Height": 23,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [],
+        "Name": "custom_container_profile_select",
+        "X": 0,
+        "Y": 0,
+        "Width": 500,
+        "Height": 50
+      }
+    ],
+    "TextEntries": [
+      {
+        "TextEntryId": "SingleUseId3",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId4",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "Graph_legend_text_00",
+        "IsResource": true
+      },
+      {
+        "TextEntryId": "Graph_y_value",
+        "IsResource": true
+      },
+      {
+        "TextEntryId": "SingleUseId19",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId20",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId21",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId22",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId23",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId24",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId25",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId26",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId27",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId28",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId29",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId30",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId31",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId32",
+        "IsResource": true
+      },
+      {
+        "TextEntryId": "SingleUseId33",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId34",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId37",
+        "IsResource": true
+      },
+      {
+        "TextEntryId": "SingleUseId38",
+        "IsResource": true
+      },
+      {
+        "TextEntryId": "SingleUseId39",
+        "IsResource": true
+      },
+      {
+        "TextEntryId": "SingleUseId40",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId41",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId42",
+        "IsResource": false
+      }
+    ],
+    "Name": "STM32F469I-DISCO",
+    "Resolution": {
+      "Width": 800,
+      "Height": 480
+    },
+    "SelectedColorDepth": 24,
+    "StartupScreenName": "bootscreen",
+    "SelectedStartupLanguage": "GB",
+    "Skin": "Blue",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      24
+    ],
+    "AvailableLCDs": {
+      "24": "LCD24bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 800,
+        "Height": 480
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD24bpp": {
+        "Id": "LCD24bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project --project-file=../STM32F469I-DISCO.ioc --platform=m4",
+    "PostGenerateTargetCommandOverride": "",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Landscape"
+  },
+  "Version": "4.15.0",
+  "CreatedBy": "4.13.0"
+}
