@@ -18,16 +18,18 @@ struct Typography
     static const touchgfx::FontId SMALL = 2;
     static const touchgfx::FontId MEDIUM = 3;
     static const touchgfx::FontId VPO_DEFAULT = 4;
+    static const touchgfx::FontId TEXT_GRAPH_SIZE = 5;
 };
 
 struct TypographyFontIndex
 {
-    static const touchgfx::FontId DEFAULT = 0;     // arial_20_4bpp
-    static const touchgfx::FontId LARGE = 1;       // arial_40_4bpp
-    static const touchgfx::FontId SMALL = 2;       // arial_10_4bpp
-    static const touchgfx::FontId MEDIUM = 3;      // arial_14_4bpp
-    static const touchgfx::FontId VPO_DEFAULT = 4; // arial_26_4bpp
-    static const uint16_t NUMBER_OF_FONTS = 5;
+    static const touchgfx::FontId DEFAULT = 0;         // arial_20_4bpp
+    static const touchgfx::FontId LARGE = 1;           // arial_40_4bpp
+    static const touchgfx::FontId SMALL = 2;           // arial_10_4bpp
+    static const touchgfx::FontId MEDIUM = 3;          // arial_14_4bpp
+    static const touchgfx::FontId VPO_DEFAULT = 4;     // arial_26_4bpp
+    static const touchgfx::FontId TEXT_GRAPH_SIZE = 5; // arial_16_4bpp
+    static const uint16_t NUMBER_OF_FONTS = 6;
 };
 
 class ApplicationFontProvider : public touchgfx::FontProvider

@@ -141,6 +141,7 @@ static void seq_fsm() {
 			vpo_log("Profile in preheat");
 			seq_state = SEQ_GENERATE_VAPOUR;
 		} else {
+		    vpo_log("profile aborted - in preheat");
 			seq_state = SEQ_IDLE;
 		}
 		break;
@@ -208,7 +209,7 @@ static int safety_checks() {
 		rc = 0;
 
 	//check if lid is closed
-	if (lid_axis.encoder->position > 200)
+	if (!lid_control_lid_closed())
 		rc = 0;
 
 	return rc;

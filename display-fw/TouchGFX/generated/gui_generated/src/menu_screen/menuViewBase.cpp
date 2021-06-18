@@ -86,11 +86,11 @@ menuViewBase::menuViewBase() :
     y_axis_naming.setTypedText(touchgfx::TypedText(T_SINGLEUSEID21));
     graphs.add(y_axis_naming);
 
-    galden_tmp.setXY(594, 41);
+    galden_tmp.setXY(593, 53);
     galden_tmp.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     galden_tmp.setLinespacing(0);
     galden_tmp.setAlpha(150);
-    touchgfx::Unicode::snprintf(galden_tmpBuffer1, GALDEN_TMPBUFFER1_SIZE, "%s", touchgfx::TypedText(T_SINGLEUSEID34).getText());
+    galden_tmpBuffer1[0] = 0;
     galden_tmp.setWildcard1(galden_tmpBuffer1);
     galden_tmpBuffer2[0] = 0;
     galden_tmp.setWildcard2(galden_tmpBuffer2);
@@ -98,7 +98,7 @@ menuViewBase::menuViewBase() :
     galden_tmp.setTypedText(touchgfx::TypedText(T_SINGLEUSEID20));
     graphs.add(galden_tmp);
 
-    galden.setXY(549, 31);
+    galden.setXY(553, 43);
     galden.setBitmap(touchgfx::Bitmap(BITMAP_DROP_ID));
     galden.setAlpha(150);
     graphs.add(galden);
@@ -162,7 +162,7 @@ menuViewBase::menuViewBase() :
     dynamicGraph_ist.addGraphElement(dynamicGraph_istVerticalFrontline);
     graphs.add(dynamicGraph_ist);
 
-    watersystem_tmp.setXY(173, 41);
+    watersystem_tmp.setXY(118, 52);
     watersystem_tmp.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     watersystem_tmp.setLinespacing(0);
     watersystem_tmp.setAlpha(150);
@@ -174,7 +174,7 @@ menuViewBase::menuViewBase() :
     watersystem_tmp.setTypedText(touchgfx::TypedText(T_SINGLEUSEID19));
     graphs.add(watersystem_tmp);
 
-    watersystem.setXY(126, 31);
+    watersystem.setXY(69, 43);
     watersystem.setBitmaps(BITMAP_ARROW1_ID, BITMAP_ARROW2_ID);
     watersystem.setUpdateTicksInterval(30);
     watersystem.setAlpha(150);
