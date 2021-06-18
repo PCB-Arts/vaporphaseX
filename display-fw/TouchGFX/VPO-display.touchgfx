@@ -342,7 +342,6 @@
                     "AutoSize": true,
                     "LineSpacing": 0,
                     "Wildcard1": {
-                      "TextId": "SingleUseId34",
                       "UseBuffer": true,
                       "BufferSize": 4
                     },
@@ -351,10 +350,10 @@
                       "BufferSize": 2
                     },
                     "Name": "galden_tmp",
-                    "X": 594,
-                    "Y": 41,
-                    "Width": 109,
-                    "Height": 17,
+                    "X": 593,
+                    "Y": 53,
+                    "Width": 107,
+                    "Height": 19,
                     "Visible": true,
                     "LockPosition": false,
                     "Draggable": false,
@@ -367,8 +366,8 @@
                     "RelativeFilename": "drop.png",
                     "Alpha": 150,
                     "Name": "galden",
-                    "X": 549,
-                    "Y": 31,
+                    "X": 553,
+                    "Y": 43,
                     "Width": 36,
                     "Height": 36,
                     "Visible": true,
@@ -559,10 +558,10 @@
                       "BufferSize": 2
                     },
                     "Name": "watersystem_tmp",
-                    "X": 173,
-                    "Y": 41,
-                    "Width": 178,
-                    "Height": 17,
+                    "X": 118,
+                    "Y": 52,
+                    "Width": 172,
+                    "Height": 19,
                     "Visible": true,
                     "LockPosition": false,
                     "Draggable": false,
@@ -581,8 +580,8 @@
                     "LoopEnabled": true,
                     "AnimationEndedCallback": false,
                     "Name": "watersystem",
-                    "X": 126,
-                    "Y": 31,
+                    "X": 69,
+                    "Y": 43,
                     "Width": 36,
                     "Height": 36,
                     "Visible": true,
@@ -1577,10 +1576,6 @@
         "IsResource": false
       },
       {
-        "TextEntryId": "SingleUseId20",
-        "IsResource": false
-      },
-      {
         "TextEntryId": "SingleUseId21",
         "IsResource": false
       },
@@ -1623,10 +1618,6 @@
       {
         "TextEntryId": "SingleUseId32",
         "IsResource": true
-      },
-      {
-        "TextEntryId": "SingleUseId34",
-        "IsResource": false
       },
       {
         "TextEntryId": "SingleUseId37",
@@ -1779,6 +1770,10 @@
       {
         "TextEntryId": "SelftestRunningBody",
         "IsResource": true
+      },
+      {
+        "TextEntryId": "SingleUseId20",
+        "IsResource": false
       }
     ],
     "Name": "STM32F469I-DISCO",

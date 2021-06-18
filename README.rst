@@ -30,3 +30,12 @@ In general you have to loosely follow these steps to build and sign images for t
 7. (Option 2) Sign the images by running ``sign_all_images.sh`` from the tools folder of the display bootloader.
 8. (Option 2) Copy the signed (without _unsigned) `.BIN` files onto an SD card. And flash using the bootloader.
 
+#####################
+Flashing
+#####################
+
+#####################
+Display
+#####################
+
+Flash the display with the STM32CubeProgrammer, as external Loader use the MT25QL128A_STM32469I-DK. Flash the Bootloader and then the Display.hex File
