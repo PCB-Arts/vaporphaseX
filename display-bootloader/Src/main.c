@@ -79,7 +79,7 @@ __IO uint32_t valid_buffer = 0;
 #define HFP 1
 #define HACT 800
 
-#define BGCOLOR 0xffff80ff
+#define BGCOLOR 0xff000000
 
 uint8_t pColLeft[] = {0x00, 0x00, 0x03, 0x1F}; /*   0 -> 399 */
 uint8_t pPage[] = {0x00, 0x00, 0x01, 0xDF};    /*   0 -> 479 */
@@ -100,6 +100,8 @@ static void await_user_button(void);
 
 static int Main_lcd_line = 1;
 static char Main_line[64] = {' '};
+
+static int retry_counter = 3;
 
 void Main_LCD_printf(const char *format, ...) {
   va_list format_arguments;
@@ -309,16 +311,14 @@ int Main_FlashUserCoreFirmwareCallback(uint8_t *data, size_t offset,
 int Main_FlashUserCoreFirmware() {
   int rc;
 
-  Main_LCD_printf("Core controller: ");
-
   if (f_open(&DownloadFile, filename_core_fw, FA_READ) != FR_OK) {
-    Main_LCD_printf("Cannot open file: %s", filename_core_fw);
+    Main_LCD_printf("Cannot open core file: %s", filename_core_fw);
     return 1;
   }
 
   /* Do a dry-run first to make sure the signature is valid */
   if (COMMAND_ProgramFlashMemory(&DownloadFile, NULL) != DOWNLOAD_OK) {
-    Main_LCD_printf("Firmware image signature verification error");
+    Main_LCD_printf("Core firmware image signature verification error");
     return 1;
   }
 
@@ -332,9 +332,8 @@ int Main_FlashUserCoreFirmware() {
     return 1;
   }
 
-  Main_LCD_printf("Erase complete");
+  Main_LCD_printf("Erase complete. Programming core controller...");
 
-  Main_LCD_printf("Programming core controller...");
 
   /* Now do the actual programming. Verify the signature again to protect
    * against TOCTOU. */
@@ -365,16 +364,14 @@ int Main_FlashUserDisplayFirmwareCallback(uint8_t *data, size_t offset,
 }
 
 int Main_FlashUserDisplayFirmwareInternal() {
-  Main_LCD_printf("Display controller: ");
-
   if (f_open(&DownloadFile, filename_disp_fw, FA_READ) != FR_OK) {
-    Main_LCD_printf("Cannot open file: %s", filename_disp_fw);
+    Main_LCD_printf("Cannot open display file: %s", filename_disp_fw);
     return 1;
   }
 
   /* Do a dry-run first to make sure the signature is valid */
   if (COMMAND_ProgramFlashMemory(&DownloadFile, NULL) != DOWNLOAD_OK) {
-    Main_LCD_printf("Firmware image signature verification error");
+    Main_LCD_printf("Display firmware image signature verification error");
     return 1;
   }
 
@@ -389,10 +386,8 @@ int Main_FlashUserDisplayFirmwareInternal() {
     Main_LCD_printf("Flash erase error");
     return 1;
   }
-  Main_LCD_printf("Erase complete");
 
-
-  Main_LCD_printf("Programming display controller...");
+  Main_LCD_printf("Erase complete. Programming display controller...");
   /* Now do the actual programming. Verify the signature again to protect
    * against TOCTOU. */
   if (COMMAND_ProgramFlashMemory(&DownloadFile,
@@ -428,13 +423,18 @@ int Main_FlashUserDisplayFirmwareExternal() {
     return 1;
   }
 
+  Main_LCD_printf("Opened Downloadfile successfully");
+
   /* Do a dry-run first to make sure the signature is valid */
   if (COMMAND_ProgramFlashMemory(&DownloadFile, NULL) != DOWNLOAD_OK) {
     Main_LCD_printf("Firmware image signature verification error");
     return 1;
   }
 
+  Main_LCD_printf("Signature checked successfully");
+
   if (f_lseek(&DownloadFile, 0) != FR_OK) {
+	Main_LCD_printf("f_lseek problem");
     return 1;
   }
 
@@ -444,9 +444,7 @@ int Main_FlashUserDisplayFirmwareExternal() {
     Main_LCD_printf("Flash erase error");
     return 1;
   }
-  Main_LCD_printf("Erase complete");
-
-  Main_LCD_printf("Programming external display flash...");
+  Main_LCD_printf("Erase complete. Programming external display flash...");
 
   /* Now do the actual programming. Verify the signature again to protect
    * against TOCTOU. */
@@ -540,19 +538,59 @@ void Main_Menu(void) {
 
   if (!flash_only_display) {
     rc = Main_FlashUserCoreFirmware();
+    // When flashing didn't work
     if (rc != 0) {
-      return;
+    	Main_LCD_Clear();
+    	for (int i = 0; i <= retry_counter; i++){
+    		Main_LCD_printf("Problem during core flashing. Retry %s", i);
+    		rc = Main_FlashUserCoreFirmware();
+    		if (rc == 0){
+    			//leave the retry
+    			break;
+    		}
+    		if (retry_counter == i){
+    			// return after retring
+    			return;
+    		}
+    	}
     }
   }
 
   rc = Main_FlashUserDisplayFirmwareInternal();
+  // When flashing didn't work
   if (rc != 0) {
-    return;
+	Main_LCD_Clear();
+	for (int i = 0; i <= retry_counter; i++){
+		Main_LCD_printf("Problem during display flashing. Retry %s", i);
+		rc = Main_FlashUserDisplayFirmwareInternal();
+		if (rc == 0){
+			//leave the retry
+			break;
+		}
+		if (retry_counter == i){
+			// return after retring
+			return;
+		}
+	}
   }
 
+
   rc = Main_FlashUserDisplayFirmwareExternal();
+  // When flashing didn't work
   if (rc != 0) {
-    return;
+  Main_LCD_Clear();
+	for (int i = 0; i <= retry_counter; i++){
+		Main_LCD_printf("Problem during ext_display flashing. Retry %s", i);
+		rc = Main_FlashUserDisplayFirmwareExternal();
+		if (rc == 0){
+			//leave the retry
+			break;
+		}
+		if (retry_counter == i){
+			// return after retring
+			return;
+		}
+	}
   }
 
   Main_LCD_printf("Programming complete");
