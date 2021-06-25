@@ -51,13 +51,13 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* use the default SD timout as defined in the platform BSP driver*/
-#if defined(SDMMC_DATATIMEOUT)
+/*#if defined(SDMMC_DATATIMEOUT)
 #define SD_TIMEOUT SDMMC_DATATIMEOUT
 #elif defined(SD_DATATIMEOUT)
 #define SD_TIMEOUT SD_DATATIMEOUT
-#else
+#else*/
 #define SD_TIMEOUT 30 * 1000
-#endif
+//#endif
 
 #define SD_DEFAULT_BLOCK_SIZE 512
 

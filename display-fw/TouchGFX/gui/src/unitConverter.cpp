@@ -15,7 +15,7 @@ DegreeCelcius unitToCelsius(float value, TemperatureUnit inputUnit){
 	if(inputUnit == CELSIUS){
 		return value;
 	}else if(inputUnit == FAHRENHEIT){
-		return (value - 32.0) * 1.8;
+		return (value - 32.0) / 1.8;
 	}else{
 		return -1;
 	}

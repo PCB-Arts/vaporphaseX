@@ -63,6 +63,11 @@ void heater_init(TemperatureSensor* s1, TemperatureSensor* s2, TemperatureSensor
 	galdenSensor = _galdenSensor;
 	sensor_enable_htim = htim;
 	sensor_enable_channel = channel;
+
+	heater_disable();
+
+	// enable signal generation, signal form is defined wheter enabled or disabled
+	tim_pwm_start(sensor_enable_htim, sensor_enable_channel);
 }
 
 static int sensor_valid() {
@@ -160,11 +165,14 @@ bool heater_regulation_enabled() {
 }
 
 static void heater_set_enabled_signal() {
-	// enable or disable timer for the enable clock
+	// enable or disable rectangular signal
 	if(enabled) {
-		tim_pwm_start(sensor_enable_htim, sensor_enable_channel);
+		// generate signal by setting compare to 50%
+		int half_duty_cycle = (tim_get_autoreload(sensor_enable_htim) + 1) / 2;
+		tim_set_compare(sensor_enable_htim, sensor_enable_channel, half_duty_cycle);
 	} else {
-		tim_pwm_stop(sensor_enable_htim, sensor_enable_channel);
+		// disable rectangular signal by setting compare to 0
+		tim_set_compare(sensor_enable_htim, sensor_enable_channel, 0);
 	}
 }
 
