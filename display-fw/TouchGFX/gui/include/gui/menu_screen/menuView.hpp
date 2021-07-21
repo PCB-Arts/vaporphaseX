@@ -62,6 +62,7 @@ protected:
     int measureIndex = 0;
 
     const uint32_t coolantTempUpdateIntervalMs = 3000;
+    const uint32_t pcbTempUpdateIntervalMs = 1000;
 
     modal::Modal modalWrapper;
     UiErrorState errorState;
@@ -72,6 +73,7 @@ protected:
 private:
     void updateButtonStates();
     void updateCoolantTemperatureLabel();
+    void updatePCBTemperatureLabel();
     void updateGaldenTemperatureLabel();
     void updateTemperatureGraph();
     void updateSolderProfiles();

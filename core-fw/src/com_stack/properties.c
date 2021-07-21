@@ -66,7 +66,7 @@ int app_prop_set (int prop_id, const union prop_value *val, size_t val_len)
 
 static bool first_read = true;
 void on_first_read() {
-	vpo_log("Version: v%d.%d", FW_VER_MAJOR, FW_VER_MINOR);
+	vpo_log("Version: v%d.%s", FW_VER_MAJOR, FW_VER_MINOR);
 	vpo_log("Third party pin state: %d", HAL_GPIO_ReadPin(THIRD_PARTY_GPIO_Port, THIRD_PARTY_Pin));
 }
 

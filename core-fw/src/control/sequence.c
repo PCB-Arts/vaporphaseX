@@ -65,6 +65,7 @@ static void condensate_prevention();
 static void fans_run_mode();
 static void fans_cool_mode();
 static void raise_lift();
+static void raise_lift_to_access();
 static bool seq_in_tal();
 static void control_heater();
 
@@ -111,7 +112,7 @@ static void seq_prepare() {
 	heater_set_temperature(sequence.galden_temp);
 	heater_enable();
 	//heater_regulation_enable();
-	raise_lift();
+	raise_lift_to_access();
 	fans_run_mode();
 
 	// start regulating to the temperature of the first step
@@ -185,7 +186,7 @@ static void seq_fsm() {
 		float lid_control_open_temperature = lid_control_lid_open_temperature();
 		if (temperature_sensor_get_temperature(&temperature_sensor_galden) < lid_control_open_temperature) {
 			vpo_log("Profile ended");
-			raise_lift();
+			raise_lift_to_access();
 			seq_cleanup();
 			seq_state = SEQ_CLEANUP;
 		}
@@ -275,6 +276,14 @@ static void raise_lift() {
 
 	//raise lift to top
 	axis_move_to(&lift_axis, 0);
+}
+
+static void raise_lift_to_access() {
+	//disable lift height/temperature regulation
+	regulator_disable();
+
+	//raise lift to top
+	axis_move_to(&lift_axis, -32000);
 }
 
 // set regulator to configuration of prepare phase

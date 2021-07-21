@@ -193,6 +193,23 @@ menuViewBase::menuViewBase() :
     abortedProfileText.setLinespacing(0);
     abortedProfileText.setTypedText(touchgfx::TypedText(T_SINGLEUSEID55));
     graphs.add(abortedProfileText);
+
+    pcb_tmp.setXY(399, 52);
+    pcb_tmp.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    pcb_tmp.setLinespacing(0);
+    pcb_tmp.setAlpha(150);
+    pcb_tmpBuffer1[0] = 0;
+    pcb_tmp.setWildcard1(pcb_tmpBuffer1);
+    pcb_tmpBuffer2[0] = 0;
+    pcb_tmp.setWildcard2(pcb_tmpBuffer2);
+    pcb_tmp.resizeToCurrentText();
+    pcb_tmp.setTypedText(touchgfx::TypedText(T_SINGLEUSEID56));
+    graphs.add(pcb_tmp);
+
+    galden_1.setXY(350, 43);
+    galden_1.setBitmap(touchgfx::Bitmap(BITMAP_PCB_ID));
+    galden_1.setAlpha(150);
+    graphs.add(galden_1);
     menu_container.add(graphs);
 
     options.setWidth(800);

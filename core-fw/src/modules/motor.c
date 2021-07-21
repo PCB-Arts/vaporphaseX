@@ -87,7 +87,7 @@ static void stepper_set_speed(struct motor_t *motor, int speed) {
 
 	} else {
 		// multiply by 4 (from 2mm/step to 8mm/step)
-		const int base = 1E6 / 3600 * 4;
+		const int base = 1E6 / 3600 * 3;
 		// TODO: define and DOCUMENT function to use here
 		// 1 -> 100
 		// 100 -> 1E6 / 3600
