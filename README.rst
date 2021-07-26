@@ -6,6 +6,12 @@ PCB Arts Vapor Phase One (VPO) Core Controller Firmware
 This repository contains the firmware source code for the `Vapor Phase One 
 <https://pcb-arts.com/en/vapor_phase_one>`_ by PCB Arts.
 
+#####################
+Want a tested and certified Vapor Phase One?
+#####################
+
+Checkout: https://shop.pcb-arts.com/products/vapor-phase-one
+
 #########
 Checkout
 #########
@@ -39,3 +45,5 @@ Display
 #####################
 
 Flash the display with the STM32CubeProgrammer, as external Loader use the MT25QL128A_STM32469I-DK. Flash the Bootloader and then the Display.hex File
+
+
