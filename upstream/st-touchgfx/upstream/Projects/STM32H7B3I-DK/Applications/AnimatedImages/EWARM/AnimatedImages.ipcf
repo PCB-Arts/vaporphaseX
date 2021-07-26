@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<iarProjectConnection name="TouchGFX" oneShot="false">
+  <includePath>
+    <path>$PROJ_DIR$/../../../../../Middlewares/ST/TouchGFX/framework/include</path>
+    <path>$PROJ_DIR$/../TouchGFX/generated/fonts/include</path>
+    <path>$PROJ_DIR$/../TouchGFX/generated/gui_generated/include</path>
+    <path>$PROJ_DIR$/../TouchGFX/generated/images/include</path>
+    <path>$PROJ_DIR$/../TouchGFX/generated/texts/include</path>
+    <path>$PROJ_DIR$/../TouchGFX/gui/include</path>
+  </includePath>
+  <asmIncludePath></asmIncludePath>
+  <defines>
+    <define>USE_BPP=24</define>
+  </defines>
+  <asmDefines></asmDefines>
+  <files>
+    <group name="gui">
+      <group name="common">
+        <path>$PROJ_DIR$/../TouchGFX/gui/src/common/FrontendApplication.cpp</path>
+      </group>
+      <group name="main_screen">
+        <path>$PROJ_DIR$/../TouchGFX/gui/src/main_screen/MainPresenter.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/gui/src/main_screen/MainView.cpp</path>
+      </group>
+      <group name="model">
+        <path>$PROJ_DIR$/../TouchGFX/gui/src/model/Model.cpp</path>
+      </group>
+    </group>
+    <group name="generated">
+      <group name="fonts">
+        <path>$PROJ_DIR$/../TouchGFX/generated/fonts/src/ApplicationFontProvider.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/fonts/src/CachedFont.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/fonts/src/Font_Asap_Regular_20_4bpp_0.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/fonts/src/FontCache.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/fonts/src/GeneratedFont.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/fonts/src/Kerning_Asap_Regular_20_4bpp.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/fonts/src/Table_Asap_Regular_20_4bpp.cpp</path>
+      </group>
+      <group name="gui_generated">
+        <path>$PROJ_DIR$/../TouchGFX/generated/gui_generated/src/common/FrontendApplicationBase.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/gui_generated/src/main_screen/MainViewBase.cpp</path>
+      </group>
+      <group name="images">
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/BitmapDatabase.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_01.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_02.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_03.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_04.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_05.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_06.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_07.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_08.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_09.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_10.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_11.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_12.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_13.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_ani_14.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_bg.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_btn.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/images/src/image_btn_pressed.cpp</path>
+      </group>
+      <group name="texts">
+        <path>$PROJ_DIR$/../TouchGFX/generated/texts/src/LanguageGb.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/texts/src/Texts.cpp</path>
+        <path>$PROJ_DIR$/../TouchGFX/generated/texts/src/TypedTextDatabase.cpp</path>
+      </group>
+    </group>
+    <group name="Lib">
+      <path>../../../../../Middlewares/ST/TouchGFX/lib/core/cortex_m7/IAR8.x/touchgfx_core.a</path>
+    </group>
+  </files>
+</iarProjectConnection>

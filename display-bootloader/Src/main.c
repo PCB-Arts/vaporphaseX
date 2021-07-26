@@ -550,6 +550,7 @@ void Main_Menu(void) {
     		}
     		if (retry_counter == i){
     			// return after retring
+    			Main_LCD_printf("Problem during flashing, please try again");
     			return;
     		}
     	}
@@ -569,6 +570,7 @@ void Main_Menu(void) {
 		}
 		if (retry_counter == i){
 			// return after retring
+			Main_LCD_printf("Problem during flashing, please try again");
 			return;
 		}
 	}
@@ -588,6 +590,7 @@ void Main_Menu(void) {
 		}
 		if (retry_counter == i){
 			// return after retring
+			Main_LCD_printf("Problem during flashing, please try again");
 			return;
 		}
 	}

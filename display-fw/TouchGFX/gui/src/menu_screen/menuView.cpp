@@ -69,6 +69,7 @@ void menuView::handleTickEvent()
 
 	updateButtonStates();
 	updateCoolantTemperatureLabel();
+	updatePCBTemperatureLabel();
 	updateGaldenTemperatureLabel();
 	updateTemperatureGraph();
 	updateSolderProfiles();
@@ -160,6 +161,22 @@ void menuView::updateCoolantTemperatureLabel() {
 	Unicode::snprintfFloat(watersystem_tmpBuffer1, WATERSYSTEM_TMPBUFFER1_SIZE,"%.0f", temp);
 	watersystem_tmp.resizeToCurrentText();
 	watersystem_tmp.invalidate();
+}
+
+void menuView::updatePCBTemperatureLabel() {
+	static uint32_t lastUpdateTime = 0;
+	uint32_t currentTimeMS = HAL_GetTick();
+	if(currentTimeMS - lastUpdateTime < pcbTempUpdateIntervalMs){
+		return;
+	}
+	lastUpdateTime = currentTimeMS;
+
+	DegreeCelcius pcb_temperature_celsius = CoreCom_PcbTemperature() / 1000;
+	float temp = celsiusToUnit(pcb_temperature_celsius, currentUnit);
+
+	Unicode::snprintfFloat(pcb_tmpBuffer1, PCB_TMPBUFFER1_SIZE,"%.0f", temp);
+	pcb_tmp.resizeToCurrentText();
+	pcb_tmp.invalidate();
 }
 
 void menuView::updateGaldenTemperatureLabel() {
@@ -301,10 +318,12 @@ void menuView::adaptUiToUnits(){
 	if(currentUnit == CELSIUS){
 		touchgfx::Unicode::snprintf(watersystem_tmpBuffer2, WATERSYSTEM_TMPBUFFER2_SIZE, "%s", "C");
 		touchgfx::Unicode::snprintf(galden_tmpBuffer2, GALDEN_TMPBUFFER2_SIZE, "%s", "C");
+		touchgfx::Unicode::snprintf(pcb_tmpBuffer2, PCB_TMPBUFFER2_SIZE, "%s", "C");
 		touchgfx::Unicode::snprintf(y_axis_namingBuffer, Y_AXIS_NAMING_SIZE, "%s", "C");
 	}else{
 		touchgfx::Unicode::snprintf(watersystem_tmpBuffer2, WATERSYSTEM_TMPBUFFER2_SIZE, "%s", "F" );
 		touchgfx::Unicode::snprintf(galden_tmpBuffer2, GALDEN_TMPBUFFER2_SIZE, "%s", "F");
+		touchgfx::Unicode::snprintf(pcb_tmpBuffer2, PCB_TMPBUFFER2_SIZE, "%s", "F");
 		touchgfx::Unicode::snprintf(y_axis_namingBuffer, Y_AXIS_NAMING_SIZE, "%s", "F");
 	}
 	y_axis_naming.invalidate();

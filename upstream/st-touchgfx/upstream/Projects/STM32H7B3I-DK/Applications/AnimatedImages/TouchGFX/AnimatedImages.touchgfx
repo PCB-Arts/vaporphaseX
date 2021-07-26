@@ -1,0 +1,186 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Components": [
+          {
+            "Type": "Box",
+            "Color": {
+              "Red": 0,
+              "Green": 0,
+              "Blue": 0
+            },
+            "Alpha": 255,
+            "Name": "boxBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 800,
+            "Height": 480,
+            "Visible": false,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "Image",
+            "RelativeFilename": "bg.png",
+            "Alpha": 255,
+            "Name": "imgBackground",
+            "X": 0,
+            "Y": 0,
+            "Width": 480,
+            "Height": 272,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "AnimatedImage",
+            "FileNameFirst": "ani_01.png",
+            "FileNameLast": "ani_14.png",
+            "UpdateTicksInterval": 30,
+            "Alpha": 255,
+            "StartOnLoad": false,
+            "ReverseEnabled": false,
+            "LoopEnabled": false,
+            "AnimationEndedCallback": false,
+            "Name": "animation",
+            "X": 161,
+            "Y": 18,
+            "Width": 158,
+            "Height": 158,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          },
+          {
+            "Type": "ButtonWithLabel",
+            "Pressed": "btn_pressed.png",
+            "Released": "btn.png",
+            "Alpha": 255,
+            "TextId": "TextStart",
+            "ReleasedColor": {
+              "Red": 213,
+              "Green": 115,
+              "Blue": 0
+            },
+            "PressedColor": {
+              "Red": 213,
+              "Green": 115,
+              "Blue": 0
+            },
+            "TextRotation": "0",
+            "Name": "btnToggle",
+            "X": 175,
+            "Y": 195,
+            "Width": 130,
+            "Height": 56,
+            "Visible": true,
+            "LockPosition": false,
+            "Draggable": false,
+            "Clickable": false,
+            "Fadeable": false,
+            "Moveable": false
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "buttonClicked",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "btnToggle"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "if (animation.isAnimatedImageRunning())\r\n{\r\n    animation.pauseAnimation();\r\n    btnToggle.setLabelText(TypedText(T_TEXTSTART));\r\n}\r\nelse\r\n{\r\n    animation.startAnimation(animation.isReverse(), false, true);\r\n    btnToggle.setLabelText(TypedText(T_TEXTSTOP));\r\n}"
+            }
+          },
+          {
+            "InteractionName": "animationEnded",
+            "HasCompletedTrigger": false,
+            "Trigger": {
+              "Type": "TriggerAnimationEnded",
+              "TriggerComponent": "animation"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "animation.startAnimation(!animation.isReverse(), false, true);"
+            }
+          }
+        ],
+        "Name": "Main",
+        "OverrideDefaultBufferSize": false,
+        "CanvasBufferSize": 0
+      }
+    ],
+    "CustomContainerDefinitions": [],
+    "TextEntries": [
+      {
+        "TextEntryId": "TextStart",
+        "IsResource": true
+      },
+      {
+        "TextEntryId": "TextStop",
+        "IsResource": true
+      }
+    ],
+    "Name": "AnimatedImages",
+    "Resolution": {
+      "Width": 480,
+      "Height": 272
+    },
+    "SelectedColorDepth": 24,
+    "StartupScreenName": "Main",
+    "SelectedStartupLanguage": "GB",
+    "Skin": "Blue",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      24
+    ],
+    "AvailableLCDs": {
+      "24": "LCD24bpp"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 480,
+        "Height": 272
+      }
+    ],
+    "PhysicalButtons": [],
+    "FrameworkFeatures": {
+      "LCD24bpp": {
+        "Id": "LCD24bpp",
+        "IsEnabled": true
+      }
+    },
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project --project-file=../AnimatedImages.ioc --platform=m7",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -f ../gcc/Makefile -j8",
+    "FlashTargetCommandOverride": "make -f ../gcc/Makefile flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Landscape",
+    "Family": "STM32H7"
+  },
+  "Version": "4.15.0",
+  "CreatedBy": "4.14.0"
+}

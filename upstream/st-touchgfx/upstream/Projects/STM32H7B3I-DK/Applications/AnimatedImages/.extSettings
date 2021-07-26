@@ -1,0 +1,6 @@
+[ProjectFiles]
+HeaderPath=../../../../../Drivers/BSP/Components/Common;../../../../../Drivers/BSP/STM32H7B3I-DK
+[Groups]
+Drivers/BSP/STM32H7B3I-DK=../../../../../Drivers/BSP/STM32H7B3I-DK/stm32h7b3i_discovery.c;../../../../../Drivers/BSP/STM32H7B3I-DK/stm32h7b3i_discovery_ospi.c;../../../../../Drivers/BSP/STM32H7B3I-DK/stm32h7b3i_discovery_ts.c;../../../../../Drivers/BSP/STM32H7B3I-DK/stm32h7b3i_discovery_bus.c
+Drivers/BSP/Components=../../../../../Drivers/BSP/Components/mx25lm51245g/mx25lm51245g.c;../../../../../Drivers/BSP/Components/ft5336/ft5336.c;../../../../../Drivers/BSP/Components/ft5336/ft5336_reg.c
+[Others]

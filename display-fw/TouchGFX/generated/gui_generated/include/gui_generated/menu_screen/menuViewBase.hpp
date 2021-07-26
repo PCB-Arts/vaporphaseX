@@ -150,6 +150,8 @@ touchgfx::GraphElementVerticalGapLine dynamicGraph_istVerticalFrontline;
     touchgfx::AnimatedImage watersystem;
     touchgfx::Box abortedProfileBackground;
     touchgfx::TextArea abortedProfileText;
+    touchgfx::TextAreaWithTwoWildcards pcb_tmp;
+    touchgfx::Image galden_1;
     touchgfx::Container options;
     touchgfx::Circle options_solder_profile_wheel_indicator;
     touchgfx::PainterRGB888 options_solder_profile_wheel_indicatorPainter;
@@ -192,6 +194,10 @@ touchgfx::GraphElementVerticalGapLine dynamicGraph_istVerticalFrontline;
     touchgfx::Unicode::UnicodeChar watersystem_tmpBuffer1[WATERSYSTEM_TMPBUFFER1_SIZE];
     static const uint16_t WATERSYSTEM_TMPBUFFER2_SIZE = 2;
     touchgfx::Unicode::UnicodeChar watersystem_tmpBuffer2[WATERSYSTEM_TMPBUFFER2_SIZE];
+    static const uint16_t PCB_TMPBUFFER1_SIZE = 4;
+    touchgfx::Unicode::UnicodeChar pcb_tmpBuffer1[PCB_TMPBUFFER1_SIZE];
+    static const uint16_t PCB_TMPBUFFER2_SIZE = 2;
+    touchgfx::Unicode::UnicodeChar pcb_tmpBuffer2[PCB_TMPBUFFER2_SIZE];
 
 private:
 

@@ -1,0 +1,18 @@
+LR_IROM1 0x08000000 0x00200000  {    ; load region size_region
+  ER_IROM1 0x08000000 0x00200000  {  ; load address = execution address
+   *.o (RESET, +First)
+   *(InRoot$$Sections)
+   .ANY (+RO)
+  }
+  RW_IRAM1 0x24000000 0x00100000  {  ; RW data
+   .ANY (+RW +ZI)
+  }
+}
+
+LR_EROM1 0x90000000 0x4000000  {    ; load region size_region
+  ER_EROM1 0x90000000 0x4000000  {  ; load address = execution address
+   *.o (ExtFlashSection)
+   *.o (FontFlashSection)
+   *.o (TextFlashSection)
+  }
+}

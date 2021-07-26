@@ -422,5 +422,5 @@ void CoreCom_StartSelftest() {
 	CoreCom_SetBool(VPO_PROP_SELFTEST_ACTIVE, true);
 
 #endif
-	vpo_log("FW Ver: v%d.%d", FW_VER_MAJOR, FW_VER_MINOR);
+	vpo_log("FW Ver: v%d.%s", FW_VER_MAJOR, FW_VER_MINOR);
 }

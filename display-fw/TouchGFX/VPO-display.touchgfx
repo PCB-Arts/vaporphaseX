@@ -634,6 +634,54 @@
                     "Clickable": false,
                     "Fadeable": false,
                     "Moveable": false
+                  },
+                  {
+                    "Type": "TextArea",
+                    "TextId": "SingleUseId56",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "Alpha": 150,
+                    "AutoSize": true,
+                    "LineSpacing": 0,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 4
+                    },
+                    "Wildcard2": {
+                      "UseBuffer": true,
+                      "BufferSize": 2
+                    },
+                    "Name": "pcb_tmp",
+                    "X": 399,
+                    "Y": 52,
+                    "Width": 88,
+                    "Height": 19,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
+                  },
+                  {
+                    "Type": "Image",
+                    "RelativeFilename": "pcb.png",
+                    "Alpha": 150,
+                    "Name": "galden_1",
+                    "X": 350,
+                    "Y": 43,
+                    "Width": 38,
+                    "Height": 38,
+                    "Visible": true,
+                    "LockPosition": false,
+                    "Draggable": false,
+                    "Clickable": false,
+                    "Fadeable": false,
+                    "Moveable": false
                   }
                 ],
                 "Type": "Container",
@@ -1773,6 +1821,10 @@
       },
       {
         "TextEntryId": "SingleUseId20",
+        "IsResource": false
+      },
+      {
+        "TextEntryId": "SingleUseId56",
         "IsResource": false
       }
     ],
