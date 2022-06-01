@@ -37,9 +37,23 @@ typedef struct TemperatureProfile{
 	int16_t availableDatapoints;
 } TemperatureProfile;
 
+typedef struct GaldenTemperature{
+	int16_t galdenTemp;
+} GaldenTemperature;
+
+typedef struct ACTemperature{
+	int16_t acTemp;
+}ACTemperature;
+
+
+
 extern TemperatureProfile globalProfile;
+extern GaldenTemperature globalGalden;
+extern ACTemperature globalACT;
 
 void profile_com_init();
 int app_profile_frame_received(ProfileTransmissionPacket *packet);
+int app_galden_frame_received(GaldenTransmissionPacket *galdenpacket);
+int app_act_frame_received(ACTTransmissionPacket *actpacket);
 
 #endif /* COM_STACK_PROFILE_COM_H_ */

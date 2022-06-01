@@ -21,8 +21,10 @@
 #include "modules/regulator.h"
 #include "modules/heater.h"
 #include "modules/temp_sensor.h"
-
+#include "modules/pid.h"
 #include <stdlib.h>
+#include "control/sequence.h"
+#include "modules/temp_sensors.h"
 
 //=================================
 // defines
@@ -30,7 +32,8 @@
 #define TEMP_REACHED_HYST 2.0f
 #define MOTOR_SPEED_MIN 30
 #define MOTOR_SPEED_MAX 100
-#define TEMP_DELTA_MAX 250
+//#define TEMP_DELTA_MAX 250
+
 
 static bool enabled;
 
@@ -58,18 +61,19 @@ void regulator_init(TemperatureSensor* s, struct axis_t* a) {
 	regulator_pid.y_max = MOTOR_SPEED_MAX;
 	regulator_pid.y_min = -MOTOR_SPEED_MAX;
 
-	regulator_pid.Kp = 20;
-	regulator_pid.Ki = 0;
-	regulator_pid.Kd = 0;
+	regulator_pid.KpR = 100;
+	regulator_pid.KiR = 0.1;
+	regulator_pid.KdR = 125;
 
-	regulator_pid.time_step_size = 0.1; // default time step of 100ms
+	regulator_pid.time_step_size = 0.01; // default time step of 100ms
 }
 
 void regulator_compute() {
 	if (enabled && axis && sensor_valid()) {
 
 		// compute lift speed
-		float u = pid_compute(
+
+		float u = pid_computeLIFT(
 			&regulator_pid,
 			regulator_target_temperature,
 			temperature_sensor_get_temperature(sensor)
@@ -78,9 +82,13 @@ void regulator_compute() {
 		motor_set_speed(axis->motor, abs(u));
 
 		// move lift down for higher temperature
+
+
 		axis_move_to(axis, u > 0 ? axis->pos_min : axis->pos_max);
+
 	}
 }
+
 
 void regulator_enable() {
 	enabled = true;

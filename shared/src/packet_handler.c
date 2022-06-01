@@ -120,6 +120,26 @@ int packet_received(struct ll_pkt *pkt, size_t payload_len)
 
 		break;
 
+	case PTYPE_GALDEN_PACKAGE:		//galden package that is being received by the core (written into global struct)
+		if(payload_len < sizeof(GaldenTransmissionPacket)){
+			rc = -PRES_INVALID_REQUEST;
+						break;
+					}
+		GaldenTransmissionPacket* galdenpacket = (GaldenTransmissionPacket*)&pkt->payload;
+		app_galden_frame_received(galdenpacket);
+
+		return 0;
+		break;
+
+	case PTYPE_ACT_PACKAGE:			//act package that is being received by the core	(written into global struct)
+		if(payload_len < sizeof(ACTTransmissionPacket)){
+			rc = -PRES_INVALID_REQUEST;
+			break;
+		}
+		ACTTransmissionPacket* actpackage = (ACTTransmissionPacket*)&pkt->payload;
+		app_act_frame_received(actpackage);
+		return 0;
+		break;
 
 	case PTYPE_NOP:
 		return 0;
@@ -303,6 +323,15 @@ int __attribute__((weak)) app_prop_get (int prop_id, union prop_value *val)
 }
 
 int __attribute__((weak)) app_profile_frame_received(ProfileTransmissionPacket *packet)
+{
+	return -PRES_INVALID_REQUEST;
+}
+
+int __attribute__((weak)) app_galden_frame_received(GaldenTransmissionPacket *galdenpacket)
+{
+	return -PRES_INVALID_REQUEST;
+}
+int __attribute__((weak)) app_act_frame_received(ACTTransmissionPacket *actpacket)
 {
 	return -PRES_INVALID_REQUEST;
 }

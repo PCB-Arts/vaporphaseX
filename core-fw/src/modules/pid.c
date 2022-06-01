@@ -19,11 +19,17 @@
 //=================================
 // included dependencies
 #include "modules/pid.h"
+#include "log.h"
+#include "control/sequence.h"
+
+extern currentState cS;
+
 
 //=================================
 // defines
-
 float pid_compute(pid_param_t* pid, float reference, float process_variable) {
+
+
 	const float error = reference - process_variable;
 
 	//calculate the rate of change
@@ -52,7 +58,39 @@ float pid_compute(pid_param_t* pid, float reference, float process_variable) {
 	} else if (y < pid->y_min) {
 		y = pid->y_min;
 	}
-	
+
+	return y;
+}
+
+float pid_computeLIFT(pid_param_t* pid, float reference, float process_variable) {
+
+
+	const float errorR = reference - process_variable;
+
+	//calculate the rate of change
+	const float error_deltaR = (errorR - pid->error_prevR) / pid->time_step_size;
+
+	//save error for next cycle
+	pid->error_prevR = errorR;
+
+	//add to error integral
+	if (cS.currentState >= 2){
+	pid->error_integralR += errorR * pid->time_step_size;
+	}
+	//proportional factor
+	const float fKpR = pid->KpR * errorR;
+	//integral factor
+	const float fKiR = pid->KiR * pid->error_integralR;
+	//derivative factor
+	const float fKdR = pid->KdR * error_deltaR;
+
+	float y = fKpR + fKiR + fKdR;
+	//limit y values
+	if (y > pid->y_max) {
+		y = pid->y_max;
+	} else if (y < pid->y_min) {
+		y = pid->y_min;
+	}
 	return y;
 }
 

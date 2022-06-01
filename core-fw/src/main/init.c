@@ -52,7 +52,9 @@ void init_modules() {
 	ntc_temperature_sensor_water.adc_signal = &ntc_adc_signal;
 
 	spi1.perif = &hspi1;
+
 	max31856_temp_sensors_init();
+
 
 	fans_init();
 

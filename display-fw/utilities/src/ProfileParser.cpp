@@ -1,20 +1,3 @@
-/*
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
- * Copyright (c) 2021 - PCB Arts GmbH
- *
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
- *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- */
-
 #include "ProfileParser.hpp"
 
 #include <algorithm>
@@ -88,6 +71,11 @@ bool isProfileStart(std::string& line){
 	return line == "### Profile;";
 }
 
+
+
+
+
+
 int GetFilesize(std::string& filepath)
 {
 	FIL file;
@@ -108,6 +96,8 @@ int GetFilesize(std::string& filepath)
 	f_close(&file);
 	return filesize;
 }
+
+
 
 SolderProfile loadSolderCsv(std::string& filepath)
 {
@@ -162,19 +152,54 @@ SolderProfile parseSolderCsv(std::string& file){
 		int splitterIndex = line.find(';');
 		if(splitterIndex == -1 || splitterIndex == 0 || splitterIndex == line.size() - 1)
 		{
-			vpo_log("Error, header line doesn't match required information: %s", line.c_str());
+			vpo_log("Error, header line doesn't match required information %s", line.c_str());
 		}
 		else
 		{
 			auto key = line.substr(0, splitterIndex);
 			auto value = line.substr(splitterIndex + 1, line.length());
 
+			// Parse boilingtemp
+			/*
+			 * read boilingtemp and act of profile and push it to core, after check
+			 */
+			auto boilingTemperature = line.substr(splitterIndex + 1, line.length());
+			auto ACT = line.substr(splitterIndex+1, line.length());
+
+			if (IsNumber(boilingTemperature) && key == "Boiling Temperature"){
+			SolderBoilingTemperature medium;
+			medium.boilingTemperature = std::stoi(boilingTemperature);
+			if(medium.boilingTemperature > 100 && medium.boilingTemperature < 250){
+			profile.boilingtemperature.push_back(medium);
+			}
+			else{
+				medium.boilingTemperature = 230;
+				vpo_log("Error, profile line doesn't have the format temperature in integer numbers, or is not between 100°C or 250°C");
+			}
+			}
+			if (IsNumber(ACT) && key == "ACT"){
+			SolderACT actemp;
+			actemp.ACT = std::stoi(ACT);
+			if(actemp.ACT > 0 && actemp.ACT <150){
+				profile.actemperature.push_back(actemp);
+			}
+			else {
+				actemp.ACT = 120;
+				vpo_log("Error, Anti Condensation Temperature doesn't have the format temperature in integer numbers, or is not between 0°C or 150°C");
+				profile.actemperature.push_back(actemp);
+						}
+					}
+
 			KeyValuePair attribute(key, value);
 			profile.headerAttributes.push_back(attribute);
-    	}
 
+		}
     	std::getline(stringStream, line, '\n');
     }
+
+
+
+
 
     //Skip table header
     std::getline(stringStream, line, '\n');
@@ -206,3 +231,4 @@ SolderProfile parseSolderCsv(std::string& file){
     profile.valid = true;
     return profile;
 }
+

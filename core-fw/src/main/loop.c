@@ -48,6 +48,9 @@
 #define MAX_STARTUP_WATER_TEMPERATURE_C 80
 bool first_temperature_reading = true;
 
+
+extern calibpos calib;
+
 void main_loop() {
 	wwdg_reset();
 	systime_worker();
@@ -61,6 +64,8 @@ void main_loop() {
 	max31856_temp_sensors_worker();
 	lid_worker();
 	lift_worker();
+
+
 
 	//check if all temperature sensors were updated
 	if (max31856_temp_sensor_cycle_complete) {
@@ -78,12 +83,22 @@ void main_loop() {
 
 		heater_worker();
 	}
-
 	pump_worker();
+
+
+	if (calib.liftflag == 1 && lid_axis.cal_done == 1 && lift_axis.cal_done == 1){			//Änderung
+			calib.liftflag = 0;
+			axis_move_to(&lift_axis, -32000);
+		}
+	if (globalGalden.galdenTemp < 150){
+		globalGalden.galdenTemp = 230;
+	}
+
 
 	control_modules_loop();
 
 	Packet_Worker();
+
 }
 
 #define BROADCASTER_DELAY_MS 250

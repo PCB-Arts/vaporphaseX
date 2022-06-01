@@ -25,6 +25,7 @@
 #include "peripherals/freq.h"
 #include "main.h"
 #include "peripherals/gpio.h"
+#include "lid.h"
 
 //=================================
 // definitions
@@ -42,6 +43,7 @@ struct axis_t lift_axis = AXIS_TPL(LIFT_MIN, LIFT_MAX,
 		IO_PIN_TPL(LIFT_END_TOP_GPIO_Port, LIFT_END_TOP_Pin),
 		IO_PIN_TPL(LIFT_END_BOTTOM_GPIO_Port, LIFT_END_BOTTOM_Pin));
 
+calibpos calib;
 
 void lift_worker() {
 	axis_worker(&lift_axis);
@@ -57,12 +59,10 @@ bool lift_boot_ready() {
 
 	return status == AXIS_NORMAL
 		&& dir == DIRECTION_NONE
-		&& axis_forward_limit_switch_active(&lift_axis)
 		&& axis_calibrated(&lift_axis);
+
 }
 
-
-#define LIFT_LID_OPEN_POSITION -32000
 #define LIFT_POSITION_MARGIN AXIS_MIN_POS_OFFSET
 
 bool lift_lid_open_state_reached() {
@@ -77,4 +77,5 @@ void lift_lid_open_state() {
 
 void lift_calibrate() {
 	axis_cal(&lift_axis, FWD);
+	calib.liftflag = 1;
 }

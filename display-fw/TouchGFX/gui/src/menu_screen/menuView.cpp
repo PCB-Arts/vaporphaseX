@@ -8,6 +8,8 @@
 #include "log.h"
 #include "main.h"
 
+#include <regex>
+
 menuView::menuView():
 	updateItemCallback(this, &menuView::updateItemCallbackHandler)
 {
@@ -32,7 +34,9 @@ menuView::menuView():
 	dynamicGraph_ist.invalidate();
 	dynamicGraph_soll.clear();
 	dynamicGraph_soll.invalidate();
+
 }
+
 
 void menuView::setupScreen()
 {
@@ -58,9 +62,16 @@ void startReflowDecisionCallback(bool answer) {
 		CoreCom_StartSelftest();
 	}
 }
-
+int x;
 void menuView::handleTickEvent()
 {
+	if (textureMapper.isTextureMapperAnimationRunning()==false){
+		x+=101.5;
+		textureMapper.setupAnimation(AnimationTextureMapper::Z_ROTATION, x, 500, 0, EasingEquations::linearEaseNone);
+		textureMapper.startAnimation();
+	}
+
+
 	uint32_t currentTimeMS = HAL_GetTick();
 	if(currentTimeMS - lastUiUpdateMS < uiUpdateIntervallMS){
 		return;
@@ -78,7 +89,14 @@ void menuView::handleTickEvent()
 	errorState.ErrorStateWorker();
 
 	updateSelftest();
-}
+
+	if(HAL_GetTick() % 100 == 0){
+	current_state();		// muss immer wieder abgefragt werden, um state zu bekommen, allerdings nicht unbedingt jeden Tick(gerade jeden 100sten). Falls zu langsam 100 runterstellen
+	}
+
+
+
+	}
 
 inline static void updateVisibility(touchgfx::Widget* widget, bool desiredVisibility) {
 	if(widget->isVisible() != desiredVisibility) {
@@ -253,25 +271,26 @@ void menuView::updateLogging(){
 		vpo_log(stream.str().c_str());
 		*/
 
-		vpo_log("HEATER1_TEMP:%d;", monitor.heater1_temp);
-		vpo_log("HEATER2_TEMP:%d;", monitor.heater2_temp);
-		vpo_log("GALDEN_TEMP:%d;", monitor.galden_temp);
-		vpo_log("PCB_TEMP:%d;", monitor.pcb_temp);
-		vpo_log("COOLANT_TEMP:%d;", monitor.coolant_temp);
+		vpo_log("HEATER1_TEMP:%d", monitor.heater1_temp);
+		vpo_log("HEATER2_TEMP:%d", monitor.heater2_temp);
+		vpo_log("GALDEN_TEMP:%d", monitor.galden_temp);
+		vpo_log("PCB_TEMP:%d", monitor.pcb_temp);
+		vpo_log("COOLANT_TEMP:%d", monitor.coolant_temp);
 
-		vpo_log("LID_COOLING_FAN:%d;", monitor.lid_cooling_fan_on);
-		vpo_log("COOLANT_PUMP:%d;", monitor.coolant_pump_on);
-		vpo_log("QC_FANS:%d;", monitor.quick_cool_fan_on);
-		vpo_log("RADIATOR_FANS:%d;", monitor.radiator_fan_speed);
+		vpo_log("LID_COOLING_FAN:%d", monitor.lid_cooling_fan_on);
+		vpo_log("COOLANT_PUMP:%d", monitor.coolant_pump_on);
+		vpo_log("QC_FANS:%d", monitor.quick_cool_fan_on);
+		vpo_log("RADIATOR_FANS:%d", monitor.radiator_fan_speed);
 
 
-		vpo_log("LID_POS:%d;", monitor.lid_position);
-		vpo_log("LIFT_POS:%d;", monitor.lift_position);
+		vpo_log("LID_POS:%d", monitor.lid_position);
+		vpo_log("LIFT_POS:%d", monitor.lift_position);
 
-		vpo_log("HEATER:%d;", monitor.heater_on);
-		vpo_log("HEATER_OTP:%d;", monitor.heater_otp_active);
-		vpo_log("COOLANT_OTP:%d;", monitor.coolant_otp_active);
-		vpo_log("LID_LOCK:%d;", monitor.lid_lock_active);
+		vpo_log("HEATER:%d", monitor.heater_on);
+		vpo_log("HEATER_OTP:%d", monitor.heater_otp_active);
+		vpo_log("COOLANT_OTP:%d", monitor.coolant_otp_active);
+		vpo_log("LID_LOCK:%d", monitor.lid_lock_active);
+
 	}
 }
 
@@ -310,7 +329,6 @@ void menuView::TempUnitToggled(){
 		vpo_log("Celsius selected");
 		currentUnit = CELSIUS;
 	}
-
 	adaptUiToUnits();
 }
 
@@ -529,10 +547,14 @@ void menuView::SetSolderProfile(){
 	profileTemperaturesS[currentTime] = selectedProfile.timeTemperatureData[selectedProfile.timeTemperatureData.size() - 1].temperature;
 	profileDurationS = currentTime;
 
-	drawSetHeatProfileGraph();
+    CoreCom_SendGalden(selectedProfile);		//Core communication to send Galden Boilingtemperature of .csv
+	CoreCom_SendACT(selectedProfile);
+    drawSetHeatProfileGraph();
 	adaptGraphTimeAxis();
 
 	menu_container.setSelectedPage(1);
+
+
 }
 
 void menuView::options_solder_profile_wheelUpdateItem(custom_container_profile_select& item, int16_t itemIndex)
@@ -598,3 +620,45 @@ void menuView::btn_fast_open_temp_clicked()
 	options_openlid_button_medium.invalidate();
 	options_openlid_button_low.invalidate();
 }
+
+
+/*
+ * set current state on display
+ * gets state of Core via usart corecom
+ * print string as wildcard which state is currently used, size should be +1
+ */
+void menuView::current_state(){
+	Vpo_CoreStateTypeDef coreState = CoreCom_CoreState();
+	if(coreState.current_state == CS_Preheat){
+		Unicode::strncpy(current_stateTBuffer,"Preheat", 8);
+		current_stateT.resizeToCurrentText();
+		current_stateT.invalidate();
+	}
+	else if(coreState.current_state == CS_Soldering){
+		Unicode::strncpy(current_stateTBuffer,"Soldering", 10);
+		current_stateT.resizeToCurrentText();
+		current_stateT.invalidate();
+		}
+	else if(coreState.current_state == CS_AntiCondensation){
+		Unicode::strncpy(current_stateTBuffer,"Quick cool",11);
+		current_stateT.resizeToCurrentText();
+		current_stateT.invalidate();
+		}
+	else if(coreState.current_state == CS_Calibration){
+		Unicode::strncpy(current_stateTBuffer,"Calibrating",12);
+				current_stateT.resizeToCurrentText();
+				current_stateT.invalidate();
+	}
+	else{
+		Unicode::strncpy(current_stateTBuffer, "\0" , 12);
+		current_stateT.invalidate();
+		Unicode::strncpy(current_stateTBuffer, "Idle", 5);
+		current_stateT.resizeToCurrentText();
+		current_stateT.invalidate();
+
+	}
+}
+
+
+
+

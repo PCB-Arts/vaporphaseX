@@ -37,12 +37,13 @@ void spi_unlock(struct spi_dev_t* spid) {
 }
 
 void spi_start(struct spi_dev_t* spid) {
-	//activate ship select = low
+	//activate chip select = low
 	iopin_write(spid->nss, 0);
+
 }
 
 void spi_stop(struct spi_dev_t* spid) {
-	//deactivate ship select = high
+	//deactivate chip select = high
 	iopin_write(spid->nss, 1);
 }
 

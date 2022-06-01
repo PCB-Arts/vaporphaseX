@@ -16,8 +16,12 @@
  */
 
 #include "profile_com.h"
+#include "log.h" //entfernen
 
 TemperatureProfile globalProfile;
+GaldenTemperature globalGalden;
+ACTemperature globalACT;
+
 
 void profile_com_init() {
 	globalProfile.profileId = -1;
@@ -54,4 +58,16 @@ int app_profile_frame_received(ProfileTransmissionPacket *packet)
 	}
 	return 0;
 }
+
+int app_galden_frame_received(GaldenTransmissionPacket *galdenpacket)
+{
+	globalGalden.galdenTemp = galdenpacket->galdenTemp;
+	return 0;
+}
+int app_act_frame_received(ACTTransmissionPacket *actpacket)
+{
+	globalACT.acTemp = actpacket->ACT;
+	return 0;
+}
+
 

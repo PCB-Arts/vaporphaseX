@@ -32,7 +32,7 @@
 // definitions
 
 #define LID_MAX INT32_MAX
-#define LID_MIN -50
+#define LID_MIN INT32_MIN
 
 static struct encoder_t lid_encoder;
 static bool lid_overcurrent = false;

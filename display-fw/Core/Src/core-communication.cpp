@@ -365,6 +365,83 @@ int usart_send_profile_frame(ProfileTransmissionPacket *in_buf)
 	return Packet_SendNonBlocking(reinterpret_cast<ll_pkt*>(&pkg), sizeof(ProfileTransmissionPacket));
 }
 
+int usart_send_galden_temp(GaldenTransmissionPacket *in_buf)			//usart core communication galden
+{
+	struct __attribute__((__packed__)) GaldenTemp {
+				struct ll_pkt_header ll;
+				GaldenTransmissionPacket galdenpacket;
+		};
+	GaldenTemp gt;
+	ll_pkt_header header;
+	header.packet_id = 0;
+	header.packet_type = PTYPE_GALDEN_PACKAGE;
+	gt.ll = header;
+	gt.galdenpacket = *in_buf;
+
+	return Packet_SendNonBlocking(reinterpret_cast<ll_pkt*>(&gt), sizeof(GaldenTransmissionPacket));
+}
+
+int usart_send_ACT(ACTTransmissionPacket *in_buf)						//usart core communication atc
+{
+	struct __attribute__((__packed__)) ACTemp{
+		struct ll_pkt_header ll;
+		ACTTransmissionPacket ACTpacket;
+	};
+	ACTemp ac;
+	ll_pkt_header header;
+	header.packet_id = 0;
+	header.packet_type = PTYPE_ACT_PACKAGE;
+	ac.ll = header;
+	ac.ACTpacket = *in_buf;
+	return Packet_SendNonBlocking(reinterpret_cast<ll_pkt*>(&ac), sizeof(ACTTransmissionPacket));
+}
+
+/*
+ * Function to send Galden Temperature to Core via usart.
+ * Information from galdenpacket
+ */
+bool CoreCom_SendGalden(SolderProfile& profile){
+	static int8_t profileId = 0;
+		if(profileId < 0){
+			profileId = 0;
+		}
+		static_assert(std::numeric_limits<int>::max() > 1000);
+		if(profile.boilingtemperature.size() > 20){
+			vpo_log("Error Galden-Temperature size");
+			return false;
+		}
+			GaldenTransmissionPacket galdenpacket;
+			galdenpacket.galdenTemp = static_cast<int16_t>(profile.boilingtemperature[0].boilingTemperature);
+
+
+		if(usart_send_galden_temp(&galdenpacket)){
+			return false;
+			}
+		return true;
+}
+bool CoreCom_SendACT(SolderProfile&profile){
+	static int8_t profileId = 0;
+	if(profileId < 0){
+				profileId = 0;
+			}
+			static_assert(std::numeric_limits<int>::max() > 1000);
+			if(profile.actemperature.size() > 20){
+				vpo_log("Error ACT-Temperature size");
+				return false;
+			}
+				ACTTransmissionPacket ACTPacket;
+				ACTPacket.ACT = static_cast<int16_t>(profile.actemperature[0].ACT);		 // 16?
+
+
+			if(usart_send_ACT(&ACTPacket)){
+				return false;
+				}
+
+			return true;
+}
+
+
+
 bool CoreCom_StartProfile(SolderProfile& profile){
 	static int8_t profileId = 0;
 	if(profileId < 0){

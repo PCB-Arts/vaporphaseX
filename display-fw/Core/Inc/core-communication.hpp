@@ -26,6 +26,7 @@ extern "C" {
 #include "vpo_protocol.h"
 #include "packet_handler.h"
 
+
 void CoreCom_Init();
 
 // properties
@@ -65,7 +66,11 @@ Vpo_CoreMonitorStateComplete CoreCom_GetMonitorState();
 #include <ProfileParser.hpp>
 
 int usart_send_profile_frame(const ProfileTransmissionPacket *in_buf);
+int usart_send_galden_temp(const GaldenTransmissionPacket *in_buf);
+int usart_send_act(const ACTTransmissionPacket *in_buf);
 bool CoreCom_StartProfile(SolderProfile& profile);
+bool CoreCom_SendGalden(SolderProfile& profile);
+bool CoreCom_SendACT(SolderProfile& profile);
 #endif
 
 void CoreCom_StartSelftest();

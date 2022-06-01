@@ -31,12 +31,14 @@
 #include "conf.h"
 #include "log.h"
 #include "lid_control.h"
+#include "modules/pid.h"
 
 //=================================
 // definitions
 
 // TAL phase is reached if target temperature over TAL_PHASE_THRESHOLD_TEMPERATURE in °C
-#define TAL_PHASE_THRESHOLD_TEMPERATURE 140
+#define TAL_PHASE_THRESHOLD_TEMPERATURE(x) (x-90)
+
 
 enum {
 	SEQ_IDLE, //not running
@@ -52,6 +54,8 @@ static uint16_t flags;
 static bool is_in_tal = false;
 
 struct sequence_t sequence;
+currentState cS;
+
 
 static void seq_fsm();
 static int safety_checks();
@@ -71,10 +75,6 @@ static void control_heater();
 
 void seq_init() {
 	sequence.sequence_time = -1;
-
-	sequence.galden_temp = 237;
-	sequence.anti_condensation_temp = 120;
-
 	seq_state = SEQ_IDLE;
 }
 
@@ -103,6 +103,9 @@ void seq_seconds_sync() {
 }
 
 static void seq_prepare() {
+	sequence.galden_temp = globalGalden.galdenTemp + 7;					// use galdentemp of selected profile
+	sequence.anti_condensation_temp = globalACT.acTemp;					//use anticondensationtemperature of selected profile
+
 	pump_set_auto_enabled(false);
 	pump_enable();
 	fan_set_auto_enabled(&lid_fan, true);
@@ -111,7 +114,6 @@ static void seq_prepare() {
 	fan_set_level(&quick_cooler, 0);
 	heater_set_temperature(sequence.galden_temp);
 	heater_enable();
-	//heater_regulation_enable();
 	raise_lift_to_access();
 	fans_run_mode();
 
@@ -140,6 +142,7 @@ static void seq_fsm() {
 		if (safety_checks()) {
 			seq_prepare();
 			vpo_log("Profile in preheat");
+			cS.currentState = 1;
 			seq_state = SEQ_GENERATE_VAPOUR;
 		} else {
 		    vpo_log("profile aborted - in preheat");
@@ -159,9 +162,9 @@ static void seq_fsm() {
 		//wait until the regulator was able to reach the
 		//target temperature of the first step
 		if (regulator_temperature_reached()) {
-			heater_regulation_enable();
 			update_regulator();
 			vpo_log("Profile started");
+			cS.currentState = 2;
 			seq_state = SEQ_RUN;
 			sequence.sequence_time = 0;
 		}
@@ -184,8 +187,10 @@ static void seq_fsm() {
 		//wait until the chamber has cooled down and the vapour condensated
 		// TODO: is this check enough? // This should be the Open LID Temperature -SK
 		float lid_control_open_temperature = lid_control_lid_open_temperature();
+
 		if (temperature_sensor_get_temperature(&temperature_sensor_galden) < lid_control_open_temperature) {
 			vpo_log("Profile ended");
+
 			raise_lift_to_access();
 			seq_cleanup();
 			seq_state = SEQ_CLEANUP;
@@ -198,7 +203,6 @@ static void seq_fsm() {
 		break;
 
 	}
-
 
 }
 
@@ -220,21 +224,24 @@ static int next_step() {
 	const int next = sequence.index + 1;
 
 	//end sequence at max or at first zero duration
-	return (next < sequence.profile->totalDatapoints && sequence.profile->datapoints[next].time ? 1 : 0);
+	return (next <= sequence.profile->totalDatapoints && sequence.profile->datapoints[next].time ? 1 : 0);
 }
-
 static void try_interpolation() {
 	if (next_step()) {
 		int temp = calc_interpolaion();
-		if (temp)
+		if (temp){
+			if((sequence.profile->datapoints[sequence.index+1].temperature > temperature_sensor_get_temperature(&temperature_sensor_galden)) && sequence.profile->datapoints[sequence.index].temperature > temperature_sensor_get_temperature(&temperature_sensor_galden)){
+				temp = (temperature_sensor_get_temperature(&temperature_sensor_galden) - 2.0);
+			}
 			regulator_set_temp(temp);
+		}
+		}
+	else{
+		regulator_set_temp(0); // neu hinzugefügt, Versuch am ende nach 0 zu regeln
 	}
 }
 
 static int calc_interpolaion() {
-	if (sequence.index + 1 >= sequence.profile->totalDatapoints)
-		return 0;
-
 	const int dx = sequence.profile->datapoints[sequence.index].time;
 	const int xp = sequence.step_time;
 	const int y0 = sequence.profile->datapoints[sequence.index].temperature;
@@ -246,6 +253,7 @@ static int calc_interpolaion() {
 	//calculate linear interpolated temperature
 	return (((dx - xp) * g) + y0);
 }
+
 static void condensate_prevention() {
 	vpo_log("Anti condensation phase started");
 	//prevent condensation by keeping the PCB "warm"
@@ -254,6 +262,7 @@ static void condensate_prevention() {
 }
 
 static void start_cool_down() {
+	cS.currentState = 3;
 	vpo_log("Quick cool begins");
 	seq_state = SEQ_COOL_DOWN;
 	heater_regulation_disable();
@@ -296,15 +305,15 @@ static void regulator_prepage_configuration() {
 
 static void update_regulator() {
 	//check sequence limits, max steps
-	if (sequence.index >= sequence.profile->totalDatapoints)
+	if (sequence.index > sequence.profile->totalDatapoints)
 		return;
 
 	//reload step countdown timer
 	sequence.step_time = sequence.profile->datapoints[sequence.index].time;
 
-	//update regulator temperature
 	regulator_set_temp(sequence.profile->datapoints[sequence.index].temperature);
-}
+
+	}
 
 void seq_start(TemperatureProfile* profile) {
 	if(profile == NULL || profile->profileId < -1) {
@@ -416,23 +425,22 @@ bool seq_running() {
 }
 
 static bool seq_in_tal() {
-	return regulator_get_target_temperature()  >= TAL_PHASE_THRESHOLD_TEMPERATURE;
+	return regulator_get_target_temperature()  >= TAL_PHASE_THRESHOLD_TEMPERATURE(globalGalden.galdenTemp);
 }
 
 static void control_heater() {
-	if(seq_in_tal()) {
-		if(!is_in_tal){
-			is_in_tal = true;
-			vpo_log("TAL Reached");
-		}
-
 		// during tal phase the heater is always on and not regulated
+	if(temperature_sensor_get_temperature(&temperature_sensor_pcb) < sequence.profile->datapoints[sequence.index].temperature && (!heater_enabled())){
 		heater_regulation_disable();
 		heater_enable();
-	} else {
-		is_in_tal = false;
-		heater_regulation_enable();
 	}
+
+	sequence.index++;
+
+	if ((temperature_sensor_get_temperature(&temperature_sensor_pcb) > sequence.profile->datapoints[sequence.index].temperature) && ((sequence.profile->datapoints[sequence.index].temperature) == 0  || (axis_position(&lift_axis) > -5000))){
+		heater_disable();
+	}
+	sequence.index--;
 }
 
 bool seq_can_abort() {
@@ -442,3 +450,6 @@ bool seq_can_abort() {
 			seq_state == SEQ_RUN ||
 			seq_state == SEQ_COOL_DOWN;
 }
+
+
+

@@ -18,7 +18,7 @@
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB888.hpp>
 #include <touchgfx/widgets/graph/GraphLabels.hpp>
-#include <touchgfx/widgets/AnimatedImage.hpp>
+#include <touchgfx/widgets/AnimationTextureMapper.hpp>
 #include <touchgfx/widgets/canvas/Circle.hpp>
 #include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/containers/scrollers/ScrollWheel.hpp>
@@ -147,11 +147,13 @@ protected:
     touchgfx::GraphLabelsY dynamicGraph_istMajorYAxisLabel;
 touchgfx::GraphElementVerticalGapLine dynamicGraph_istVerticalFrontline;
     touchgfx::TextAreaWithTwoWildcards watersystem_tmp;
-    touchgfx::AnimatedImage watersystem;
     touchgfx::Box abortedProfileBackground;
     touchgfx::TextArea abortedProfileText;
     touchgfx::TextAreaWithTwoWildcards pcb_tmp;
     touchgfx::Image galden_1;
+    touchgfx::TextAreaWithOneWildcard current_stateT;
+    touchgfx::Image Info;
+    touchgfx::AnimationTextureMapper textureMapper;
     touchgfx::Container options;
     touchgfx::Circle options_solder_profile_wheel_indicator;
     touchgfx::PainterRGB888 options_solder_profile_wheel_indicatorPainter;
@@ -198,6 +200,8 @@ touchgfx::GraphElementVerticalGapLine dynamicGraph_istVerticalFrontline;
     touchgfx::Unicode::UnicodeChar pcb_tmpBuffer1[PCB_TMPBUFFER1_SIZE];
     static const uint16_t PCB_TMPBUFFER2_SIZE = 2;
     touchgfx::Unicode::UnicodeChar pcb_tmpBuffer2[PCB_TMPBUFFER2_SIZE];
+    static const uint16_t CURRENT_STATET_SIZE = 32;
+    touchgfx::Unicode::UnicodeChar current_stateTBuffer[CURRENT_STATET_SIZE];
 
 private:
 

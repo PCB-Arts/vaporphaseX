@@ -48,7 +48,12 @@ struct MAX31856_t max31856_temperature_sensor_pcb = MAX31856_TPL( SPI_DEV_TPL( I
 struct MAX31856_t max31856_temperature_sensor_galden = MAX31856_TPL( SPI_DEV_TPL( IO_PIN_TPL(
 		TEMP_SENSOR_2_CS_GPIO_Port, TEMP_SENSOR_2_CS_Pin), &spi1));
 
+struct MAX31856_t max31856_temperature_sensor_dummy = MAX31856_TPL( SPI_DEV_TPL( IO_PIN_TPL(
+		TEMP_SENSOR_0_CS_GPIO_Port, TEMP_SENSOR_0_CS_Pin), &spi1));
+
+
 struct MAX31856_t* max31856_temp_sensors[] = {
+		&max31856_temperature_sensor_dummy,
 		&max31856_temperature_sensor_heater_1,
 		&max31856_temperature_sensor_heater_2,
 		&max31856_temperature_sensor_pcb,
@@ -102,7 +107,7 @@ void max31856_temp_sensors_init() {
 	MODIFY_REG(CR1, MAX31856_CR1_AVGSEL, (0b000 << 4));
 
 	//apply to all temperature sensors
-	for (int i = 0; i < max31856_temp_sensors_size; ++i) {
+	for (int i = 0; i < max31856_temp_sensors_size; i++) {   //++i
 		max31856_temp_sensors[i]->CR0 = CR0;
 		max31856_temp_sensors[i]->CR1 = CR1;
 
@@ -110,8 +115,12 @@ void max31856_temp_sensors_init() {
 		spi_stop(&max31856_temp_sensors[i]->spid);
 
 		max31856_temp_sensors[i]->temperature = 0;
+
+
 	}
 }
+
+
 
 extern void max31856_temp_sensors_worker() {
 	static unsigned int i;
@@ -137,7 +146,7 @@ void max31856_temp_sensors_millis_sync() {
 }
 
 static void schedule_LTC_read() {
-	for (int i = 0; i < max31856_temp_sensors_size; ++i) {
+	for (int i = 0; i < max31856_temp_sensors_size; i++) { //++i
 		max31856_temp_sensors[i]->tasks.reg.LTC |= MAX31856_TASK_READ;
 	}
 }

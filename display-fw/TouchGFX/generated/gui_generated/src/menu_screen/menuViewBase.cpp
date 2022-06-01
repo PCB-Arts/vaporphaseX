@@ -86,7 +86,7 @@ menuViewBase::menuViewBase() :
     y_axis_naming.setTypedText(touchgfx::TypedText(T_SINGLEUSEID21));
     graphs.add(y_axis_naming);
 
-    galden_tmp.setXY(593, 53);
+    galden_tmp.setXY(500, 49);
     galden_tmp.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     galden_tmp.setLinespacing(0);
     galden_tmp.setAlpha(150);
@@ -98,7 +98,7 @@ menuViewBase::menuViewBase() :
     galden_tmp.setTypedText(touchgfx::TypedText(T_SINGLEUSEID20));
     graphs.add(galden_tmp);
 
-    galden.setXY(553, 43);
+    galden.setXY(454, 40);
     galden.setBitmap(touchgfx::Bitmap(BITMAP_DROP_ID));
     galden.setAlpha(150);
     graphs.add(galden);
@@ -119,7 +119,7 @@ menuViewBase::menuViewBase() :
 
     dynamicGraph_ist.setScale(1);
     dynamicGraph_ist.setGraphRangeX(0, 249);
-    dynamicGraph_ist.setPosition(35, 89, 733, 347);
+    dynamicGraph_ist.setPosition(33, 89, 733, 347);
     dynamicGraph_ist.setGraphAreaMargin(15, 25, 15, 20);
     dynamicGraph_ist.setGraphAreaPadding(0, 10, 0, 12);
     dynamicGraph_ist.setGraphRangeY(0, 250);
@@ -162,7 +162,7 @@ menuViewBase::menuViewBase() :
     dynamicGraph_ist.addGraphElement(dynamicGraph_istVerticalFrontline);
     graphs.add(dynamicGraph_ist);
 
-    watersystem_tmp.setXY(118, 52);
+    watersystem_tmp.setXY(95, 49);
     watersystem_tmp.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     watersystem_tmp.setLinespacing(0);
     watersystem_tmp.setAlpha(150);
@@ -173,13 +173,6 @@ menuViewBase::menuViewBase() :
     watersystem_tmp.resizeToCurrentText();
     watersystem_tmp.setTypedText(touchgfx::TypedText(T_SINGLEUSEID19));
     graphs.add(watersystem_tmp);
-
-    watersystem.setXY(69, 43);
-    watersystem.setBitmaps(BITMAP_ARROW1_ID, BITMAP_ARROW2_ID);
-    watersystem.setUpdateTicksInterval(30);
-    watersystem.setAlpha(150);
-    watersystem.startAnimation(false, true, true);
-    graphs.add(watersystem);
 
     abortedProfileBackground.setPosition(68, 102, 689, 306);
     abortedProfileBackground.setVisible(false);
@@ -194,7 +187,7 @@ menuViewBase::menuViewBase() :
     abortedProfileText.setTypedText(touchgfx::TypedText(T_SINGLEUSEID55));
     graphs.add(abortedProfileText);
 
-    pcb_tmp.setXY(399, 52);
+    pcb_tmp.setXY(339, 49);
     pcb_tmp.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     pcb_tmp.setLinespacing(0);
     pcb_tmp.setAlpha(150);
@@ -206,10 +199,39 @@ menuViewBase::menuViewBase() :
     pcb_tmp.setTypedText(touchgfx::TypedText(T_SINGLEUSEID56));
     graphs.add(pcb_tmp);
 
-    galden_1.setXY(350, 43);
+    galden_1.setXY(285, 40);
     galden_1.setBitmap(touchgfx::Bitmap(BITMAP_PCB_ID));
     galden_1.setAlpha(150);
     graphs.add(galden_1);
+
+    current_stateT.setXY(681, 49);
+    current_stateT.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
+    current_stateT.setLinespacing(0);
+    current_stateT.setAlpha(150);
+    current_stateTBuffer[0] = 0;
+    current_stateT.setWildcard(current_stateTBuffer);
+    current_stateT.resizeToCurrentText();
+    current_stateT.setTypedText(touchgfx::TypedText(T_SINGLEUSEID59));
+    graphs.add(current_stateT);
+
+    Info.setXY(630, 40);
+    Info.setBitmap(touchgfx::Bitmap(BITMAP_INFOV2_ID));
+    Info.setAlpha(150);
+    graphs.add(Info);
+
+    textureMapper.setXY(32, 23);
+    textureMapper.setBitmap(touchgfx::Bitmap(BITMAP_ARROW1_ID));
+    textureMapper.setWidth(65);
+    textureMapper.setHeight(66);
+    textureMapper.setBitmapPosition(14.500f, 15.000f);
+    textureMapper.setScale(1.000f);
+    textureMapper.setCameraDistance(300.000f);
+    textureMapper.setOrigo(32.500f, 33.000f, 300.000f);
+    textureMapper.setCamera(32.500f, 33.000f);
+    textureMapper.updateAngles(0.000f, 0.000f, 1.000f);
+    textureMapper.setRenderingAlgorithm(touchgfx::TextureMapper::NEAREST_NEIGHBOR);
+    textureMapper.setAlpha(150);
+    graphs.add(textureMapper);
     menu_container.add(graphs);
 
     options.setWidth(800);

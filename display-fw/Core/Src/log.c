@@ -25,7 +25,7 @@ static char log_buffer_1[128];
 static char log_buffer_2[128];
 
 void vpo_component_log(const char * message, const char * component) {
-	tfp_snprintf(log_buffer_2, sizeof(log_buffer_2), "%d - %s: %s", (int)osKernelGetTickCount(), component, message);
+	tfp_snprintf(log_buffer_2, sizeof(log_buffer_2), "%d:%s: %s", (int)osKernelGetTickCount(), component, message);
 
 	SD_Log(log_buffer_2);
 }

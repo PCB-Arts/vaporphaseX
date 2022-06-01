@@ -78,12 +78,12 @@ void selftest_start() {
 		return;
 	}
 
-	vpo_log("FW VER: v%d.%d", FW_VER_MAJOR, FW_VER_MINOR);
+	vpo_log("FW VER v%d.%d", FW_VER_MAJOR, FW_VER_MINOR);
 
 	const int permittedCode = 0xCA;
 	const int restrictedCode = 0xFA;
 
-	vpo_log("Third party pin state: 0x%x", HAL_GPIO_ReadPin(THIRD_PARTY_GPIO_Port, THIRD_PARTY_Pin) == GPIO_PIN_RESET ? permittedCode: restrictedCode);
+	vpo_log("Third party pin state 0x%x", HAL_GPIO_ReadPin(THIRD_PARTY_GPIO_Port, THIRD_PARTY_Pin) == GPIO_PIN_RESET ? permittedCode: restrictedCode);
 
 	selftest_state_next();
 }
@@ -120,7 +120,7 @@ static void selftest_state_init() {
 			selftest_heater_init();
 			break;
 		default:
-			vpo_log("error: unkown selftest state reached");
+			vpo_log("Error unkown selftest state reached");
 	}
 }
 
@@ -239,7 +239,11 @@ static void selftest_lid_init() {
 	lid_calibrate();
 }
 
+int x = 1;
+
 static SelftestStateWorkerReturnCode selftest_lid_worker() {
+
+
 	if(lid_overcurrent_was_detected()) {
 		vpo_log("lid selftest overcurrent was set. lid position: %d", axis_position(&lid_axis));
 		return SELFTEST_STATE_WORKER_RETURN_CODE_COMPLETED;
@@ -259,21 +263,28 @@ static SelftestStateWorkerReturnCode selftest_lid_worker() {
 			selftest_lid_state = SELFTEST_LID_AFTER_CAL_WAIT;
 			selftest_wait_started = HAL_GetTick();
 		}
-
 		break;
+
 	}
 
 	case SELFTEST_LID_AFTER_CAL_WAIT: {
 		if(HAL_GetTick() - selftest_wait_started >= SELFTEST_LID_WAIT_TIMEOUT_MILLISECONDS) {
 
+			if(x==1){
+			axis_move_to(&lift_axis,0);
+			x=0;
+			}
+			if(axis_stopped(&lift_axis)){
 			selftest_lid_state = SELFTEST_LID_STATE_UP;
 			axis_move(&lid_axis, FWD);
-		}
+			}
+			}
 		break;
 	}
 
 	case SELFTEST_LID_STATE_UP: {
 		if (axis_stopped(&lid_axis)) {
+
 			vpo_log("lid position after move up: %d", axis_position(&lid_axis));
 
 			selftest_lid_state = SELFTEST_LID_AFTER_UP_WAIT;
@@ -298,7 +309,6 @@ static SelftestStateWorkerReturnCode selftest_lid_worker() {
 
 			return SELFTEST_STATE_WORKER_RETURN_CODE_COMPLETED;
 		}
-
 		break;
 	}
 
@@ -508,6 +518,7 @@ static void selftest_heater_init(){
 }
 
 static SelftestStateWorkerReturnCode selftest_heater_worker() {
+
 	if(selftest_heater_state == SELFTEST_HEATER_COOL_DOWN) {
 		return temperature_sensor_get_temperature(&temperature_sensor_galden) < SELFTEST_HEATER_COOL_DOWN_TEMPERATURE ?
 				SELFTEST_STATE_WORKER_RETURN_CODE_COMPLETED : SELFTEST_STATE_WORKER_RETURN_CODE_CONTINUE;
@@ -523,10 +534,17 @@ static SelftestStateWorkerReturnCode selftest_heater_worker() {
 				(int)temperature_sensor_get_temperature(&temperature_sensor_pcb),
 				(int)temperature_sensor_get_temperature(&temperature_sensor_water)
 		);
+
 		vpo_log("otp active: %d", heater_otp_active());
 	}
 
-	const float temp = temperature_sensor_get_temperature(&temperature_sensor_heater_1);
+	float temp = temperature_sensor_get_temperature(&temperature_sensor_heater_1);
+	float temp2 = temperature_sensor_get_temperature(&temperature_sensor_heater_2);
+
+			//greater temperature is respected
+			if (temp2 > temp){
+				temp = temp2;
+			}
 
 	if(temp > SELFTEST_HEATER_TARGET_TEMPERATURE) {
 		heater_disable();

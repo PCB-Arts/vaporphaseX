@@ -49,7 +49,8 @@ enum packet_type {
 	PTYPE_APP_START = 64,
 
 	PTYPE_PROFILE_PACKAGE = 65,
-
+	PTYPE_GALDEN_PACKAGE = 66,
+	PTYPE_ACT_PACKAGE = 67,
 	/* Error response. The device may respond to any request with an error packet. */
 	PTYPE_ERROR = 255,
 };
@@ -102,7 +103,17 @@ typedef struct __attribute__((__packed__)) __ProfileTransmissionPacket {
 	int8_t profileId;
 } ProfileTransmissionPacket;
 
+typedef struct __attribute__((__packed__)) __GaldenTransmissionPacket {
+	uint16_t galdenTemp;
+} GaldenTransmissionPacket;
+
+typedef struct __attribute__((__packed__)) __ACTTransmissionPacket{
+	uint16_t ACT;
+}ACTTransmissionPacket;
+
+
 /* Status packet firmware/hardware ID registry */
+
 
 enum fw_ids {
 	FW_ID_VPO_CORE_BOOTLOADER = 0x10,
@@ -206,6 +217,8 @@ extern int app_prop_set(int prop_id, const union prop_value *val, size_t val_len
 extern int app_prop_get(int prop_id, union prop_value *val);
 extern int app_packet_handler(struct ll_pkt *pkt, size_t payload_len);
 extern int app_profile_frame_received(ProfileTransmissionPacket *packet);
+extern int app_galden_frame_received(GaldenTransmissionPacket *galdenpacket);
+extern int app_act_frame_received(ACTTransmissionPacket *actpacket);
 extern void app_log_handler(struct ll_pkt *pkt, size_t payload_len);
 extern const char *packet_errmsg;
 

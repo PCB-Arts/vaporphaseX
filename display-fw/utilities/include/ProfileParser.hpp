@@ -32,6 +32,17 @@ public:
 	KeyValuePair(std::string key, std::string value): Key(key), Value(value){}
 };
 
+class SolderBoilingTemperature{
+public:
+//	std::string medium;
+	int boilingTemperature;
+};
+
+class SolderACT{
+public:
+	int ACT;
+};
+
 class SolderTemperatureDatapoint{
 public:
 	int time;
@@ -44,7 +55,10 @@ public:
 
 	std::vector<KeyValuePair>  headerAttributes;
 	std::vector<SolderTemperatureDatapoint> timeTemperatureData;
+	std::vector<SolderBoilingTemperature> boilingtemperature;
+	std::vector<SolderACT> actemperature;
 };
+
 
 std::vector<std::string> FindCSVFiles();
 int GetFilesize(std::string& filepath);

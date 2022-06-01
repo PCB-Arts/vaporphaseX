@@ -23,16 +23,20 @@
 #include "modules/temp_sensor.h"
 #include "peripherals/tim.h"
 #include "main.h"
+#include "log.h"
 
 //=================================
 // definitions
 
 #define HEATER_WD_S 5
-#define HEATER_OTP_C 350.0f
+#define HEATER_OTP_C(x) (x)+40
 #define HEATER_OTP_HYST 2.0f
 
 // galden temperature on °C that should be reached before heater is operational (profile starts)
-#define HEATER_OPERATION_TEMPERATURE_THRESHOLD 222
+//#define HEATER_OPERATION_TEMPERATURE_THRESHOLD 222
+#define HEATER_OPERATION_TEMPERATURE_THRESHOLD(x) (x)-8
+
+
 
 #define HEATER_MASK_ERR_EN 0b00000000
 
@@ -110,12 +114,12 @@ void heater_worker() {
 
 static void check_max_temp() {
 	//check max. allowed temperature limit
-	if (temperature_sensor_get_temperature(sensor1) >= HEATER_OTP_C) {
+	if (temperature_sensor_get_temperature(sensor1) >= HEATER_OTP_C(globalGalden.galdenTemp)) {
 		//set over temperature flag
 		set_flag(HEATER_ERR_MAX_TEMP);
 	}
 
-	if (temperature_sensor_get_temperature(sensor2) >= HEATER_OTP_C) {
+	if (temperature_sensor_get_temperature(sensor2) >= HEATER_OTP_C(globalGalden.galdenTemp)) {
 		//set over temperature flag
 		set_flag(HEATER_ERR_MAX_TEMP);
 	}
@@ -214,8 +218,8 @@ int heater_temperature_reached() {
 		return 0;
 
 	const float temp = temperature_sensor_get_temperature(galdenSensor);
+	return (temp >= HEATER_OPERATION_TEMPERATURE_THRESHOLD(globalGalden.galdenTemp));
 
-	return (temp >= HEATER_OPERATION_TEMPERATURE_THRESHOLD);
 }
 
 void heater_overtemp() {

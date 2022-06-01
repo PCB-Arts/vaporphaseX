@@ -34,8 +34,8 @@
 //=================================
 // class
 
-extern struct MAX31856_t max31856_temperature_sensor_heater_1;
-extern struct MAX31856_t max31856_temperature_sensor_heater_2;
+extern struct MAX31856_t  max31856_temperature_sensor_heater_1;
+extern struct MAX31856_t  max31856_temperature_sensor_heater_2;
 extern struct MAX31856_t max31856_temperature_sensor_pcb;
 extern struct MAX31856_t max31856_temperature_sensor_galden;
 
@@ -45,7 +45,7 @@ extern TemperatureSensor temperature_sensor_pcb;
 extern TemperatureSensor temperature_sensor_galden;
 extern TemperatureSensor temperature_sensor_water;
 
-extern struct MAX31856_t* max31856_temp_sensors[];
+extern struct MAX31856_t*   max31856_temp_sensors[];
 extern const size_t max31856_temp_sensors_size;
 
 extern TemperatureSensor* temp_sensors[];

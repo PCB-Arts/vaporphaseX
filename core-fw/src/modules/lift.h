@@ -33,8 +33,13 @@
 
 #define LIFT_MOTOR_MAX_SPEED 100
 
+#define LIFT_LID_OPEN_POSITION -32000
+
 struct axis_t lift_axis;
 
+typedef struct {
+	int liftflag;
+}calibpos;
 
 void lift_worker(void);
 void lift_emergency_stop(void);

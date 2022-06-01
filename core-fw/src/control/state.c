@@ -39,6 +39,8 @@
 #include "modules/lift.h"
 #include "modules/monitor_pins.h"
 
+
+
 #define START_REFLOW_MAX_WATER_TEMPERATURE 60
 #define START_SELFTEST_MAX_GALDEN_TEMPERATURE 50
 
@@ -47,6 +49,10 @@ static bool State_Booted;
 static bool error_heater_otp;
 static bool error_coolant_otp;
 static bool error_lid_ocp;
+
+extern calibpos calib;						 // Änderung
+extern currentState cS;
+
 
 void Mock_Worker();
 
@@ -127,6 +133,7 @@ void State_SetReflow(bool active) {
 	}
 }
 
+
 void State_SetLidOpen(bool open) {
 	Vpo_CoreStateTypeDef state = State_getState();
 
@@ -151,6 +158,8 @@ void State_SetLidOpen(bool open) {
 /* 
  * Returns true if the requirements to leave boot state are fullfiled
  */ 
+
+
 bool State_BootRequirementsFullfiled() {
 	return lift_boot_ready() && lid_control_lid_boot_ready();
 }
@@ -179,9 +188,19 @@ void State_Worker() {
 	// first calibrate lid axis and after lid is closed and calibrated do the lift
 	
 	if (lid_axis.cal_done == 1 && lift_axis.cal_done == 0 && lift_axis.mode == AXIS_NORMAL) {
+		cS.currentState = 4;
 		lift_calibrate();
 	} else if(lid_axis.cal_done == 0 && lid_axis.mode == AXIS_NORMAL) {
 		lid_calibrate();
+	}
+
+	// Lift move to open lid position
+	if (calib.liftflag == 1 && lid_axis.cal_done == 1 && lift_axis.cal_done == 1){			//Änderung
+			calib.liftflag = 0;
+			axis_move_to(&lift_axis, LIFT_LID_OPEN_POSITION);
+			}
+	if(lift_lid_open_state_reached() == true){
+		cS.currentState = 0;
 	}
 
 	if (!State_BootRequirementsFullfiled()) {
@@ -217,6 +236,8 @@ Vpo_CoreStateTypeDef State_getState() {
 	state.can_start_selftest = State_CanStartSelftest();
 
 	state.selftest_active = selftest_active();
+
+	state.current_state = State_CurrentState();
 
 	return state;
 }
@@ -266,5 +287,24 @@ void State_StartSelftest() {
 
 	selftest_start();
 }
+
+CurrentState State_CurrentState(){
+	if(cS.currentState == 1){
+		return CS_Preheat;
+	}
+	else if(cS.currentState == 2){
+		return CS_Soldering;
+		}
+	else if(cS.currentState == 3){
+		return CS_AntiCondensation;
+		}
+	else if(cS.currentState == 4){
+		return CS_Calibration;
+	}
+	else{
+		return CS_Idle;
+	}
+}
+
 
 

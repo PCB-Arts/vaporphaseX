@@ -16,6 +16,7 @@
 #include <DynamicDrawableListItems.hpp>
 
 
+
 class menuView : public menuViewBase
 {
 public:
@@ -39,6 +40,7 @@ public:
     virtual void btn_eco_open_temp_clicked();
 	virtual void btn_standard_open_temp_clicked();
 	virtual void btn_fast_open_temp_clicked();
+	virtual void current_state();
 
     void adaptUiToUnits();
     void adaptGraphToUnits();
@@ -90,8 +92,11 @@ private:
     SolderProfile selectedProfile;
 
     touchgfx::Callback<menuView, touchgfx::DrawableListItemsInterface*, int16_t, int16_t> updateItemCallback;
+//    touchgfx::Callback<menuView, touchgfx::AnimationTextureMapper&> TextureMapperAnimationEndedCallback;
 
     void updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex);
+//    void textureMapperAnimationEndedCallbackHandler(touchgfx::AnimationTextureMapper& src);
+
 };
 
 #endif // MENUVIEW_HPP

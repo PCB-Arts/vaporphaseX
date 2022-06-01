@@ -80,7 +80,7 @@ void SD_Mount() {
 
 	AvailableCSVProfiles.clear();
 	auto files = FindCSVFiles();
-	vpo_log("Found valid CSV files:");
+	vpo_log("Found valid CSV files");
 	for(auto file: files){
 		if(IsSolderprofileCSV(file)){
 			vpo_log("	%s", file.c_str());

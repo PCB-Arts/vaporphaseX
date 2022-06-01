@@ -33,14 +33,18 @@
 //=================================
 // declarations
 
+typedef struct{
+	int currentState;
+}currentState;
+
 struct sequence_t {
 	TemperatureProfile* profile;
 
 	//desired galden temperature
-	float galden_temp;
+	int galden_temp;
 
 	//prevent condensation by keeping the PCB "warm"
-	float anti_condensation_temp;
+	int anti_condensation_temp;
 
 	//waypoint/step index
 	int index;
@@ -49,6 +53,7 @@ struct sequence_t {
 	int step_time;
 
 	int sequence_time;
+
 } extern sequence;
 
 #define	SEQ_FLAG_LID_OPEN	0b0000000000000001

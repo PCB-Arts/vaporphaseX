@@ -30,6 +30,14 @@ typedef enum __LidState {
 	LID_STATE_ERROR = 6
 } LidState;
 
+typedef enum __CurrentState{
+	CS_Idle = 0,
+	CS_Preheat = 1,
+	CS_Soldering = 2,
+	CS_AntiCondensation = 3,
+	CS_Calibration = 4,
+}CurrentState;
+
 enum _LidOpenMode{
 	VPO_STANDARD = 0,
 	VPO_ECO = 1,
@@ -52,6 +60,7 @@ typedef struct __attribute__((__packed__)) __Vpo_CoreStateTypeDef {
 	bool error_coolant_otp: 1;
 	bool can_start_selftest: 1;
 	bool selftest_active : 1;
+	CurrentState current_state : 5;
 } Vpo_CoreStateTypeDef;
 
 

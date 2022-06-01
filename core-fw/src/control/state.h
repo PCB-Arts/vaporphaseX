@@ -34,5 +34,6 @@ Vpo_CoreStateTypeDef State_getState();
 Vpo_CoreMonitorState1 State_getMonitor1State();
 Vpo_CoreMonitorState2 State_getMonitor2State();
 Vpo_CoreMonitorState3 State_getMonitor3State();
+CurrentState State_CurrentState();
 
 #endif

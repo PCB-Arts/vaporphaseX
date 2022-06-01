@@ -39,8 +39,15 @@ typedef struct __pid_param_t {
 	float Ki;
 	float Kd;
 
+	float KpR;
+	float KiR;
+	float KdR;
+
 	float error_integral;
 	float error_prev;
+
+	float error_integralR;
+	float error_prevR;
 
 	float y_min;
 	float y_max;
@@ -48,7 +55,7 @@ typedef struct __pid_param_t {
 
 extern float pid_compute(pid_param_t* pid, float reference, float process_variable);
 extern void pid_reset(pid_param_t* pid);
-
+extern float pid_computeLIFT(pid_param_t* pid, float reference, float process_variable);
 
 #ifdef __cplusplus
 }

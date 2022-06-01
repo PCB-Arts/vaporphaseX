@@ -27,7 +27,7 @@
 //=================================
 // included dependencies
 #include "modules/temp_sensor.h"
-
+#include "com_stack/profile_com.h"
 #include <stdint.h>
 #include <stdbool.h>
 
