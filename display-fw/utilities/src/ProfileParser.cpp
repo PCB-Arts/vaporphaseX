@@ -54,6 +54,7 @@ bool IsSolderprofileCSV(std::string& filepath){
 	f_close(&file);
 
 	if(result != FR_OK || bytesRead != SOLDERPROFILE_FILEIDENTIFIER.size()){
+		delete[] buffer;
 		return false;
 	}
 
@@ -113,15 +114,18 @@ SolderProfile loadSolderCsv(std::string& filepath)
 	FIL file;
 	auto result = f_open(&file, filepath.c_str(), FA_READ);
 	if(result != FR_OK){
+		delete[] buffer;
 		return dummy;
 	}
 	unsigned int bytesRead = 0;
 	result = f_read(&file, buffer, filesize, &bytesRead);
 	if(result != FR_OK){
+		delete[] buffer;
 		return dummy;
 	}
 	result = f_close(&file);
 	if(result != FR_OK){
+		delete[] buffer;
 		return dummy;
 	}
 
