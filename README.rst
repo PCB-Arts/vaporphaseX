@@ -45,3 +45,5 @@ Display
 #####################
 
 Flash the display with the STM32CubeProgrammer, as external Loader use the MT25QL128A_STM32469I-DK. Flash the Bootloader and then the .elf file in bootloader-production folder.
+
+If building the Image for the Bootloader, there must be a difference between the display bootloaders, since multiple versions of LCD displays are on the STM32F469I - DISCO Board. A Symbol "USE_STM32469I_DISCO_REVC" have to be set for all newer Displays (DK32F469I$AU1 Label at the back of the PCB) within the projects definitions. The TouchGFX source data we're generated with TouchGFX 4.16, the Middlewares/ST also needs to be from this version (Just copying from a new project in TouchGFX 4.16 is fine). Same coping is necessary for TouchGFX/target, this source files will be generated with the help of the STM32CubeMX Programmer. 

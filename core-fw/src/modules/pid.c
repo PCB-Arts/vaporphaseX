@@ -85,12 +85,14 @@ float pid_computeLIFT(pid_param_t* pid, float reference, float process_variable)
 	const float fKdR = pid->KdR * error_deltaR;
 
 	float y = fKpR + fKiR + fKdR;
+
 	//limit y values
 	if (y > pid->y_max) {
 		y = pid->y_max;
 	} else if (y < pid->y_min) {
 		y = pid->y_min;
 	}
+	cS.x = y;
 	return y;
 }
 

@@ -130,6 +130,7 @@ static void seq_cleanup() {
 	fan_set_auto_enabled(&lid_fan, true);
 	heater_regulation_disable();
 	heater_disable();
+	vpo_log("seq_cleanup");
 }
 
 static void seq_fsm() {
@@ -176,6 +177,8 @@ static void seq_fsm() {
 				sequence.index++;
 				update_regulator();
 				control_heater();
+				vpo_log("x:%i", cS.x);
+				vpo_log("y:%i", cS.y);
 			} else {
 				start_cool_down();
 			}
@@ -235,10 +238,14 @@ static void try_interpolation() {
 			}
 			regulator_set_temp(temp);
 		}
+		cS.y = temp;
+		vpo_log("x:%i", cS.x);
+		vpo_log("y:%i", cS.y);
 		}
 	else{
 		regulator_set_temp(0); // neu hinzugefügt, Versuch am ende nach 0 zu regeln
 	}
+
 }
 
 static int calc_interpolaion() {

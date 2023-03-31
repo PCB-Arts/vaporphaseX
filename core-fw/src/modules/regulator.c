@@ -61,9 +61,9 @@ void regulator_init(TemperatureSensor* s, struct axis_t* a) {
 	regulator_pid.y_max = MOTOR_SPEED_MAX;
 	regulator_pid.y_min = -MOTOR_SPEED_MAX;
 
-	regulator_pid.KpR = 100;
-	regulator_pid.KiR = 0.1;
-	regulator_pid.KdR = 125;
+	regulator_pid.KpR = 20;
+//	regulator_pid.KiR = 0.1;
+//	regulator_pid.KdR = 125;
 
 	regulator_pid.time_step_size = 0.01; // default time step of 100ms
 }

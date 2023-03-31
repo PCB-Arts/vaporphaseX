@@ -11,6 +11,7 @@ extern touchgfx::GeneratedFont& getFont_arial_10_4bpp();
 extern touchgfx::GeneratedFont& getFont_arial_14_4bpp();
 extern touchgfx::GeneratedFont& getFont_arial_26_4bpp();
 extern touchgfx::GeneratedFont& getFont_arial_16_4bpp();
+extern touchgfx::GeneratedFont& getFont_arial_47_4bpp();
 
 const touchgfx::Font* touchgfx_fonts[] =
 {
@@ -19,7 +20,8 @@ const touchgfx::Font* touchgfx_fonts[] =
     &(getFont_arial_10_4bpp()),
     &(getFont_arial_14_4bpp()),
     &(getFont_arial_26_4bpp()),
-    &(getFont_arial_16_4bpp())
+    &(getFont_arial_16_4bpp()),
+    &(getFont_arial_47_4bpp())
 };
 
 extern const touchgfx::TypedText::TypedTextData typedText_database_DEFAULT[];
@@ -29,7 +31,7 @@ TEXT_LOCATION_FLASH_PRAGMA
 const touchgfx::TypedText::TypedTextData typedText_database_DEFAULT[] TEXT_LOCATION_FLASH_ATTRIBUTE =
 {
     { 0, touchgfx::CENTER, touchgfx::TEXT_DIRECTION_LTR },
-    { 1, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
+    { 6, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
     { 2, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
     { 2, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
     { 5, touchgfx::LEFT, touchgfx::TEXT_DIRECTION_LTR },
@@ -138,6 +140,9 @@ void resetFont(touchgfx::FontId fontId)
         break;
     case 5:
         touchgfx_fonts[5] = &(getFont_arial_16_4bpp());
+        break;
+    case 6:
+        touchgfx_fonts[6] = &(getFont_arial_47_4bpp());
         break;
     }
 }

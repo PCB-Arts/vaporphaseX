@@ -5,19 +5,7 @@
 FONT_TABLE_LOCATION_FLASH_PRAGMA
 KEEP extern const touchgfx::GlyphNode glyphs_arial_40_4bpp[] FONT_TABLE_LOCATION_FLASH_ATTRIBUTE =
 {
-    {     0, 0x0020,   0,   0,   0,   0,  11,   0,   1, 0x00 },
-    {     0, 0x003F,  20,  28,  28,   1,  22,   0,   0, 0x00 },
-    {   280, 0x004F,  29,  28,  28,   1,  31,   0,   0, 0x00 },
-    {   700, 0x0050,  22,  28,  28,   3,  27,   0,   0, 0x00 },
-    {  1008, 0x0056,  27,  28,  28,   0,  27,   0,   0, 0x00 },
-    {  1400, 0x0061,  20,  21,  21,   1,  22,   1,   1, 0x00 },
-    {  1610, 0x0065,  20,  21,  21,   1,  22,   2,   1, 0x00 },
-    {  1820, 0x0068,  18,  28,  28,   2,  22,   0,   0, 0x00 },
-    {  2072, 0x006E,  18,  21,  21,   2,  22,   0,   0, 0x00 },
-    {  2261, 0x006F,  20,  21,  21,   1,  22,   3,   1, 0x00 },
-    {  2471, 0x0070,  19,  29,  21,   2,  22,   0,   0, 0x00 },
-    {  2761, 0x0072,  12,  21,  21,   2,  13,   4,   1, 0x00 },
-    {  2887, 0x0073,  18,  21,  21,   1,  20,   0,   0, 0x00 }
+    {     0, 0x003F,  20,  28,  28,   1,  22,   0,   0, 0x00 }
 };
 
 // arial_40_4bpp
@@ -33,6 +21,6 @@ touchgfx::GeneratedFont& getFont_arial_40_4bpp();
 
 touchgfx::GeneratedFont& getFont_arial_40_4bpp()
 {
-    static touchgfx::GeneratedFont arial_40_4bpp(glyphs_arial_40_4bpp, 13, 40, 8, 4, 1, 0, 1, unicodes_arial_40_4bpp, kerning_arial_40_4bpp, 63, 0, 0);
+    static touchgfx::GeneratedFont arial_40_4bpp(glyphs_arial_40_4bpp, 1, 40, 0, 4, 1, 0, 0, unicodes_arial_40_4bpp, kerning_arial_40_4bpp, 63, 0, 0);
     return arial_40_4bpp;
 }

@@ -35,6 +35,9 @@
 
 typedef struct{
 	int currentState;
+
+	int x;
+	int y;
 }currentState;
 
 struct sequence_t {

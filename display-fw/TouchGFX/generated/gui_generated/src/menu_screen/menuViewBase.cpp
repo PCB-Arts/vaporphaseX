@@ -28,7 +28,7 @@ menuViewBase::menuViewBase() :
     start_stop.setWidth(800);
     start_stop.setHeight(480);
 
-    Close_Lid.setXY(209, 319);
+    Close_Lid.setXY(167, 293);
     Close_Lid.setBitmaps(touchgfx::Bitmap(BITMAP_CLOSE_LID_ID), touchgfx::Bitmap(BITMAP_CLOSE_LID_PUSH_ID));
     Close_Lid.setLabelText(touchgfx::TypedText(T_SINGLEUSEID25));
     Close_Lid.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(0, 1, 35));
@@ -36,7 +36,7 @@ menuViewBase::menuViewBase() :
     Close_Lid.setAction(buttonCallback);
     start_stop.add(Close_Lid);
 
-    Open_Lid.setXY(209, 319);
+    Open_Lid.setXY(167, 293);
     Open_Lid.setBitmaps(touchgfx::Bitmap(BITMAP_OPEN_LID_ID), touchgfx::Bitmap(BITMAP_OPEN_LID_PUSH_ID));
     Open_Lid.setLabelText(touchgfx::TypedText(T_SINGLEUSEID23));
     Open_Lid.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
@@ -44,7 +44,7 @@ menuViewBase::menuViewBase() :
     Open_Lid.setAction(buttonCallback);
     start_stop.add(Open_Lid);
 
-    Stop_Reflow.setXY(209, 224);
+    Stop_Reflow.setXY(165, 191);
     Stop_Reflow.setBitmaps(touchgfx::Bitmap(BITMAP_STOP_REFLOW_ID), touchgfx::Bitmap(BITMAP_STOP_REFLOW_PUSH_ID));
     Stop_Reflow.setLabelText(touchgfx::TypedText(T_SINGLEUSEID24));
     Stop_Reflow.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
@@ -52,7 +52,7 @@ menuViewBase::menuViewBase() :
     Stop_Reflow.setAction(buttonCallback);
     start_stop.add(Stop_Reflow);
 
-    Start_Reflow.setXY(209, 224);
+    Start_Reflow.setXY(165, 191);
     Start_Reflow.setBitmaps(touchgfx::Bitmap(BITMAP_START_REFLOW_ID), touchgfx::Bitmap(BITMAP_START_REFLOW_PUSH_ID));
     Start_Reflow.setLabelText(touchgfx::TypedText(T_SINGLEUSEID3));
     Start_Reflow.setLabelColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
@@ -60,7 +60,7 @@ menuViewBase::menuViewBase() :
     Start_Reflow.setAction(buttonCallback);
     start_stop.add(Start_Reflow);
 
-    vapor_phase_one.setXY(232, 97);
+    vapor_phase_one.setXY(215, 82);
     vapor_phase_one.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     vapor_phase_one.setLinespacing(0);
     vapor_phase_one.setTypedText(touchgfx::TypedText(T_SINGLEUSEID4));
@@ -335,7 +335,7 @@ menuViewBase::menuViewBase() :
     options_temp_unit_label.setTypedText(touchgfx::TypedText(T_SINGLEUSEID26));
     options.add(options_temp_unit_label);
     menu_container.add(options);
-    menu_container.setSelectedPage(1);
+    menu_container.setSelectedPage(0);
 
     modalWindowInformation.setBackground(touchgfx::BitmapId(BITMAP_MODAL_BG_ID), 160, 104);
     modalWindowInformation.setShadeColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));

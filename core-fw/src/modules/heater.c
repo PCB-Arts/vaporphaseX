@@ -67,6 +67,7 @@ void heater_init(TemperatureSensor* s1, TemperatureSensor* s2, TemperatureSensor
 	galdenSensor = _galdenSensor;
 	sensor_enable_htim = htim;
 	sensor_enable_channel = channel;
+	vpo_log("heater_init");
 
 	heater_disable();
 
@@ -104,6 +105,7 @@ void heater_worker() {
 		if (temp1 >= set_temp) {
 			//disable heater if set temperature is reached
 			heater_disable();
+			vpo_log("heater_temp1_disable");
 
 		} else if (temp1 < set_temp - set_hyst) {
 			//enable heater if set temperature is not reached
@@ -140,8 +142,10 @@ static void set_flag(uint8_t flag) {
 	SET_BIT(flags, flag);
 
 	//disable heater if has faults
-	if (has_faults())
+	if (has_faults()){
 		heater_disable();
+		vpo_log("heater_set_flag_disable");
+	}
 }
 
 uint8_t heater_get_flags() {
@@ -193,6 +197,7 @@ void heater_enable() {
 
 void heater_disable() {
 	enabled = false;
+	vpo_log("heater_disable");
 	heater_set_enabled_signal();
 }
 

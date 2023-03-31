@@ -23,6 +23,7 @@
 #include <core-communication.hpp>
 
 #include "../Components/otm8009a/otm8009a.h"
+#include "../../upstream-nt35510/nt35510.h"
 #include "global.h"
 #include "stm32469i_discovery_qspi.h"
 #include "stm32469i_discovery_sdram.h"
@@ -59,7 +60,7 @@ static void MX_QUADSPI_Init(void);
 static void MX_I2C1_Init(void);
 void TouchGFX_Task(void *argument);
 void InitCommunicationStack();
-int main(void) {
+ int main(void) {
   /* Reset of all peripherals, Initializes the Flash interface and the Systick.
    */
   HAL_Init();
@@ -211,6 +212,7 @@ static void MX_DSIHOST_DSI_Init(void) {
   PLLInit.PLLNDIV = 125;
   PLLInit.PLLIDF = DSI_PLL_IN_DIV2;
   PLLInit.PLLODF = DSI_PLL_OUT_DIV1;
+
   if (HAL_DSI_Init(&hdsi, &PLLInit) != HAL_OK) {
     Error_Handler();
   }
@@ -339,9 +341,20 @@ static void MX_LTDC_Init(void) {
   DSI_LPCmdTypeDef LPCmd;
 
   HAL_DSI_Start(&hdsi);
-  OTM8009A_Init(OTM8009A_FORMAT_RGB888, LCD_ORIENTATION_LANDSCAPE);
-  HAL_DSI_ShortWrite(&hdsi, 0, DSI_DCS_SHORT_PKT_WRITE_P1, OTM8009A_CMD_DISPOFF,
-                     0x00);
+
+  // Decide which Display-driver should be loaded
+  int GPIO_Display_State = HAL_GPIO_ReadPin (GPIOB, GPIO_PIN_1);
+  if(GPIO_Display_State)
+  {
+	  // Old Display
+	  OTM8009A_Init(OTM8009A_FORMAT_RGB888, LCD_ORIENTATION_LANDSCAPE);
+	  HAL_DSI_ShortWrite(&hdsi, 0, DSI_DCS_SHORT_PKT_WRITE_P1, OTM8009A_CMD_DISPOFF, 0x00);
+  }
+  else
+  {
+	  // New Display
+	  NT35510_Init(LTDC_PIXEL_FORMAT_RGB888, LCD_ORIENTATION_LANDSCAPE);
+  }
 
   LPCmd.LPGenShortWriteNoP = DSI_LP_GSW0P_DISABLE;
   LPCmd.LPGenShortWriteOneP = DSI_LP_GSW1P_DISABLE;
@@ -480,6 +493,14 @@ static void MX_GPIO_Init(void) {
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(SELFTEST_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO Pin : Display REVC*/
+  /*If pin is LOW an newer Display (REVC) is used, if pin is HIGH a old Display is used*/
+
+  GPIO_InitStruct.Pin = GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 

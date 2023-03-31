@@ -63,6 +63,7 @@ void startReflowDecisionCallback(bool answer) {
 	}
 }
 int x;
+int seconds;
 void menuView::handleTickEvent()
 {
 	if (textureMapper.isTextureMapperAnimationRunning()==false){
@@ -78,6 +79,13 @@ void menuView::handleTickEvent()
 	}
 	lastUiUpdateMS = currentTimeMS;
 
+	Vpo_CoreStateTypeDef coreState = CoreCom_CoreState();
+	if((coreState.current_state == CS_Soldering) && (HAL_GetTick() % 10 == 0)){
+	auto monitor = CoreCom_GetMonitorState();
+	seconds++;
+	vpo_log("milseconds:%i", seconds);
+	vpo_log("PCB_TEMP:%d", monitor.pcb_temp);
+	}
 	updateButtonStates();
 	updateCoolantTemperatureLabel();
 	updatePCBTemperatureLabel();
@@ -250,6 +258,9 @@ void menuView::updateTemperatureGraph() {
 		measuredTemperaturesS[measureIndex] = interpolate_from;
 		dynamicGraph_ist.addDataPoint(celsiusToUnit(interpolate_from, currentUnit));
 	}
+
+	// Fix for multiple blue vertical lines - bug in 4.16 TouchGFX
+	dynamicGraph_ist.invalidate();
 }
 
 void menuView::updateLogging(){
@@ -271,25 +282,27 @@ void menuView::updateLogging(){
 		vpo_log(stream.str().c_str());
 		*/
 
-		vpo_log("HEATER1_TEMP:%d", monitor.heater1_temp);
-		vpo_log("HEATER2_TEMP:%d", monitor.heater2_temp);
-		vpo_log("GALDEN_TEMP:%d", monitor.galden_temp);
-		vpo_log("PCB_TEMP:%d", monitor.pcb_temp);
-		vpo_log("COOLANT_TEMP:%d", monitor.coolant_temp);
+//		vpo_log("HEATER1_TEMP:%d", monitor.heater1_temp);
+////		vpo_log("HEATER2_TEMP:%d", monitor.heater2_temp);
+////		vpo_log("GALDEN_TEMP:%d", monitor.galden_temp);
+//		vpo_log("PCB_TEMP:%d", monitor.pcb_temp);
+//		vpo_log("COOLANT_TEMP:%d", monitor.coolant_temp);
+//
+//		vpo_log("LID_COOLING_FAN:%d", monitor.lid_cooling_fan_on);
+//		vpo_log("COOLANT_PUMP:%d", monitor.coolant_pump_on);
+//		vpo_log("QC_FANS:%d", monitor.quick_cool_fan_on);
+//		vpo_log("RADIATOR_FANS:%d", monitor.radiator_fan_speed);
+//
+//
+//		vpo_log("LID_POS:%d", monitor.lid_position);
+//		vpo_log("LIFT_POS:%d", monitor.lift_position);
+//
+//		vpo_log("HEATER:%d", monitor.heater_on);
+//		vpo_log("HEATER_OTP:%d", monitor.heater_otp_active);
+//		vpo_log("COOLANT_OTP:%d", monitor.coolant_otp_active);
+//		vpo_log("LID_LOCK:%d", monitor.lid_lock_active);
 
-		vpo_log("LID_COOLING_FAN:%d", monitor.lid_cooling_fan_on);
-		vpo_log("COOLANT_PUMP:%d", monitor.coolant_pump_on);
-		vpo_log("QC_FANS:%d", monitor.quick_cool_fan_on);
-		vpo_log("RADIATOR_FANS:%d", monitor.radiator_fan_speed);
 
-
-		vpo_log("LID_POS:%d", monitor.lid_position);
-		vpo_log("LIFT_POS:%d", monitor.lift_position);
-
-		vpo_log("HEATER:%d", monitor.heater_on);
-		vpo_log("HEATER_OTP:%d", monitor.heater_otp_active);
-		vpo_log("COOLANT_OTP:%d", monitor.coolant_otp_active);
-		vpo_log("LID_LOCK:%d", monitor.lid_lock_active);
 
 	}
 }
@@ -437,6 +450,9 @@ void menuView::StartButtonPush()
 				startErrorCallback);
 		return;
 	}
+
+	// Clear Blue line after pushed start-button
+	dynamicGraph_ist.clear();
 
 	CoreCom_StartProfile(selectedProfile);
 }
@@ -630,6 +646,10 @@ void menuView::btn_fast_open_temp_clicked()
 void menuView::current_state(){
 	Vpo_CoreStateTypeDef coreState = CoreCom_CoreState();
 	if(coreState.current_state == CS_Preheat){
+		//Clear Display
+		Unicode::strncpy(current_stateTBuffer, "\0" , 12);
+		current_stateT.invalidate();
+
 		Unicode::strncpy(current_stateTBuffer,"Preheat", 8);
 		current_stateT.resizeToCurrentText();
 		current_stateT.invalidate();
