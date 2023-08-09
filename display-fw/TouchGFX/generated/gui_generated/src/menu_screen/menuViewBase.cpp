@@ -60,7 +60,7 @@ menuViewBase::menuViewBase() :
     Start_Reflow.setAction(buttonCallback);
     start_stop.add(Start_Reflow);
 
-    vapor_phase_one.setXY(215, 82);
+    vapor_phase_one.setXY(265, 80);
     vapor_phase_one.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
     vapor_phase_one.setLinespacing(0);
     vapor_phase_one.setTypedText(touchgfx::TypedText(T_SINGLEUSEID4));
@@ -335,7 +335,7 @@ menuViewBase::menuViewBase() :
     options_temp_unit_label.setTypedText(touchgfx::TypedText(T_SINGLEUSEID26));
     options.add(options_temp_unit_label);
     menu_container.add(options);
-    menu_container.setSelectedPage(0);
+    menu_container.setSelectedPage(1);
 
     modalWindowInformation.setBackground(touchgfx::BitmapId(BITMAP_MODAL_BG_ID), 160, 104);
     modalWindowInformation.setShadeColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));

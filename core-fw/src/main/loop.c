@@ -41,6 +41,7 @@
 #include "modules/temp_sensor.h"
 #include "packet_handler.h"
 #include "log.h"
+#include "main.h"
 #include "version.h"
 
 #include "conf.h"
@@ -65,8 +66,6 @@ void main_loop() {
 	lid_worker();
 	lift_worker();
 
-
-
 	//check if all temperature sensors were updated
 	if (max31856_temp_sensor_cycle_complete) {
 		max31856_temp_sensor_cycle_complete = 0;
@@ -86,7 +85,7 @@ void main_loop() {
 	pump_worker();
 
 
-	if (calib.liftflag == 1 && lid_axis.cal_done == 1 && lift_axis.cal_done == 1){			//Änderung
+	if (calib.liftflag == 1 && lid_axis.cal_done == 1 && lift_axis.cal_done == 1){
 			calib.liftflag = 0;
 			axis_move_to(&lift_axis, -32000);
 		}

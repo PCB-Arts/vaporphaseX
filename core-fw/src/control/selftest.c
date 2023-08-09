@@ -78,7 +78,7 @@ void selftest_start() {
 		return;
 	}
 
-	vpo_log("FW VER v%d.%d", FW_VER_MAJOR, FW_VER_MINOR);
+	vpo_log("FW VER v%d.%s", FW_VER_MAJOR, FW_VER_MINOR);
 
 	const int permittedCode = 0xCA;
 	const int restrictedCode = 0xFA;

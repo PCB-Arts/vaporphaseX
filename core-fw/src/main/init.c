@@ -35,6 +35,7 @@ void init_modules() {
 	///////////////////////////
 	//init modules
 
+
 #if MOCK_CORE
 	peripheral_mock_init();
 #endif
@@ -64,12 +65,10 @@ void init_modules() {
 	// important set propagation delay before limit switch init
 	lid_init();
 	axis_init(&lid_axis);
-	vpo_log("Lid calibrated");
 	fan_set_auto_enabled(&lid_fan, true);
 
 	freq_init(&htim15, TIM_CHANNEL_2, &htim1);
 	axis_init(&lift_axis);
-	vpo_log("Lift calibrated");
 	regulator_init(&temperature_sensor_pcb, &lift_axis);
 
 	heater_init(&temperature_sensor_heater_1, &temperature_sensor_heater_2, &temperature_sensor_galden,  &htim2, TIM_CHANNEL_3);

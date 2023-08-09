@@ -21,6 +21,7 @@
 #include "modules/axis.h"
 #include "utilities/direction.h"
 #include "peripherals/gpio.h"
+#include "log.h"
 
 #include <stdlib.h>
 
@@ -89,11 +90,14 @@ void axis_worker(struct axis_t* axis) {
 
 	case AXIS_CAL_FREE:
 		// check if stopped and waiting for reverse
+		vpo_log("Cal_free_waiting: %i", axis->cal_free_waiting);
 		if (axis->cal_free_waiting) {
 			if(HAL_GetTick() - axis->cal_free_stopped_timestamp >= CAL_FREE_STOP_TIME_MS) {
+				vpo_log("Cal free stopped timestamp");
 
 				if (axis->cal_free_direction == DIRECTION_NONE) {
 					//error motor not moving during calibration
+					vpo_log("Error motor not moving during calibration");
 				}
 
 				axis->mode = AXIS_CAL_FIND;
@@ -110,7 +114,7 @@ void axis_worker(struct axis_t* axis) {
 			axis->cal_free_waiting = true;
 			axis->cal_free_stopped_timestamp = HAL_GetTick();
 			axis->cal_free_direction = m->direction;
-
+			vpo_log("Axis Cal Free, Motor Stopped");
 			motor_stop(m);
 		}
 
@@ -133,6 +137,7 @@ static int axis_check_target(struct axis_t* axis) {
 			(pos >= axis->pos_target || pos >= axis->pos_max)) {
 
 		//target reached
+		vpo_log("Target Reached, motor stopped FWD");
 		motor_stop(axis->motor);
 		return 1;
 
@@ -140,6 +145,7 @@ static int axis_check_target(struct axis_t* axis) {
 			(pos <= axis->pos_target || pos <= axis->pos_min)) {
 
 		//target reached
+		vpo_log("Target Reached, motor stopped BWD");
 		motor_stop(axis->motor);
 		return 1;
 	}
@@ -205,6 +211,7 @@ void axis_move(struct axis_t* axis, enum direction_t direction) {
 
 /* Clears error condition */
 void axis_cal(struct axis_t* axis, enum direction_t direction) {
+	vpo_log("Calibrating Axis");
 	axis->cal_done = 0;
 	axis->mode = (direction == FWD ? AXIS_CAL_FWD : AXIS_CAL_BWD);
 }

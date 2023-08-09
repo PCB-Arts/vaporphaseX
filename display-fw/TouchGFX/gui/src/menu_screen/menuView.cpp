@@ -282,14 +282,14 @@ void menuView::updateLogging(){
 		vpo_log(stream.str().c_str());
 		*/
 
-//		vpo_log("HEATER1_TEMP:%d", monitor.heater1_temp);
-////		vpo_log("HEATER2_TEMP:%d", monitor.heater2_temp);
-////		vpo_log("GALDEN_TEMP:%d", monitor.galden_temp);
-//		vpo_log("PCB_TEMP:%d", monitor.pcb_temp);
-//		vpo_log("COOLANT_TEMP:%d", monitor.coolant_temp);
-//
+		vpo_log("HEATER1_TEMP:%d", monitor.heater1_temp);
+		vpo_log("HEATER2_TEMP:%d", monitor.heater2_temp);
+		vpo_log("GALDEN_TEMP:%d", monitor.galden_temp);
+		vpo_log("PCB_TEMP:%d", monitor.pcb_temp);
+		vpo_log("COOLANT_TEMP:%d", monitor.coolant_temp);
+
 //		vpo_log("LID_COOLING_FAN:%d", monitor.lid_cooling_fan_on);
-//		vpo_log("COOLANT_PUMP:%d", monitor.coolant_pump_on);
+		vpo_log("COOLANT_PUMP:%d", monitor.coolant_pump_on);
 //		vpo_log("QC_FANS:%d", monitor.quick_cool_fan_on);
 //		vpo_log("RADIATOR_FANS:%d", monitor.radiator_fan_speed);
 //

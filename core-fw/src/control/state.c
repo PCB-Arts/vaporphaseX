@@ -185,10 +185,17 @@ void State_Worker() {
 		return;
 	}
 
+
+	// State Logger every Second
+	/*if (HAL_GetTick()%5000 == 0){
+		vpo_log("Lift Axis Cal Done:%i", lift_axis.cal_done);
+		vpo_log("Lift Axis Mode:%i", lift_axis.mode);
+	}*/
+
 	// first calibrate lid axis and after lid is closed and calibrated do the lift
-	
 	if (lid_axis.cal_done == 1 && lift_axis.cal_done == 0 && lift_axis.mode == AXIS_NORMAL) {
 		cS.currentState = 4;
+		vpo_log("Calibrating Lift");
 		lift_calibrate();
 	} else if(lid_axis.cal_done == 0 && lid_axis.mode == AXIS_NORMAL) {
 		lid_calibrate();

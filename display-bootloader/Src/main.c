@@ -187,7 +187,7 @@ int main(void) {
 	BSP_LCD_SetTextColor(0xffffffff);
 	/* Set the font size */
 	BSP_LCD_SetFont(&Font20);
-	Main_LCD_printf("VaporPhaseOne Bootloader");
+	Main_LCD_printf("VaporPhase Bootloader");
 
 	valid_buffer = 1;
 	HAL_DSI_LongWrite(&hdsi_eval, 0, DSI_DCS_LONG_PKT_WRITE, 2,
