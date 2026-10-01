@@ -7,64 +7,46 @@
 TEXT_LOCATION_FLASH_PRAGMA
 KEEP extern const uint32_t indicesGb[] TEXT_LOCATION_FLASH_ATTRIBUTE;
 
+// Remap all strings
 TEXT_LOCATION_FLASH_PRAGMA
-KEEP extern const uint32_t indicesGb[] TEXT_LOCATION_FLASH_ATTRIBUTE =
-{
-    1301, // T_SingleUseId3
-    1609, // T_SingleUseId4
-    1652, // T_Graph_legend_text_00
-    1652, // T_Graph_y_value
-    1277, // T_SingleUseId19
-    1670, // T_SingleUseId21
-    1520, // T_SingleUseId22
-    1301, // T_SingleUseId23
-    1301, // T_SingleUseId24
-    1301, // T_SingleUseId25
-    1551, // T_SingleUseId26
-    1681, // T_SingleUseId27
-    1455, // T_SingleUseId28
-    1566, // T_SingleUseId29
-    1671, // T_SingleUseId31
-    1689, // T_SingleUseId32
-    1695, // T_SingleUseId37
-    661, // T_SingleUseId38
-    1695, // T_SingleUseId39
-    1632, // T_SingleUseId44
-    1692, // T_SingleUseId45
-    1632, // T_SingleUseId48
-    0, // T_SingleUseId49
-    1301, // T_SingleUseId30
-    1673, // T_LidBlockedTitle
-    988, // T_LidBlockedBody
-    1430, // T_ComErrorTitle
-    785, // T_ComErrorBody
-    1652, // T_SingleUseId50
-    1652, // T_SingleUseId51
-    1652, // T_SingleUseId52
-    1643, // T_SingleUseId53
-    1233, // T_DummyResource
-    1373, // T_DummyResourceL
-    1595, // T_ProcessCancelTitle
-    1581, // T_ProcessCancelBody
-    1671, // T_SingleUseId42
-    1671, // T_SingleUseId41
-    1301, // T_SingleUseId54
-    1488, // T_SingleUseId55
-    1621, // T_HeaterOtpErrorTitle
-    1086, // T_HeaterOtpErrorBody
-    1472, // T_CoolantOtpErrorTitle
-    663, // T_CoolantOtpErrorBody
-    1673, // T_LidOcpErrorTitle
-    890, // T_LidOcpErrorBody
-    1324, // T_StartConditionErrorTitle
-    508, // T_StartConditionErrorBody
-    1403, // T_LidConditionErrorTitle
-    327, // T_LidConditionErrorBody
-    1661, // T_SelftestTitle
-    1504, // T_SelftestQuestionBody
-    1182, // T_SelftestRunningBody
-    1303, // T_SingleUseId20
-    1355, // T_SingleUseId56
-    1536, // T_SingleUseId47
-    1671  // T_SingleUseId59
+KEEP extern const uint32_t indicesGb[] TEXT_LOCATION_FLASH_ATTRIBUTE = {
+    631, // T___SINGLEUSE_611K: "Profile aborted"
+    777, // T_LIDBLOCKEDBODY: "New Text"
+    777, // T_LIDBLOCKEDTITLE: "New Text"
+    122, // T_COMERRORBODY: "An error occured in the communication with the core controller. The displayed values might be incorrect."
+    539, // T_COMERRORTITLE: "Core Communication Error"
+    615, // T_COOLANTOTPERRORBODY: "Coolant UTP/OTP"
+    0,   // T_COOLANTOTPERRORTITLE: "Under temperature protection or over temperature protection detected. Please read manual. Don't turn off the Vapor Phase."
+    324, // T_HEATEROTPERRORBODY: "Heater temperature sensor problem detected, please read manual. Don't turn off the Vapor Phase."
+    745, // T_HEATEROTPERRORTITLE: "Heater OTP"
+    227, // T_LIDOCPERRORBODY: "Lid over current event detected. Lid was blocked, please remove blockage and power cycle device."
+    803, // T_LIDOCPERRORTITLE: "Lid OCP"
+    767, // T_LIDCONDITIONERRORBODY: "due to xy"
+    498, // T_LIDCONDITIONERRORTITLE: "Lid Open condition not met"
+    420, // T_STARTCONDITIONERRORBODY: "Start condition not met:\nPlease check:\n- x\n- y"
+    467, // T_STARTCONDITIONERRORTITLE: "Start reflow condition not met"
+    707, // T_PROCESSCANCELTITLE: "Cancel Reflow"
+    693, // T_PROCESSCANCELBODY: "Are you sure?"
+    721, // T___SINGLEUSE_H01O: "ModalTitle\n"
+    756, // T___SINGLEUSE_53ZW: "New Text\n\n"
+    756, // T___SINGLEUSE_GDGM: "New Text\n\n"
+    721, // T___SINGLEUSE_59JM: "ModalTitle\n"
+    786, // T___SINGLEUSE_CDRO: "test.csv"
+    537, // T___SINGLEUSE_O2K6: "<>"
+    678, // T___SINGLEUSE_FCSJ: "Solder profile"
+    587, // T___SINGLEUSE_W2EE: "Open temperature"
+    811, // T___SINGLEUSE_TT7P: "SD card"
+    604, // T___SINGLEUSE_6SGZ: "Version: <>"
+    819, // T___SINGLEUSE_I4P2: "C"
+    536, // T___SINGLEUSE_IJ5R: "?<>"
+    647, // T___SINGLEUSE_TIUU: "Time in Seconds"
+    537, // T___SINGLEUSE_JNOU: "<>"
+    537, // T___SINGLEUSE_67IK: "<>"
+    795, // T___SINGLEUSE_LMRV: "DEFAULT"
+    663, // T___SINGLEUSE_3O9T: "Displayed Unit"
+    537, // T___SINGLEUSE_H126: "<>"
+    564, // T___SINGLEUSE_QQQH: "Galden: <> ?<>"
+    577, // T___SINGLEUSE_P9LG: "PCB: <> ?<>"
+    525, // T___SINGLEUSE_XQY0: "Cooling: <> ?<>"
+    733  // T___SINGLEUSE_CS3D: "Vapor Phase"
 };

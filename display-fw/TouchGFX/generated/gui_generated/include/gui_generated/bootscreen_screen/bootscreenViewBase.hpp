@@ -8,17 +8,16 @@
 #include <mvp/View.hpp>
 #include <gui/bootscreen_screen/bootscreenPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
-#include <touchgfx/widgets/TextArea.hpp>
 #include <touchgfx/widgets/Image.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 
 class bootscreenViewBase : public touchgfx::View<bootscreenPresenter>
 {
 public:
     bootscreenViewBase();
-    virtual ~bootscreenViewBase() {}
+    virtual ~bootscreenViewBase();
     virtual void setupScreen();
     virtual void handleTickEvent();
-    virtual void afterTransition();
 
 protected:
     FrontendApplication& application() {
@@ -29,17 +28,23 @@ protected:
      * Member Declarations
      */
     touchgfx::Box __background;
-    touchgfx::Box background;
-    touchgfx::TextArea bootscreen_sw_version;
-    touchgfx::Image logo;
+    touchgfx::Image bootscreen_background;
+    touchgfx::TextAreaWithOneWildcard bootscreen_sw_version;
+    touchgfx::Image PCBArtsLogo;
+
+    /*
+     * Wildcard Buffers
+     */
+    static const uint16_t BOOTSCREEN_SW_VERSION_SIZE = 20;
+    touchgfx::Unicode::UnicodeChar bootscreen_sw_versionBuffer[BOOTSCREEN_SW_VERSION_SIZE];
 
 private:
 
     /*
-     * Delay Variable Declarations
+     * Tick Counter Declarations
      */
-    static const uint16_t BOOTWAIT_DURATION = 210;
-    uint16_t bootwaitCounter;
+    static const uint32_t TICK_GOTOMENUSCREEN_INTERVAL = 120;
+    uint32_t frameCountGoTomenuScreenInterval;
 
 };
 

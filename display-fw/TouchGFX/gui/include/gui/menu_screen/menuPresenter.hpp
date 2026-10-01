@@ -25,7 +25,7 @@ public:
      */
     virtual void deactivate();
 
-    virtual ~menuPresenter() {};
+    virtual ~menuPresenter() {}
 
 private:
     menuPresenter();

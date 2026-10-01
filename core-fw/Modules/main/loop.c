@@ -1,0 +1,128 @@
+/*
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ * Copyright (c) 2021 - PCB Arts GmbH
+ *
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ */
+
+#include "control/loop.h"
+#include "interrupt_priorities.h"
+#include "log.h"
+#include "main.h"
+#include "modules/axis.h"
+#include "modules/fan.h"
+#include "modules/fans.h"
+#include "modules/heater.h"
+#include "modules/lid.h"
+#include "modules/lift.h"
+#include "modules/max31856/MAX31856.h"
+#include "modules/pump.h"
+#include "modules/regulator.h"
+#include "modules/temp_sensor.h"
+#include "modules/temp_sensors.h"
+#include "packet_handler.h"
+#include "peripherals/adc.h"
+#include "peripherals/comm_usart.h"
+#include "peripherals/freq.h"
+#include "peripherals/pwm.h"
+#include "peripherals/spi.h"
+#include "peripherals/wwdg.h"
+#include "system/core_clock.h"
+#include "system/systime.h"
+#include "ui/cli.h"
+#include "ui/cli_commands.h"
+#include "version.h"
+
+#include "conf.h"
+
+#define MAX_STARTUP_WATER_TEMPERATURE_C 80
+bool first_temperature_reading = true;
+
+extern calibpos calib;
+
+void main_loop()
+{
+  wwdg_reset();
+  systime_worker();
+
+  cli_worker();
+
+  max31856_temp_sensors_worker();
+  lid_worker();
+  lift_worker();
+
+  // check if all temperature sensors were updated
+  if (max31856_temp_sensor_cycle_complete)
+  {
+    max31856_temp_sensor_cycle_complete = 0;
+
+    // TODO check if this logic is still valid
+    if (first_temperature_reading)
+    {
+      first_temperature_reading = false;
+
+      if (temperature_sensor_get_temperature(&temperature_sensor_water) >
+          MAX_STARTUP_WATER_TEMPERATURE_C)
+      {
+        vpx_log(
+            "Water temperature exceeded the maximal allowed water temperature");
+      }
+    }
+
+    heater_worker();
+  }
+  pump_worker();
+
+  if (calib.liftflag == 1 && lid_axis.cal_done == 1 && lift_axis.cal_done == 1)
+  {
+    calib.liftflag = 0;
+    axis_move_to(&lift_axis, -32000);
+  }
+  if (globalGalden.galdenTemp < 150)
+  {
+    globalGalden.galdenTemp = 230;
+  }
+
+  control_modules_loop();
+
+  Packet_Worker();
+}
+
+#define BROADCASTER_DELAY_MS 250
+static uint16_t broadcaster_delay;
+
+void main_millis_sync()
+{
+  // check if broadcasting delay has passed
+  if (broadcaster_delay)
+  {
+    --broadcaster_delay;
+  }
+  else
+  {
+    broadcaster_delay = BROADCASTER_DELAY_MS;
+
+    // trigger next broadcasting cycle
+    cli_broadcast_trigger();
+  }
+
+  static int ms;
+  if (++ms > 100)
+  {
+    regulator_compute();
+    fan_regulate(&hydro_cooler);
+    fan_regulate(&quick_cooler);
+    fan_regulate(&lid_fan);
+    ms = 0;
+  }
+}

@@ -1,20 +1,31 @@
 
 {
   "Application": {
-    "Name": "STM32F469I-DISCO",
+    "Name": "display-fw",
     "TouchGfxPath": "../Middlewares/ST/touchgfx",
     "AvailableColorDepths": [ 24 ],
     "AvailableLCDs":
     {
-      "24": "LCD24bpp"
+      "24": "LCDGPU2D"
     },
-    "AvailableResolutions" : [
+    "AvailableResolutions": [
       {
         "Width": 800,
         "Height": 480
       }
     ],
-    "PostGenerateTargetCommand" : "touchgfx update_project --project-file=../STM32F469I-DISCO.ioc --platform=m4"
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "Family": "STM32U5",
+    "SubFamily": "STM32U599/5A9",
+    "Platform": "m33",
+    "Toolchain": "STM32CubeIDE",
+    "ProjectFile": "../display-fw.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [
+      "GPU2D"
+    ],
+    "AdditionalFeatures": [
+    ]
   },
-  "Version": "4.13.0"
+  "Version": "4.23.2"
 }

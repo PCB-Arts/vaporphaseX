@@ -25,7 +25,7 @@ public:
      */
     virtual void deactivate();
 
-    virtual ~bootscreenPresenter() {};
+    virtual ~bootscreenPresenter() {}
 
 private:
     bootscreenPresenter();

@@ -15,6 +15,11 @@ public:
     FrontendApplicationBase(Model& m, FrontendHeap& heap);
     virtual ~FrontendApplicationBase() { }
 
+    virtual void changeToStartScreen()
+    {
+        gotobootscreenScreenNoTransition();
+    }
+
     // bootscreen
     void gotobootscreenScreenNoTransition();
 

@@ -3,31 +3,37 @@
 /*********************************************************************************/
 #include <gui_generated/bootscreen_screen/bootscreenViewBase.hpp>
 #include <touchgfx/Color.hpp>
+#include <images/BitmapDatabase.hpp>
 #include <texts/TextKeysAndLanguages.hpp>
-#include "BitmapDatabase.hpp"
 
 bootscreenViewBase::bootscreenViewBase() :
-    bootwaitCounter(0)
+    frameCountGoTomenuScreenInterval(0)
+{
+    __background.setPosition(0, 0, 800, 480);
+    __background.setColor(touchgfx::Color::getColorFromRGB(0, 0, 0));
+    add(__background);
+
+    bootscreen_background.setXY(0, 0);
+    bootscreen_background.setBitmap(touchgfx::Bitmap(BITMAP_BACKGROUND_010123_800X480_ID));
+    add(bootscreen_background);
+
+    bootscreen_sw_version.setXY(318, 445);
+    bootscreen_sw_version.setColor(touchgfx::Color::getColorFromRGB(255, 255, 255));
+    bootscreen_sw_version.setLinespacing(0);
+    bootscreen_sw_versionBuffer[0] = 0;
+    bootscreen_sw_version.setWildcard(bootscreen_sw_versionBuffer);
+    bootscreen_sw_version.resizeToCurrentText();
+    bootscreen_sw_version.setTypedText(touchgfx::TypedText(T___SINGLEUSE_6SGZ));
+    add(bootscreen_sw_version);
+
+    PCBArtsLogo.setXY(200, 190);
+    PCBArtsLogo.setBitmap(touchgfx::Bitmap(BITMAP_PCB_ARTS_WORTLOGO_WEISS_SMALL_400PX_ID));
+    add(PCBArtsLogo);
+}
+
+bootscreenViewBase::~bootscreenViewBase()
 {
 
-    __background.setPosition(0, 0, 800, 480);
-    __background.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 0, 0));
-
-    background.setPosition(0, 0, 800, 480);
-    background.setColor(touchgfx::Color::getColorFrom24BitRGB(0, 1, 35));
-
-    bootscreen_sw_version.setPosition(0, 437, 800, 17);
-    bootscreen_sw_version.setColor(touchgfx::Color::getColorFrom24BitRGB(255, 255, 255));
-    bootscreen_sw_version.setLinespacing(0);
-    bootscreen_sw_version.setTypedText(touchgfx::TypedText(T_SINGLEUSEID47));
-
-    logo.setXY(200, 190);
-    logo.setBitmap(touchgfx::Bitmap(BITMAP_PCB_ARTS_WORTLOGO_WEISS_RGB_ID));
-
-    add(__background);
-    add(background);
-    add(bootscreen_sw_version);
-    add(logo);
 }
 
 void bootscreenViewBase::setupScreen()
@@ -35,27 +41,15 @@ void bootscreenViewBase::setupScreen()
 
 }
 
-//Handles delays
 void bootscreenViewBase::handleTickEvent()
 {
-    if(bootwaitCounter > 0)
+    frameCountGoTomenuScreenInterval++;
+    if(frameCountGoTomenuScreenInterval == TICK_GOTOMENUSCREEN_INTERVAL)
     {
-        bootwaitCounter--;
-        if(bootwaitCounter == 0)
-        {
-            //boot_menu
-            //When bootwait completed change screen to menu
-            //Go to menu with no screen transition
-            application().gotomenuScreenNoTransition();
-        }
+        //goTomenuScreen
+        //When every N tick change screen to menu
+        //Go to menu with no screen transition
+        application().gotomenuScreenNoTransition();
+        frameCountGoTomenuScreenInterval = 0;
     }
-}
-
-//Called when the screen transition ends
-void bootscreenViewBase::afterTransition()
-{
-    //bootwait
-    //When screen transition ends delay
-    //Delay for 3500 ms (210 Ticks)
-    bootwaitCounter = BOOTWAIT_DURATION;
 }

@@ -7,19 +7,23 @@
 #include <platform/driver/lcd/LCD24bpp.hpp>
 #include <string.h>
 
+#ifdef __GNUC__
+#define fopen_s(pFile, filename, mode) (((*(pFile)) = fopen((filename), (mode))) == NULL)
+#endif
+touchgfx::LCD24bpp lcd;
 
-void setupSimulator(int argc, char** argv, touchgfx::HAL& hal) {
-  // Simulate hardware running at 60Hz generating a vsync every 16.6667 ms
-  static_cast<touchgfx::HALSDL2&>(hal).setVsyncInterval(16.6667f);
-  static_cast<touchgfx::HALSDL2&>(hal).setWindowTitle("STM32F469I-DISCO");
+void setupSimulator(int argc, char** argv, touchgfx::HAL& hal)
+{
+    // Simulate hardware running at 60Hz generating a vsync every 16.6667 ms
+    static_cast<touchgfx::HALSDL2&>(hal).setVsyncInterval(16.6667f);
+    static_cast<touchgfx::HALSDL2&>(hal).setWindowTitle("New_Display_VPX");
 
-  // Initialize SDL
-  bool sdl_init_result = static_cast<touchgfx::HALSDL2&>(hal).sdl_init(argc, argv);
-  assert(sdl_init_result && "Error during SDL initialization");
-
+    // Initialize SDL
+    bool sdl_init_result = static_cast<touchgfx::HALSDL2&>(hal).sdl_init(argc, argv);
+    assert(sdl_init_result && "Error during SDL initialization");
 }
 
-touchgfx::LCD24bpp lcd;
-touchgfx::LCD& setupLCD() {
-  return lcd;
+touchgfx::LCD& setupLCD()
+{
+    return lcd;
 }

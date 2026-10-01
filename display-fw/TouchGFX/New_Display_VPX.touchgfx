@@ -1,0 +1,1148 @@
+{
+  "Application": {
+    "Screens": [
+      {
+        "Name": "bootscreen",
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "bootscreen_background",
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "background_010123_800x480.png"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "bootscreen_sw_version",
+            "X": 318,
+            "Y": 445,
+            "Width": 56,
+            "Height": 17,
+            "TextId": "__SingleUse_6SGZ",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "UseBuffer": true,
+              "BufferSize": 20
+            }
+          },
+          {
+            "Type": "Image",
+            "Name": "PCBArtsLogo",
+            "X": 200,
+            "Y": 190,
+            "Width": 400,
+            "Height": 100,
+            "RelativeFilename": "PCB_ARTS_Wortlogo_weiss_small_400px.png"
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "goTomenuScreen",
+            "Trigger": {
+              "Type": "TriggerOnEveryTick",
+              "TickCount": 120
+            },
+            "Action": {
+              "Type": "ActionGotoScreen",
+              "ScreenTransitionType": "ScreenTransitionNone",
+              "ActionComponent": "menu"
+            }
+          }
+        ]
+      },
+      {
+        "Name": "menu",
+        "OverrideDefaultBufferSize": true,
+        "CanvasBufferSize": 54000,
+        "Components": [
+          {
+            "Type": "Image",
+            "Name": "background_010123_800x480",
+            "Width": 800,
+            "Height": 480,
+            "RelativeFilename": "background_010123_800x480.png"
+          },
+          {
+            "Type": "SwipeContainer",
+            "Name": "menu_container",
+            "Width": 800,
+            "Height": 480,
+            "SwipeCutoff": 50,
+            "ShowPageIndicator": true,
+            "PageIndicatorX": 382,
+            "PageIndicatorY": 10,
+            "CenteredX": true,
+            "IndicatorImageNormal": "__generated\\light_theme_images_widgets_swipecontainer_small_off_normal.png",
+            "IndicatorImageHighlight": "__generated\\light_theme_images_widgets_swipecontainer_small_on_normal.png",
+            "EndSwipeElasticWidth": 50,
+            "SelectedPage": "graphs",
+            "Components": [
+              {
+                "Type": "Container",
+                "Name": "start_stop",
+                "Width": 800,
+                "Height": 480,
+                "Components": [
+                  {
+                    "Type": "FlexButton",
+                    "Name": "close_lid",
+                    "X": 168,
+                    "Y": 281,
+                    "Width": 468,
+                    "Height": 91,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "close-lid.png",
+                        "ImagePressed": "close-lid-push.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "open_lid",
+                    "X": 168,
+                    "Y": 281,
+                    "Width": 468,
+                    "Height": 91,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "open-lid.png",
+                        "ImagePressed": "open-lid-push.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "header",
+                    "X": 276,
+                    "Y": 89,
+                    "Width": 227,
+                    "Height": 48,
+                    "TextId": "__SingleUse_CS3D",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "stop_reflow",
+                    "X": 165,
+                    "Y": 190,
+                    "Width": 468,
+                    "Height": 91,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "stop-reflow.png",
+                        "ImagePressed": "stop-reflow-push.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "start_reflow",
+                    "X": 165,
+                    "Y": 190,
+                    "Width": 468,
+                    "Height": 91,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "start-reflow.png",
+                        "ImagePressed": "start-reflow-push.png"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Type": "Container",
+                "Name": "graphs",
+                "Width": 800,
+                "Height": 480,
+                "Components": [
+                  {
+                    "Type": "DynamicGraph",
+                    "Name": "graph_target",
+                    "X": 41,
+                    "Y": 74,
+                    "Width": 716,
+                    "Height": 382,
+                    "LockPosition": true,
+                    "DataSeed": 781154335,
+                    "NumberOfValues": 600,
+                    "MaxY": 250.0,
+                    "Precision": "1",
+                    "UseCustomVisibleDataPointRange": true,
+                    "LastIndex": 599,
+                    "XAxisScale": 1.0,
+                    "LabelSizeTop": 15,
+                    "LabelSizeBottom": 40,
+                    "LabelSizeLeft": 25,
+                    "LabelSizeRight": 15,
+                    "PaddingBottom": 10,
+                    "PaddingLeft": 10,
+                    "GraphType": "GraphWrapOverwrite",
+                    "GraphDrawers": [
+                      {
+                        "Type": "LineDrawer",
+                        "LineWidth": 2,
+                        "FileNameImage": "",
+                        "Color": {
+                          "Red": 209,
+                          "Green": 25,
+                          "Blue": 50
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "DynamicGraph",
+                    "Name": "graph_actual",
+                    "X": 41,
+                    "Y": 74,
+                    "Width": 716,
+                    "Height": 382,
+                    "DataSeed": 781154335,
+                    "NumberOfValues": 600,
+                    "MaxY": 250.0,
+                    "Precision": "1",
+                    "UseCustomVisibleDataPointRange": true,
+                    "LastIndex": 599,
+                    "XAxisScale": 1.0,
+                    "LabelSizeTop": 15,
+                    "LabelSizeBottom": 40,
+                    "LabelSizeLeft": 25,
+                    "LabelSizeRight": 15,
+                    "PaddingBottom": 10,
+                    "PaddingLeft": 10,
+                    "GraphType": "GraphWrapOverwrite",
+                    "VerticalFrontline": {
+                      "Type": "GraphVerticalFrontline",
+                      "Color": {
+                        "Green": 103,
+                        "Blue": 69
+                      },
+                      "GapLineWidth": 1
+                    },
+                    "GraphDrawers": [
+                      {
+                        "Type": "LineDrawer",
+                        "LineWidth": 2,
+                        "FileNameImage": "",
+                        "Color": {
+                          "Red": 20,
+                          "Green": 151,
+                          "Blue": 197
+                        }
+                      }
+                    ],
+                    "XAxisGrid": {
+                      "Type": "GraphGrid",
+                      "Color": {
+                        "Red": 102,
+                        "Green": 102,
+                        "Blue": 102
+                      },
+                      "Interval": 60.0,
+                      "LineWidth": 1
+                    },
+                    "YAxisGrid": {
+                      "Type": "GraphGrid",
+                      "Color": {
+                        "Red": 102,
+                        "Green": 102,
+                        "Blue": 102
+                      },
+                      "Interval": 25.0,
+                      "LineWidth": 1
+                    },
+                    "XAxisLabel": {
+                      "Type": "GraphLabel",
+                      "Interval": 60.0,
+                      "DecimalSeparator": "Point",
+                      "TextColor": {
+                        "Red": 102,
+                        "Green": 102,
+                        "Blue": 102
+                      },
+                      "TextId": "__SingleUse_67IK",
+                      "TextRotation": "0",
+                      "Position": "Bottom"
+                    },
+                    "YAxisLabel": {
+                      "Type": "GraphLabel",
+                      "Interval": 30.0,
+                      "DecimalSeparator": "Point",
+                      "TextColor": {
+                        "Red": 102,
+                        "Green": 102,
+                        "Blue": 102
+                      },
+                      "TextId": "__SingleUse_JNOU",
+                      "TextRotation": "0",
+                      "Position": "Left"
+                    }
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "cooling_temp_text",
+                    "X": 75,
+                    "Y": 33,
+                    "Width": 74,
+                    "Height": 19,
+                    "TextId": "__SingleUse_XQY0",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 10
+                    },
+                    "Wildcard2": {
+                      "UseBuffer": true,
+                      "BufferSize": 2
+                    }
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "pcb_temp_text",
+                    "X": 275,
+                    "Y": 33,
+                    "Width": 52,
+                    "Height": 19,
+                    "TextId": "__SingleUse_P9LG",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 10
+                    },
+                    "Wildcard2": {
+                      "UseBuffer": true,
+                      "BufferSize": 2
+                    }
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "galden_temp_text",
+                    "X": 475,
+                    "Y": 33,
+                    "Width": 70,
+                    "Height": 19,
+                    "TextId": "__SingleUse_QQQH",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "UseBuffer": true,
+                      "BufferSize": 10
+                    },
+                    "Wildcard2": {
+                      "UseBuffer": true,
+                      "BufferSize": 2
+                    }
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "state_text",
+                    "X": 675,
+                    "Y": 33,
+                    "Width": 73,
+                    "Height": 19,
+                    "TextId": "__SingleUse_H126",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "TextId": "__SingleUse_LMRV",
+                      "UseBuffer": true,
+                      "BufferSize": 12
+                    }
+                  },
+                  {
+                    "Type": "Image",
+                    "Name": "pictogramm_state",
+                    "X": 625,
+                    "Y": 25,
+                    "Width": 36,
+                    "Height": 36,
+                    "RelativeFilename": "InfoV2.png"
+                  },
+                  {
+                    "Type": "Image",
+                    "Name": "pictogramm_galden",
+                    "X": 425,
+                    "Y": 25,
+                    "Width": 36,
+                    "Height": 36,
+                    "RelativeFilename": "drop.png"
+                  },
+                  {
+                    "Type": "Image",
+                    "Name": "pictogramm_pcb",
+                    "X": 225,
+                    "Y": 25,
+                    "Width": 38,
+                    "Height": 38,
+                    "RelativeFilename": "pcb.png"
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "label_time_in_seconds",
+                    "X": 335,
+                    "Y": 446,
+                    "Width": 106,
+                    "Height": 17,
+                    "TextId": "__SingleUse_TIUU",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 102,
+                      "Green": 102,
+                      "Blue": 102
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "label_degree",
+                    "X": 16,
+                    "Y": 257,
+                    "Width": 16,
+                    "Height": 17,
+                    "TextId": "__SingleUse_IJ5R",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 102,
+                      "Green": 102,
+                      "Blue": 102
+                    },
+                    "AutoSize": true,
+                    "Wildcard1": {
+                      "TextId": "__SingleUse_I4P2",
+                      "UseBuffer": true,
+                      "BufferSize": 2
+                    }
+                  },
+                  {
+                    "Type": "Box",
+                    "Name": "abortedProfileBackground",
+                    "X": 66,
+                    "Y": 89,
+                    "Width": 678,
+                    "Height": 330,
+                    "Visible": false,
+                    "Color": {
+                      "Green": 1,
+                      "Blue": 35
+                    },
+                    "Alpha": 164
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "abortedProfileText",
+                    "X": 332,
+                    "Y": 235,
+                    "Width": 130,
+                    "Height": 25,
+                    "Visible": false,
+                    "TextId": "__SingleUse_611K",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextureMapper",
+                    "Name": "rotatingCoolingSign",
+                    "X": 25,
+                    "Y": 25,
+                    "Width": 36,
+                    "Height": 36,
+                    "UseAnimation": true,
+                    "RenderingAlgorithm": "Nearest-neighbor",
+                    "FileNameImage": "arrow1.png",
+                    "LockBitmapToCenter": true,
+                    "ZAngle": 1.0,
+                    "Scale": 1.0,
+                    "LockOrigoToCenter": true,
+                    "XOrigo": 18.0,
+                    "YOrigo": 18.0,
+                    "ZOrigo": 300.0,
+                    "CameraDistance": 300.0
+                  }
+                ]
+              },
+              {
+                "Type": "Container",
+                "Name": "options",
+                "Width": 800,
+                "Height": 480,
+                "Components": [
+                  {
+                    "Type": "TextArea",
+                    "Name": "options_temp_unit_label",
+                    "X": 48,
+                    "Y": 65,
+                    "Width": 127,
+                    "Height": 25,
+                    "TextId": "__SingleUse_3O9T",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "options_sd_card_label",
+                    "X": 48,
+                    "Y": 132,
+                    "Width": 72,
+                    "Height": 25,
+                    "TextId": "__SingleUse_TT7P",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "options_lid_temp_label",
+                    "X": 48,
+                    "Y": 194,
+                    "Width": 164,
+                    "Height": 25,
+                    "TextId": "__SingleUse_W2EE",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "TextArea",
+                    "Name": "options_solder_profile_label",
+                    "X": 48,
+                    "Y": 257,
+                    "Width": 117,
+                    "Height": 25,
+                    "TextId": "__SingleUse_FCSJ",
+                    "TextRotation": "0",
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "AutoSize": true
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "options_sd_card_button_mount",
+                    "X": 585,
+                    "Y": 114,
+                    "Width": 170,
+                    "Height": 60,
+                    "Visible": false,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "button-mount-medium.png",
+                        "ImagePressed": "button-mount-push-medium.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "options_sd_card_button_eject",
+                    "X": 587,
+                    "Y": 114,
+                    "Width": 170,
+                    "Height": 60,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "button-eject.png",
+                        "ImagePressed": "button-eject-push.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "options_openlid_tem_button_eco",
+                    "X": 358,
+                    "Y": 180,
+                    "Width": 120,
+                    "Height": 60,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "button-eco.png",
+                        "ImagePressed": "button-eco-pushed_green.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "options_openlid_tem_button_standard",
+                    "X": 501,
+                    "Y": 180,
+                    "Width": 120,
+                    "Height": 60,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "button-standard.png",
+                        "ImagePressed": "button-standard-pushed_green.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "options_button_profile_set",
+                    "X": 637,
+                    "Y": 353,
+                    "Width": 120,
+                    "Height": 60,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "button-set.png",
+                        "ImagePressed": "button-set-push.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "FlexButton",
+                    "Name": "options_openlid_tem_button_fast",
+                    "X": 633,
+                    "Y": 180,
+                    "Width": 120,
+                    "Height": 60,
+                    "ButtonTrigger": {
+                      "Type": "TouchButtonTrigger"
+                    },
+                    "ButtonStyles": [
+                      {
+                        "Type": "ImageButtonStyle",
+                        "ImageReleased": "button-fast.png",
+                        "ImagePressed": "button-fast-pushed_green.png"
+                      }
+                    ]
+                  },
+                  {
+                    "Type": "ScrollWheel",
+                    "Name": "options_solder_profile_wheel",
+                    "X": 85,
+                    "Y": 313,
+                    "Width": 500,
+                    "Height": 150,
+                    "SelectedItemOffset": 50,
+                    "ItemTemplateName": "custom_container_profile_select",
+                    "NumberofItems": 1,
+                    "Easing": "Back",
+                    "EasingOption": "Out",
+                    "SwipeAcceleration": 1.0,
+                    "DragAcceleration": 1.0,
+                    "OverShootPercentage": 75
+                  },
+                  {
+                    "Type": "ToggleButton",
+                    "Name": "options_temp_toggle_button",
+                    "X": 587,
+                    "Y": 47,
+                    "Width": 170,
+                    "Height": 60,
+                    "Pressed": "switch-fahrenheit-medium.png",
+                    "Released": "switch-celsius-medium.png"
+                  },
+                  {
+                    "Type": "Circle",
+                    "Name": "SelectedProfileMarker",
+                    "X": 75,
+                    "Y": 385,
+                    "Width": 15,
+                    "Height": 15,
+                    "Color": {
+                      "Red": 255,
+                      "Green": 255,
+                      "Blue": 255
+                    },
+                    "CenterX": 5.0,
+                    "CenterY": 5.0,
+                    "Radius": 5.0,
+                    "EndAngle": 360.0,
+                    "CapPrecision": "Butt"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Type": "ModalWindow",
+            "Name": "modalWindowDecision",
+            "Width": 800,
+            "Height": 480,
+            "Visible": false,
+            "FileName": "modal-bg.png",
+            "ModalX": 160,
+            "ModalY": 104,
+            "ModalWidth": 480,
+            "ModalHeight": 272,
+            "Alpha": 150,
+            "Components": [
+              {
+                "Type": "TextArea",
+                "Name": "modalWindowDecisionTitle",
+                "X": 21,
+                "Y": 16,
+                "Width": 440,
+                "Height": 24,
+                "TextId": "__SingleUse_H01O",
+                "TextRotation": "0"
+              },
+              {
+                "Type": "TextArea",
+                "Name": "modalWindowDecisionBody",
+                "X": 22,
+                "Y": 46,
+                "Width": 439,
+                "Height": 163,
+                "TextId": "__SingleUse_53ZW",
+                "TextRotation": "0",
+                "WideTextAction": 1
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "modalWindowDecisionNo",
+                "X": 31,
+                "Y": 218,
+                "Width": 185,
+                "Height": 50,
+                "ButtonTrigger": {
+                  "Type": "TouchButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "ImageButtonStyle",
+                    "ImageReleased": "button-no.png",
+                    "ImagePressed": "button-no-pushed.png"
+                  }
+                ]
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "modalWindowDecisionYes",
+                "X": 276,
+                "Y": 218,
+                "Width": 185,
+                "Height": 50,
+                "ButtonTrigger": {
+                  "Type": "TouchButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "ImageButtonStyle",
+                    "ImageReleased": "button-yes.png",
+                    "ImagePressed": "button-yes-pushed.png"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Type": "ModalWindow",
+            "Name": "modalWindowInformation",
+            "Width": 800,
+            "Height": 480,
+            "Visible": false,
+            "FileName": "modal-bg.png",
+            "ModalX": 160,
+            "ModalY": 104,
+            "ModalWidth": 480,
+            "ModalHeight": 272,
+            "Alpha": 150,
+            "Components": [
+              {
+                "Type": "TextArea",
+                "Name": "modalWindowInformationTitle",
+                "X": 21,
+                "Y": 16,
+                "Width": 440,
+                "Height": 24,
+                "TextId": "__SingleUse_59JM",
+                "TextRotation": "0"
+              },
+              {
+                "Type": "TextArea",
+                "Name": "modalWindowInformationBody",
+                "X": 22,
+                "Y": 46,
+                "Width": 439,
+                "Height": 163,
+                "TextId": "__SingleUse_GDGM",
+                "TextRotation": "0",
+                "WideTextAction": 1
+              },
+              {
+                "Type": "FlexButton",
+                "Name": "modalWindowInformationClose",
+                "X": 150,
+                "Y": 218,
+                "Width": 185,
+                "Height": 50,
+                "ButtonTrigger": {
+                  "Type": "TouchButtonTrigger"
+                },
+                "ButtonStyles": [
+                  {
+                    "Type": "ImageButtonStyle",
+                    "ImageReleased": "close-sm.png",
+                    "ImagePressed": "close-sm-push.png"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "Interactions": [
+          {
+            "InteractionName": "close_lid_btn_onClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "close_lid"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "close_lid_btn_onClick"
+            }
+          },
+          {
+            "InteractionName": "open_lid_btn_onClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "open_lid"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "open_lid_btn_onClick"
+            }
+          },
+          {
+            "InteractionName": "start_reflow_btn_onClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "start_reflow"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "start_reflow_btn_onClick"
+            }
+          },
+          {
+            "InteractionName": "stop_reflow_btn_onClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "stop_reflow"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "stop_reflow_btn_onClick"
+            }
+          },
+          {
+            "InteractionName": "options_openlid_tem_button_fast_click",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_openlid_tem_button_eco"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "options_openlid_tem_button_eco_onClick"
+            }
+          },
+          {
+            "InteractionName": "options_openlid_tem_button_standard_click",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_openlid_tem_button_standard"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "options_openlid_tem_button_standard_onClick"
+            }
+          },
+          {
+            "InteractionName": "options_openlid_tem_button_eco_click",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_openlid_tem_button_fast"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "options_openlid_tem_button_fast_onClick"
+            }
+          },
+          {
+            "InteractionName": "options_button_profile_set_click",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_button_profile_set"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "options_button_profile_set_onClick"
+            }
+          },
+          {
+            "InteractionName": "options_sd_card_button_mount_click",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_sd_card_button_mount"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "options_sd_card_button_mount_onClick"
+            }
+          },
+          {
+            "InteractionName": "options_sd_card_button_eject_click",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_sd_card_button_eject"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "options_sd_card_button_eject_onClick"
+            }
+          },
+          {
+            "InteractionName": "modalWindowInformationClose_btn_onClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "modalWindowInformationClose"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "modalWindowInformationClose_btn_onClick"
+            }
+          },
+          {
+            "InteractionName": "modalWindowDecisionYes_btn_onClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "modalWindowDecisionYes"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "modalWindowDecisionYes_btn_onClick"
+            }
+          },
+          {
+            "InteractionName": "modalWindowDecisionNo_btn_onClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "modalWindowDecisionNo"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "modalWindowDecisionNo_btn_onClick"
+            }
+          },
+          {
+            "InteractionName": "options_temp_toggle_button_onClick",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "options_temp_toggle_button"
+            },
+            "Action": {
+              "Type": "ActionCustom",
+              "FunctionName": "options_temp_toggle_button_onClick"
+            }
+          },
+          {
+            "InteractionName": "showAbortedProfileBackgroound",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "modalWindowDecisionYes"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "abortedProfileBackground"
+            }
+          },
+          {
+            "InteractionName": "showAbortedProfileText",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "modalWindowDecisionYes"
+            },
+            "Action": {
+              "Type": "ActionShow",
+              "ActionComponent": "abortedProfileText"
+            }
+          },
+          {
+            "InteractionName": "showGraphWhenAborted",
+            "Trigger": {
+              "Type": "TriggerClicked",
+              "TriggerComponent": "modalWindowDecisionYes"
+            },
+            "Action": {
+              "Type": "ActionExecuteCode",
+              "Code": "menu_container.setSelectedPage(1);"
+            }
+          }
+        ]
+      }
+    ],
+    "CustomContainerDefinitions": [
+      {
+        "Name": "custom_container_profile_select",
+        "Width": 500,
+        "Height": 50,
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 18,
+            "Y": 13,
+            "Width": 69,
+            "Height": 25,
+            "TextId": "__SingleUse_O2K6",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true,
+            "Wildcard1": {
+              "TextId": "__SingleUse_CDRO",
+              "UseBuffer": true,
+              "BufferSize": 80
+            }
+          }
+        ],
+        "Interactions": []
+      }
+    ],
+    "Name": "New_Display_VPX",
+    "Resolution": {
+      "Width": 800,
+      "Height": 480
+    },
+    "SelectedColorDepth": 24,
+    "StartupScreenName": "bootscreen",
+    "SelectedStartupLanguage": "GB",
+    "TouchGfxPath": "../Middlewares/ST/touchgfx",
+    "UIPath": ".",
+    "AvailableColorDepths": [
+      24
+    ],
+    "AvailableLCDs": {
+      "24": "LCDGPU2D"
+    },
+    "AvailableSections": [
+      "ExtFlashSection",
+      "IntFlashSection"
+    ],
+    "AvailableResolutions": [
+      {
+        "Width": 800,
+        "Height": 480
+      }
+    ],
+    "PhysicalButtons": [],
+    "GenerateAssetsCommand": "make -f simulator/gcc/Makefile assets -j8",
+    "PostGenerateCommand": "touchgfx update_project --project-file=simulator/msvs/Application.vcxproj",
+    "PostGenerateTargetCommand": "touchgfx update_project",
+    "CompileSimulatorCommand": "make -f simulator/gcc/Makefile -j8",
+    "RunSimulatorCommand": "build\\bin\\simulator.exe",
+    "CompileTargetCommandOverride": "make -C ..",
+    "FlashTargetCommandOverride": "make -C .. flash",
+    "LandscapeSkinX": 0,
+    "LandscapeSkinY": 0,
+    "PortraitSkinX": 0,
+    "PortraitSkinY": 0,
+    "DisplayOrientation": "Landscape",
+    "Family": "STM32U5",
+    "SubFamily": "STM32U599/5A9",
+    "Toolchain": "STM32CubeIDE",
+    "Platform": "m33",
+    "ProjectFile": "../display-fw.ioc",
+    "OptionalComponentsRoot": "../Middlewares/ST/touchgfx_components",
+    "OptionalComponents": [
+      "GPU2D"
+    ],
+    "AdditionalFeatures": []
+  },
+  "Version": "4.23.2",
+  "CreatedBy": "4.23.2"
+}

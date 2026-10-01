@@ -6,14 +6,13 @@
 
 #include <gui/common/FrontendApplication.hpp>
 #include <touchgfx/containers/Container.hpp>
-#include <touchgfx/widgets/Box.hpp>
 #include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 
 class custom_container_profile_selectBase : public touchgfx::Container
 {
 public:
     custom_container_profile_selectBase();
-    virtual ~custom_container_profile_selectBase() {}
+    virtual ~custom_container_profile_selectBase();
     virtual void initialize();
 
 protected:
@@ -24,7 +23,6 @@ protected:
     /*
      * Member Declarations
      */
-    touchgfx::Box box1;
     touchgfx::TextAreaWithOneWildcard textArea1;
 
     /*

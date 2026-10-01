@@ -3,24 +3,37 @@
 #include <fonts/GeneratedFont.hpp>
 
 FONT_TABLE_LOCATION_FLASH_PRAGMA
-KEEP extern const touchgfx::GlyphNode glyphs_arial_40_4bpp[] FONT_TABLE_LOCATION_FLASH_ATTRIBUTE =
-{
-    {     0, 0x003F,  20,  28,  28,   1,  22,   0,   0, 0x00 }
+KEEP extern const touchgfx::GlyphNode glyphs_arial_40_4bpp[] FONT_TABLE_LOCATION_FLASH_ATTRIBUTE = {
+    {     0, 0x0020,   0,   0,   0,   0,  11,   0,   1, 0x00 },
+    {     0, 0x003F,  20,  28,  28,   1,  22,   0,   0, 0x00 },
+    {   280, 0x0043,  26,  28,  28,   2,  29,   0,   0, 0x00 },
+    {   644, 0x0050,  22,  28,  28,   3,  27,   0,   0, 0x00 },
+    {   952, 0x0056,  27,  28,  28,   0,  27,   0,   0, 0x00 },
+    {  1344, 0x0061,  20,  21,  21,   1,  22,   1,   1, 0x00 },
+    {  1554, 0x0065,  20,  21,  21,   1,  22,   2,   1, 0x00 },
+    {  1764, 0x0068,  18,  28,  28,   2,  22,   0,   0, 0x00 },
+    {  2016, 0x006F,  20,  21,  21,   1,  22,   3,   1, 0x00 },
+    {  2226, 0x0070,  19,  29,  21,   2,  22,   0,   0, 0x00 },
+    {  2516, 0x0072,  12,  21,  21,   2,  13,   4,   1, 0x00 },
+    {  2642, 0x0073,  18,  21,  21,   1,  20,   0,   0, 0x00 }
 };
 
 // arial_40_4bpp
-extern const touchgfx::GlyphNode glyphs_arial_40_4bpp[];
-extern const uint8_t unicodes_arial_40_4bpp_0[];
-extern const uint8_t* const unicodes_arial_40_4bpp[] =
-{
+FONT_TABLE_LOCATION_FLASH_PRAGMA
+KEEP extern const touchgfx::GlyphNode glyphs_arial_40_4bpp[] FONT_TABLE_LOCATION_FLASH_ATTRIBUTE;
+FONT_GLYPH_LOCATION_FLASH_PRAGMA
+KEEP extern const uint8_t unicodes_arial_40_4bpp_0[] FONT_GLYPH_LOCATION_FLASH_ATTRIBUTE;
+FONT_SEARCHTABLE_LOCATION_FLASH_PRAGMA
+KEEP extern const uint8_t* const unicodes_arial_40_4bpp[] FONT_SEARCHTABLE_LOCATION_FLASH_ATTRIBUTE = {
     unicodes_arial_40_4bpp_0
 };
-extern const touchgfx::KerningNode kerning_arial_40_4bpp[];
-
+FONT_KERNING_LOCATION_FLASH_PRAGMA
+KEEP extern const touchgfx::KerningNode kerning_arial_40_4bpp[] FONT_KERNING_LOCATION_FLASH_ATTRIBUTE;
+extern const touchgfx::FontContextualFormsTable arial_contextualFormsTable;
 touchgfx::GeneratedFont& getFont_arial_40_4bpp();
 
 touchgfx::GeneratedFont& getFont_arial_40_4bpp()
 {
-    static touchgfx::GeneratedFont arial_40_4bpp(glyphs_arial_40_4bpp, 1, 40, 0, 4, 1, 0, 0, unicodes_arial_40_4bpp, kerning_arial_40_4bpp, 63, 0, 0);
+    static touchgfx::GeneratedFont arial_40_4bpp(glyphs_arial_40_4bpp, 12, 48, 40, 0, 0, 4, 1, 0, 1, unicodes_arial_40_4bpp, kerning_arial_40_4bpp, 63, 0, 0, &arial_contextualFormsTable);
     return arial_40_4bpp;
 }

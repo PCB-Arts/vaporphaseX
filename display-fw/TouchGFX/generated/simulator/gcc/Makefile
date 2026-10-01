@@ -16,13 +16,16 @@ board_name := $(UNAME)
 components := gui simulator generated/gui_generated generated/simulator
 
 # Location of folder containing bmp/png files.
-asset_images_input  := assets/images
+asset_images_input := assets/images
 
 # Location of folder to search for ttf font files
-asset_fonts_input  := assets/fonts
+asset_fonts_input := assets/fonts
 
-# Location of folder where the texts.xlsx is placed
-asset_texts_input  := assets/texts
+# Location of folder where the texts.xml is placed
+asset_texts_input := assets/texts
+
+# Location of folder where video files are places
+asset_videos_input := assets/videos
 
 build_root_path := build
 object_output_path := $(build_root_path)/$(board_name)
@@ -33,6 +36,7 @@ asset_root_path := generated
 asset_images_output := $(asset_root_path)/images
 asset_fonts_output := $(asset_root_path)/fonts
 asset_texts_output := $(asset_root_path)/texts
+asset_videos_output := $(asset_root_path)/videos
 
 #include application specific configuration
 include config/gcc/app.mk
@@ -40,13 +44,13 @@ include config/gcc/app.mk
 ### END OF USER SECTION. THE FOLLOWING SHOULD NOT BE MODIFIED ###
 
 ifeq ($(UNAME), Linux)
-library_path := $(touchgfx_path)/lib/sdl2/linux64 $(touchgfx_path)/lib/linux $(ADDITIONAL_LIBRARY_PATHS)
-libraries := touchgfx SDL2 SDL2_image rt m pthread dl $(ADDITIONAL_LIBRARIES)
+library_path := $(touchgfx_path)/3rdparty/libjpeg/lib/linux $(touchgfx_path)/lib/linux $(ADDITIONAL_LIBRARY_PATHS)
+libraries := touchgfx SDL2 SDL2_image jpeg rt m pthread dl $(ADDITIONAL_LIBRARIES)
 libstart := -Wl,--start-group
 libend := -Wl,--end-group
 libextra :=
-library_includes += $(touchgfx_path)/framework/include/platform/hal/simulator/sdl2/vendor
-linker_options_local := -Xlinker -rpath -Xlinker $(abspath $(touchgfx_path)/lib/sdl2/linux64/)
+library_includes += $(touchgfx_path)/3rdparty/libjpeg/include
+linker_options_local := -Xlinker -rpath -Xlinker $(touchgfx_path)/3rdparty/libjpeg/lib/linux
 resource_file :=
 imageconvert_executable := $(touchgfx_path)/framework/tools/imageconvert/build/linux/imageconvert.out
 fontconvert_executable := $(touchgfx_path)/framework/tools/fontconvert/build/linux/fontconvert.out
@@ -54,12 +58,13 @@ simulator_executable := simulator.out
 linker_options += -static-libgcc -Xlinker --no-as-needed
 else
 sdl_library_path := $(touchgfx_path)/lib/sdl2/win32
-library_path := $(sdl_library_path) $(touchgfx_path)/lib/win/mingw32 $(ADDITIONAL_LIBRARY_PATHS)
-libraries := touchgfx SDL2 SDL2_image m pthread mingw32 $(ADDITIONAL_LIBRARIES)
+jpeg_library_path := $(touchgfx_path)/3rdparty/libjpeg/lib/win32
+library_path := $(sdl_library_path) $(jpeg_library_path) $(touchgfx_path)/lib/win/mingw32 $(ADDITIONAL_LIBRARY_PATHS)
+libraries := touchgfx SDL2 SDL2_image jpeg-8 m pthread mingw32 $(ADDITIONAL_LIBRARIES)
 libstart := -Wl,--start-group
 libend := -Wl,--end-group
 libextra := -Wl,--subsystem,windows
-library_includes += $(touchgfx_path)/framework/include/platform/hal/simulator/sdl2/vendor
+library_includes += $(touchgfx_path)/framework/include/platform/hal/simulator/sdl2/vendor $(touchgfx_path)/3rdparty/libjpeg/include
 resource_file := generated/simulator/touchgfx.res
 imageconvert_executable := $(touchgfx_path)/framework/tools/imageconvert/build/win/imageconvert.out
 fontconvert_executable := $(touchgfx_path)/framework/tools/fontconvert/build/win/fontconvert.out
@@ -97,7 +102,8 @@ framework_source := $(touchgfx_path)/framework/source/platform/hal/simulator/sdl
 all_components := $(components) \
 	$(asset_fonts_output) \
 	$(asset_images_output) \
-	$(asset_texts_output)
+	$(asset_texts_output) \
+	$(asset_videos_output)
 
 #keep framework include and source out of this
 include_paths := $(library_includes) $(foreach comp, $(all_components), $(comp)/include) $(framework_includes) $(ADDITIONAL_INCLUDE_PATHS)
@@ -137,9 +143,9 @@ object_files := $(object_files:%.c=$(object_output_path)/%.o)
 dependency_files := $(object_files:%.o=%.d)
 
 textconvert_script_path := $(touchgfx_path)/framework/tools/textconvert
-textconvert_executable := $(call find, $(textconvert_script_path), *.rb)
+videoconvert_script_path := $(touchgfx_path)/framework/tools/videoconvert
 
-text_database := $(asset_texts_input)/texts.xlsx
+text_database := $(asset_texts_input)/texts.xml
 
 .PHONY: all clean assets generate_assets build_executable
 
@@ -161,15 +167,15 @@ $(binary_output_path)/$(simulator_executable): $(object_files) $(resource_file)
 		@$(build_root_path)/objects.tmp -o $@ $(resource_file) \
 		$(libstart) $(patsubst %,-l%,$(libraries)) $(libend) $(libextra)
 	@rm -f $(build_root_path)/objects.tmp
-ifeq ($(UNAME), Linux)
-	@echo "To be able to run \"$(binary_output_path)/$(simulator_executable)\" type"
-	@echo "     sudo ldconfig $(abspath $(touchgfx_path)/lib/sdl2/linux64)"
-	@echo "at the command prompt at least once."
-else
+	# Remove old images
+	@rm -f $(binary_output_path)/*.bin
+	@if ls $(asset_videos_output)/bin/*.bin >/dev/null 2>&1; then cp $(asset_videos_output)/bin/*.bin $(binary_output_path); fi
+ifneq ($(UNAME), Linux)
 	@if [ ! -f $(binary_output_path)/SDL2.dll ]; then cp $(sdl_library_path)/SDL2.dll $(binary_output_path); fi
 	@if [ ! -f $(binary_output_path)/SDL2_image.dll ]; then cp $(sdl_library_path)/SDL2_image.dll $(binary_output_path); fi
 	@if [ ! -f $(binary_output_path)/libpng16-16.dll ]; then cp $(sdl_library_path)/libpng16-16.dll $(binary_output_path); fi
 	@if [ ! -f $(binary_output_path)/zlib1.dll ]; then cp $(sdl_library_path)/zlib1.dll $(binary_output_path); fi
+	@if [ ! -f $(binary_output_path)/libjpeg-8.dll ]; then cp $(jpeg_library_path)/libjpeg-8.dll $(binary_output_path); fi
 endif
 
 .PHONY: post_build
@@ -208,7 +214,7 @@ $(firstword $(dependency_files)): config/gcc/app.mk
 -include $(dependency_files)
 endif
 
-assets: images texts
+assets: images texts videos
 
 .PHONY: images
 images:
@@ -218,6 +224,10 @@ images:
 texts:
 	@ruby $(textconvert_script_path)/main.rb $(text_database) $(fontconvert_executable) $(asset_fonts_output) $(asset_texts_output) $(asset_fonts_input) .
 
+.PHONY: videos
+videos:
+	@ruby $(videoconvert_script_path)/videoconvert.rb $(asset_videos_input) $(asset_videos_output)
+
 clean:
 	@echo Cleaning
 	@rm -rf $(build_root_path)
@@ -225,8 +235,8 @@ clean:
 	@rm -rf $(asset_images_output)
 	@rm -rf $(asset_fonts_output)
 	@rm -rf $(asset_texts_output)
+	@rm -rf $(asset_videos_output)
 	# Create directory to avoid error if it does not exist
 	@mkdir -p $(asset_root_path)
 	# Remove assets folder if it is empty (i.e. no gui_generated folder)
 	@rmdir --ignore-fail-on-non-empty $(asset_root_path)
-

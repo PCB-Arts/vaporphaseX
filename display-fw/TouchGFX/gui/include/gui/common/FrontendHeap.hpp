@@ -60,8 +60,8 @@ public:
     touchgfx::Partition< CombinedPresenterTypes, 1 > presenters;
     touchgfx::Partition< CombinedViewTypes, 1 > views;
     touchgfx::Partition< CombinedTransitionTypes, 1 > transitions;
-    FrontendApplication app;
     Model model;
+    FrontendApplication app;
 
 private:
     FrontendHeap() : FrontendHeapBase(presenters, views, transitions, app),

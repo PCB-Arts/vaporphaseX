@@ -8,31 +8,28 @@
 #include <mvp/View.hpp>
 #include <gui/menu_screen/menuPresenter.hpp>
 #include <touchgfx/widgets/Box.hpp>
+#include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/containers/SwipeContainer.hpp>
 #include <touchgfx/containers/Container.hpp>
-#include <touchgfx/widgets/ButtonWithLabel.hpp>
+#include <touchgfx/containers/buttons/Buttons.hpp>
 #include <touchgfx/widgets/TextArea.hpp>
-#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
-#include <touchgfx/widgets/Image.hpp>
 #include <touchgfx/widgets/graph/GraphWrapAndOverwrite.hpp>
 #include <touchgfx/widgets/graph/GraphElements.hpp>
 #include <touchgfx/widgets/canvas/PainterRGB888.hpp>
 #include <touchgfx/widgets/graph/GraphLabels.hpp>
+#include <touchgfx/widgets/TextAreaWithWildcard.hpp>
 #include <touchgfx/widgets/AnimationTextureMapper.hpp>
-#include <touchgfx/widgets/canvas/Circle.hpp>
-#include <touchgfx/widgets/Button.hpp>
 #include <touchgfx/containers/scrollers/ScrollWheel.hpp>
 #include <gui/containers/custom_container_profile_select.hpp>
 #include <touchgfx/widgets/ToggleButton.hpp>
+#include <touchgfx/widgets/canvas/Circle.hpp>
 #include <touchgfx/containers/ModalWindow.hpp>
-#include <touchgfx/Color.hpp>
-#include <touchgfx/canvas_widget_renderer/CanvasWidgetRenderer.hpp>
 
 class menuViewBase : public touchgfx::View<menuPresenter>
 {
 public:
     menuViewBase();
-    virtual ~menuViewBase() {}
+    virtual ~menuViewBase();
     virtual void setupScreen();
 
     virtual void options_solder_profile_wheelUpdateItem(custom_container_profile_select& item, int16_t itemIndex)
@@ -43,72 +40,59 @@ public:
     /*
      * Virtual Action Handlers
      */
-    virtual void StartButtonPush()
+    virtual void close_lid_btn_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void SetSolderProfile()
+    virtual void open_lid_btn_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void TempUnitToggled()
+    virtual void start_reflow_btn_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void StopReflowPush()
+    virtual void stop_reflow_btn_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void OpenLidPush()
+    virtual void options_openlid_tem_button_eco_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void CloseLidPush()
+    virtual void options_openlid_tem_button_standard_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void EjectPush()
+    virtual void options_openlid_tem_button_fast_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void ModalInformationClose()
+    virtual void options_button_profile_set_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void ModalDecisionYes()
+    virtual void options_sd_card_button_mount_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void ModalDecisionNo()
+    virtual void options_sd_card_button_eject_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void btn_eco_open_temp_clicked()
+    virtual void modalWindowInformationClose_btn_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void btn_standard_open_temp_clicked()
+    virtual void modalWindowDecisionYes_btn_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void btn_fast_open_temp_clicked()
+    virtual void modalWindowDecisionNo_btn_onClick()
     {
         // Override and implement this function in menu
     }
-
-    virtual void MountPush()
+    virtual void options_temp_toggle_button_onClick()
     {
         // Override and implement this function in menu
     }
@@ -122,106 +106,106 @@ protected:
      * Member Declarations
      */
     touchgfx::Box __background;
-    touchgfx::Box background;
+    touchgfx::Image background_010123_800x480;
     touchgfx::SwipeContainer menu_container;
     touchgfx::Container start_stop;
-    touchgfx::ButtonWithLabel Close_Lid;
-    touchgfx::ButtonWithLabel Open_Lid;
-    touchgfx::ButtonWithLabel Stop_Reflow;
-    touchgfx::ButtonWithLabel Start_Reflow;
-    touchgfx::TextArea vapor_phase_one;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  close_lid;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  open_lid;
+    touchgfx::TextArea header;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  stop_reflow;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  start_reflow;
     touchgfx::Container graphs;
-    touchgfx::TextArea x_axis_naming;
-    touchgfx::TextAreaWithOneWildcard y_axis_naming;
-    touchgfx::TextAreaWithTwoWildcards galden_tmp;
-    touchgfx::Image galden;
-    touchgfx::GraphWrapAndOverwrite<600> dynamicGraph_soll;
-    touchgfx::GraphElementLine dynamicGraph_sollLine1;
-    touchgfx::PainterRGB888 dynamicGraph_sollLine1Painter;
-    touchgfx::GraphWrapAndOverwrite<600> dynamicGraph_ist;
-    touchgfx::GraphElementLine dynamicGraph_istLine1;
-    touchgfx::PainterRGB888 dynamicGraph_istLine1Painter;
-    touchgfx::GraphElementGridX dynamicGraph_istMajorXAxisGrid;
-    touchgfx::GraphElementGridY dynamicGraph_istMajorYAxisGrid;
-    touchgfx::GraphLabelsX dynamicGraph_istMajorXAxisLabel;
-    touchgfx::GraphLabelsY dynamicGraph_istMajorYAxisLabel;
-touchgfx::GraphElementVerticalGapLine dynamicGraph_istVerticalFrontline;
-    touchgfx::TextAreaWithTwoWildcards watersystem_tmp;
+    touchgfx::GraphWrapAndOverwrite<600> graph_target;
+    touchgfx::GraphElementLine graph_targetLine1;
+    touchgfx::PainterRGB888 graph_targetLine1Painter;
+    touchgfx::GraphWrapAndOverwrite<600> graph_actual;
+    touchgfx::GraphElementGridX graph_actualMajorXAxisGrid;
+    touchgfx::GraphElementGridY graph_actualMajorYAxisGrid;
+    touchgfx::GraphLabelsX graph_actualMajorXAxisLabel;
+    touchgfx::GraphLabelsY graph_actualMajorYAxisLabel;
+    touchgfx::GraphElementLine graph_actualLine1;
+    touchgfx::PainterRGB888 graph_actualLine1Painter;
+    touchgfx::GraphElementVerticalGapLine graph_actualVerticalFrontline;
+    touchgfx::TextAreaWithTwoWildcards cooling_temp_text;
+    touchgfx::TextAreaWithTwoWildcards pcb_temp_text;
+    touchgfx::TextAreaWithTwoWildcards galden_temp_text;
+    touchgfx::TextAreaWithOneWildcard state_text;
+    touchgfx::Image pictogramm_state;
+    touchgfx::Image pictogramm_galden;
+    touchgfx::Image pictogramm_pcb;
+    touchgfx::TextArea label_time_in_seconds;
+    touchgfx::TextAreaWithOneWildcard label_degree;
     touchgfx::Box abortedProfileBackground;
     touchgfx::TextArea abortedProfileText;
-    touchgfx::TextAreaWithTwoWildcards pcb_tmp;
-    touchgfx::Image galden_1;
-    touchgfx::TextAreaWithOneWildcard current_stateT;
-    touchgfx::Image Info;
-    touchgfx::AnimationTextureMapper textureMapper;
+    touchgfx::AnimationTextureMapper rotatingCoolingSign;
     touchgfx::Container options;
-    touchgfx::Circle options_solder_profile_wheel_indicator;
-    touchgfx::PainterRGB888 options_solder_profile_wheel_indicatorPainter;
-    touchgfx::Button options_solder_button_set;
-    touchgfx::ScrollWheel options_solder_profile_wheel;
-    touchgfx::DrawableListItems<custom_container_profile_select, 5> options_solder_profile_wheelListItems;
-
-    touchgfx::Box options_solder_profile_whell_overlay_bottom;
-    touchgfx::Box options_solder_profile_whell_overlay_top;
-    touchgfx::TextArea options_solder_profile_label;
-    touchgfx::Button options_openlid_button_high;
-    touchgfx::Button options_openlid_button_medium;
-    touchgfx::Button options_openlid_button_low;
-    touchgfx::TextArea lid_temp_label;
-    touchgfx::ButtonWithLabel options_sd_card_button_mount;
-    touchgfx::ButtonWithLabel options_sd_card_button;
-    touchgfx::TextArea options_sd_card_label;
-    touchgfx::ToggleButton options_temp_unit_toggle;
     touchgfx::TextArea options_temp_unit_label;
-    touchgfx::ModalWindow modalWindowInformation;
-    touchgfx::Button modalWindowsInformationClose;
-    touchgfx::TextArea modalWindowInformationBody;
-    touchgfx::TextArea modalWindowInformationTitle;
+    touchgfx::TextArea options_sd_card_label;
+    touchgfx::TextArea options_lid_temp_label;
+    touchgfx::TextArea options_solder_profile_label;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  options_sd_card_button_mount;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  options_sd_card_button_eject;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  options_openlid_tem_button_eco;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  options_openlid_tem_button_standard;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  options_button_profile_set;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  options_openlid_tem_button_fast;
+    touchgfx::ScrollWheel options_solder_profile_wheel;
+    touchgfx::DrawableListItems<custom_container_profile_select, 4> options_solder_profile_wheelListItems;
+    touchgfx::ToggleButton options_temp_toggle_button;
+    touchgfx::Circle SelectedProfileMarker;
+    touchgfx::PainterRGB888 SelectedProfileMarkerPainter;
     touchgfx::ModalWindow modalWindowDecision;
-    touchgfx::Button modalWindowDecisionYes;
-    touchgfx::Button modalWindowDecisionNo;
-    touchgfx::TextArea modalWindowDecisionBody;
     touchgfx::TextArea modalWindowDecisionTitle;
+    touchgfx::TextArea modalWindowDecisionBody;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  modalWindowDecisionNo;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  modalWindowDecisionYes;
+    touchgfx::ModalWindow modalWindowInformation;
+    touchgfx::TextArea modalWindowInformationTitle;
+    touchgfx::TextArea modalWindowInformationBody;
+    touchgfx::ImageButtonStyle< touchgfx::TouchButtonTrigger >  modalWindowInformationClose;
 
     /*
      * Wildcard Buffers
      */
-    static const uint16_t Y_AXIS_NAMING_SIZE = 2;
-    touchgfx::Unicode::UnicodeChar y_axis_namingBuffer[Y_AXIS_NAMING_SIZE];
-    static const uint16_t GALDEN_TMPBUFFER1_SIZE = 4;
-    touchgfx::Unicode::UnicodeChar galden_tmpBuffer1[GALDEN_TMPBUFFER1_SIZE];
-    static const uint16_t GALDEN_TMPBUFFER2_SIZE = 2;
-    touchgfx::Unicode::UnicodeChar galden_tmpBuffer2[GALDEN_TMPBUFFER2_SIZE];
-    static const uint16_t WATERSYSTEM_TMPBUFFER1_SIZE = 4;
-    touchgfx::Unicode::UnicodeChar watersystem_tmpBuffer1[WATERSYSTEM_TMPBUFFER1_SIZE];
-    static const uint16_t WATERSYSTEM_TMPBUFFER2_SIZE = 2;
-    touchgfx::Unicode::UnicodeChar watersystem_tmpBuffer2[WATERSYSTEM_TMPBUFFER2_SIZE];
-    static const uint16_t PCB_TMPBUFFER1_SIZE = 4;
-    touchgfx::Unicode::UnicodeChar pcb_tmpBuffer1[PCB_TMPBUFFER1_SIZE];
-    static const uint16_t PCB_TMPBUFFER2_SIZE = 2;
-    touchgfx::Unicode::UnicodeChar pcb_tmpBuffer2[PCB_TMPBUFFER2_SIZE];
-    static const uint16_t CURRENT_STATET_SIZE = 32;
-    touchgfx::Unicode::UnicodeChar current_stateTBuffer[CURRENT_STATET_SIZE];
+    static const uint16_t COOLING_TEMP_TEXTBUFFER1_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar cooling_temp_textBuffer1[COOLING_TEMP_TEXTBUFFER1_SIZE];
+    static const uint16_t COOLING_TEMP_TEXTBUFFER2_SIZE = 2;
+    touchgfx::Unicode::UnicodeChar cooling_temp_textBuffer2[COOLING_TEMP_TEXTBUFFER2_SIZE];
+    static const uint16_t PCB_TEMP_TEXTBUFFER1_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar pcb_temp_textBuffer1[PCB_TEMP_TEXTBUFFER1_SIZE];
+    static const uint16_t PCB_TEMP_TEXTBUFFER2_SIZE = 2;
+    touchgfx::Unicode::UnicodeChar pcb_temp_textBuffer2[PCB_TEMP_TEXTBUFFER2_SIZE];
+    static const uint16_t GALDEN_TEMP_TEXTBUFFER1_SIZE = 10;
+    touchgfx::Unicode::UnicodeChar galden_temp_textBuffer1[GALDEN_TEMP_TEXTBUFFER1_SIZE];
+    static const uint16_t GALDEN_TEMP_TEXTBUFFER2_SIZE = 2;
+    touchgfx::Unicode::UnicodeChar galden_temp_textBuffer2[GALDEN_TEMP_TEXTBUFFER2_SIZE];
+    static const uint16_t STATE_TEXT_SIZE = 12;
+    touchgfx::Unicode::UnicodeChar state_textBuffer[STATE_TEXT_SIZE];
+    static const uint16_t LABEL_DEGREE_SIZE = 2;
+    touchgfx::Unicode::UnicodeChar label_degreeBuffer[LABEL_DEGREE_SIZE];
 
 private:
 
     /*
+     * Canvas Buffer Size
+     */
+    static const uint32_t CANVAS_BUFFER_SIZE = 54000;
+    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
+
+    /*
      * Callback Declarations
      */
-    touchgfx::Callback<menuViewBase, const touchgfx::AbstractButton&> buttonCallback;
     touchgfx::Callback<menuViewBase, touchgfx::DrawableListItemsInterface*, int16_t, int16_t> updateItemCallback;
+    touchgfx::Callback<menuViewBase, const touchgfx::AbstractButtonContainer&> flexButtonCallback;
+    touchgfx::Callback<menuViewBase, const touchgfx::AbstractButton&> buttonCallback;
 
     /*
      * Callback Handler Declarations
      */
-    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
     void updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex);
+    void flexButtonCallbackHandler(const touchgfx::AbstractButtonContainer& src);
+    void buttonCallbackHandler(const touchgfx::AbstractButton& src);
 
-    /*
-     * Canvas Buffer Size
-     */
-    static const uint16_t CANVAS_BUFFER_SIZE = 32767;
-    uint8_t canvasBuffer[CANVAS_BUFFER_SIZE];
 };
 
 #endif // MENUVIEWBASE_HPP
