@@ -17,22 +17,21 @@
     <ClCompile Include="$(TouchGFXReleasePath)\framework\source\platform\hal\simulator\sdl2\OSWrappers.cpp"/>
     <ClCompile Include="$(ApplicationRoot)\simulator\main.cpp"/>
     <ClCompile Include="$(ApplicationRoot)\generated\simulator\src\mainBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\model\Model.cpp"/>
     <ClCompile Include="..\..\gui\src\bootscreen_screen\bootscreenPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\bootscreen_screen\bootscreenView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\bootscreen_screen\bootscreenViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\common\FrontendApplication.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\common\FrontendApplicationBase.cpp"/>
     <ClCompile Include="..\..\gui\src\menu_screen\menuPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\menu_screen\menuView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\menu_screen\menuViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\model\Model.cpp"/>
+    <ClCompile Include="..\..\generated\simulator\src\video\SoftwareMJPEGDecoder.cpp"/>
     <ClCompile Include="..\..\gui\src\containers\custom_container_profile_select.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\containers\custom_container_profile_selectBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\unitConverter.cpp"/>
-    <ClCompile Include="..\..\gui\src\error\UiErrorState.cpp"/>
   </ItemGroup>
   <ItemGroup>
-    <None Include="$(ApplicationRoot)\assets\texts\texts.xlsx"/>
+    <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
     <None Include="$(ApplicationRoot)\config\msvs\Application.props"/>
   </ItemGroup>
   <ItemGroup>
@@ -170,26 +169,24 @@
     <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\TouchArea.hpp"/>
     <ClInclude Include="$(TouchGFXReleasePath)\framework\include\touchgfx\widgets\Widget.hpp"/>
     <ClInclude Include="$(ApplicationRoot)\generated\simulator\include\simulator\mainBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\bootscreen_screen\bootscreenPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\bootscreen_screen\bootscreenView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\bootscreen_screen\bootscreenViewBase.hpp"/>
+    <ClInclude Include="..\..\generated\simulator\include\simulator\video\DirectFrameBufferVideoController.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\common\FrontendApplication.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendApplicationBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\common\FrontendHeap.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\FrontendHeapBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\model\Model.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\bootscreen_screen\bootscreenPresenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\bootscreen_screen\bootscreenView.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\bootscreen_screen\bootscreenViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\menu_screen\menuPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\menu_screen\menuView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\menu_screen\menuViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\common\Utils.hpp"/>
+    <ClInclude Include="..\..\generated\simulator\include\simulator\video\MJPEGDecoder.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\model\Model.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp"/>
+    <ClInclude Include="..\..\generated\simulator\include\simulator\video\SoftwareMJPEGDecoder.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\containers\custom_container_profile_select.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\containers\custom_container_profile_selectBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\unitConverter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\modal\Modal.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\error\UiErrorState.hpp"/>
-    <ClInclude Include="..\..\gui\include\DynamicDrawableListItems.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

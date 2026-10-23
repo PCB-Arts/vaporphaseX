@@ -12,22 +12,33 @@ public:
     virtual ~custom_container_profile_select() {}
 
     void setText(std::string& text){
-    	int targetLength = text.length();
-    	if(targetLength >= TEXTAREA1_SIZE){
-    		targetLength = TEXTAREA1_SIZE - 1;
-    	}
-    	Unicode::UnicodeChar unicodeText[TEXTAREA1_SIZE];
-    	int i = 0;
-    	for(; i < targetLength;i++){
-    		unicodeText[i] = static_cast<Unicode::UnicodeChar>(text[i]);
-    	}
-    	for(;i<TEXTAREA1_SIZE;i++){
-    		unicodeText[i] = 0;
-    	}
-    	Unicode::snprintf(textArea1Buffer, TEXTAREA1_SIZE, "%s", unicodeText);
-    	textArea1.resizeToCurrentText();
-    	textArea1.invalidate();
+
+    	//text.erase(0,9);
+
+        Unicode::fromUTF8(reinterpret_cast<const uint8_t*>(text.c_str()), textArea1Buffer, TEXTAREA1_SIZE);
+
+        // Adjust and redraw
+        textArea1.resizeToCurrentText();
+        textArea1.invalidate();
     }
+    	//
+
+//    	int targetLength = text.length();
+//    	if(targetLength >= TEXTAREA1_SIZE){
+//    		targetLength = TEXTAREA1_SIZE - 1;
+//    	}
+//    	Unicode::UnicodeChar unicodeText[TEXTAREA1_SIZE];
+//    	int i = 0;
+//    	for(; i < targetLength;i++){
+//    		unicodeText[i] = static_cast<Unicode::UnicodeChar>(text[i]);
+//    	}
+//    	for(;i<TEXTAREA1_SIZE;i++){
+//    		unicodeText[i] = 0;
+//    	}
+//    	Unicode::snprintf(textArea1Buffer, TEXTAREA1_SIZE, "%s", unicodeText);
+//    	textArea1.resizeToCurrentText();
+//    	textArea1.invalidate();
+//    }
 
     virtual void initialize();
 };

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>PCBArts VaporPhaseOne Core Bootloader</name>
+	<name>core-bootloader</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -20,11 +20,10 @@
 	</buildSpec>
 	<natures>
 		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCURootProjectNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
@@ -32,19 +31,24 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>STM32F3xx_HAL_Driver</name>
+			<name>shared</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/upstream/STM32CubeF3/Drivers/STM32F3xx_HAL_Driver/Src</locationURI>
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>Shared Sources</name>
+			<name>shared/bootloader</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/shared/src</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/bootloader</locationURI>
 		</link>
 		<link>
-			<name>upstream-mbedtls</name>
+			<name>shared/core_com</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/upstream/mbedtls/library</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/core_com</locationURI>
+		</link>
+		<link>
+			<name>shared/mbedtls</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/mbedtls</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

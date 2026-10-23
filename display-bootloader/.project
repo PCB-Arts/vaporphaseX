@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>PCBArts VaporPhaseOne Display Bootloader</name>
+	<name>display-bootloader</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -20,11 +20,12 @@
 	</buildSpec>
 	<natures>
 		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUNonSecureProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCURootProjectNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
@@ -32,49 +33,39 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>Shared Sources</name>
+			<name>shared</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/shared/src</locationURI>
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>upstream-bsp-disco</name>
+			<name>shared/bootloader</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/upstream/st-bsp-f4/STM32469I-Discovery</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/bootloader</locationURI>
 		</link>
 		<link>
-			<name>upstream-bsp-ft6x06</name>
+			<name>shared/core_com</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/upstream/st-bsp-f4/Components/ft6x06</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/core_com</locationURI>
 		</link>
 		<link>
-			<name>upstream-bsp-otm8009a</name>
+			<name>shared/ff15a</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/upstream/st-bsp-f4/Components/otm8009a</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/ff15a</locationURI>
 		</link>
 		<link>
-			<name>upstream-fatfs</name>
+			<name>shared/mbedtls</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/upstream/st-fatfs/src</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/mbedtls</locationURI>
 		</link>
 		<link>
-			<name>upstream-fonts</name>
+			<name>shared/mx25lm51245g</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/upstream/st-fonts</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/mx25lm51245g</locationURI>
 		</link>
 		<link>
-			<name>upstream-hal</name>
+			<name>shared/tinyprintf</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/upstream/st-hal-f4/Src</locationURI>
-		</link>
-		<link>
-			<name>upstream-mbedtls</name>
-			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/upstream/mbedtls/library</locationURI>
-		</link>
-		<link>
-			<name>upstream-tinyprintf</name>
-			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/upstream/tinyprintf</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/tinyprintf</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

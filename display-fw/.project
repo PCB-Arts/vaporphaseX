@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>VPO-Display</name>
-	<comment></comment>
+	<name>display-fw</name>
+	<comment/>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -22,11 +22,11 @@
 		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
 		<nature>org.eclipse.cdt.core.ccnature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUNonUnderRootProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUNonSecureProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCURootProjectNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
@@ -34,19 +34,29 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>VPO-Display.ioc</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/STM32F469I-DISCO.ioc</locationURI>
-		</link>
-		<link>
 			<name>shared</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/shared/src</locationURI>
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>upstream</name>
+			<name>shared/core_com</name>
 			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/upstream</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/core_com</locationURI>
+		</link>
+		<link>
+			<name>shared/ff15a</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/ff15a</locationURI>
+		</link>
+		<link>
+			<name>shared/mx25lm51245g</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/mx25lm51245g</locationURI>
+		</link>
+		<link>
+			<name>shared/tinyprintf</name>
+			<type>2</type>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/tinyprintf</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

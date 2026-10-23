@@ -1,21 +1,19 @@
 #ifndef MENUVIEW_HPP
 #define MENUVIEW_HPP
 
-#include <core-communication.hpp>
 #include <gui_generated/menu_screen/menuViewBase.hpp>
 #include <gui/menu_screen/menuPresenter.hpp>
-#include <gui/modal/Modal.hpp>
-#include <gui/error/UiErrorState.hpp>
-#include <unitConverter.hpp>
+#include "unitConverter.hpp"
+#include "DynamicDrawableListItems.hpp"
 #include <string>
-#include "stm32f4xx.h"
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_hal_uart.h"
-#include <sd-card/sd.hpp>
-#include <ProfileParser.hpp>
-#include <DynamicDrawableListItems.hpp>
+#include <vector>
+#include "ProfileParser.hpp"
+#include "Modal.hpp"
+#include "UiErrorState.hpp"
+#include "stm32u5xx.h"
 
-
+#define USER_FLASH_ADDRESS ((uint32_t*) ((0x08000000 + 4096 * 1024) - 8 * 1024))
+#define storedSettings ((menuView::Settings*) USER_FLASH_ADDRESS)
 
 class menuView : public menuViewBase
 {
@@ -25,77 +23,105 @@ public:
     virtual void setupScreen();
     virtual void tearDownScreen();
 
-    virtual void handleTickEvent();
-    virtual void TempUnitToggled();
-    virtual void StartButtonPush();
-    virtual void StopReflowPush();
-    virtual void OpenLidPush();
-    virtual void CloseLidPush();
-    virtual void MountPush();
-    virtual void EjectPush();
-    virtual void ModalInformationClose();
-    virtual void ModalDecisionYes();
-    virtual void ModalDecisionNo();
-    virtual void SetSolderProfile();
-    virtual void btn_eco_open_temp_clicked();
-	virtual void btn_standard_open_temp_clicked();
-	virtual void btn_fast_open_temp_clicked();
-	virtual void current_state();
-
-    void adaptUiToUnits();
-    void adaptGraphToUnits();
-    void drawSetHeatProfileGraph();
-    void adaptGraphTimeAxis();
-
     virtual void options_solder_profile_wheelUpdateItem(custom_container_profile_select& item, int16_t itemIndex);
 
-protected:
-    TemperatureUnit currentUnit = CELSIUS;
-    float galdenTemperatureCelsius = 0.0f;
-    float coolantTemperatureCelsius = 0.0f;
-    uint32_t lastUiUpdateMS = 0;
-    const uint32_t uiUpdateIntervallMS = 30;
-    bool solderingActive = true;
+    struct Settings{
+    	int openTemperature;
+    };
+
+private:
 
     constexpr static int maxProfileDuration = 600;
     int profileDurationS = 600;
     float profileTemperaturesS[maxProfileDuration];
     float measuredTemperaturesS[maxProfileDuration];
+
     int measureIndex = 0;
 
-    const uint32_t coolantTempUpdateIntervalMs = 3000;
-    const uint32_t pcbTempUpdateIntervalMs = 1000;
+    SolderProfile selectedProfile;
 
     modal::Modal modalWrapper;
     UiErrorState errorState;
 
+    bool isProfileSelected = false;
     bool startReflowEnabled = true;
     bool openLidEnabled = true;
-    bool selftestActiveOpened = false;
-private:
-    void updateButtonStates();
-    void updateCoolantTemperatureLabel();
-    void updatePCBTemperatureLabel();
-    void updateGaldenTemperatureLabel();
-    void updateTemperatureGraph();
-    void updateSolderProfiles();
-    void updateLogging();
-    void updateSelftest();
-
-    void updateScrollWheel();
 
     int SolderProfilesVersion = -1;
     std::vector<std::string> solderProfiles;
-    DynamicDrawableListItems<custom_container_profile_select>* solderProfileWheelItems = nullptr;
+    //DynamicDrawableListItems<custom_container_profile_select>* solderProfileWheelItems = nullptr;
 
-    bool isProfileSelected = false;
-    SolderProfile selectedProfile;
+    DrawableListItems<custom_container_profile_select, 8> solderProfileWheelItemsFixed;
 
     touchgfx::Callback<menuView, touchgfx::DrawableListItemsInterface*, int16_t, int16_t> updateItemCallback;
-//    touchgfx::Callback<menuView, touchgfx::AnimationTextureMapper&> TextureMapperAnimationEndedCallback;
+
+protected:
+
+    void close_lid_btn_onClick();
+    void open_lid_btn_onClick();
+    void start_reflow_btn_onClick();
+    void stop_reflow_btn_onClick();
+
+    void options_openlid_tem_button_eco_onClick();
+    void options_openlid_tem_button_standard_onClick();
+    void options_openlid_tem_button_fast_onClick();
+    void options_button_profile_set_onClick();
+    void options_sd_card_button_mount_onClick();
+    void options_sd_card_button_eject_onClick();
+    void options_temp_toggle_button_onClick();
+    void modalWindowInformationClose_btn_onClick();
+    void modalWindowDecisionYes_btn_onClick();
+    void modalWindowDecisionNo_btn_onClick();
+
+
+    void drawSetHeatProfileGraph();
+    void adaptGraphToUnits();
+    void adaptGraphTimeAxis();
+
+    void TempUnitToggled();
+    void adaptUiToUnits();
+
+    void loadSettingsFromFlash();
+    HAL_StatusTypeDef saveSettings();
+    void restoreOpenTemperature();
+
+    //void startErrorCallback();
+    //void stopReflowDecisionCallback(bool answer);
+
+
+    const uint32_t pcbTempUpdateIntervalMs = 1000;
+    const uint32_t galdenTempUpdateIntervalMs = 1000;
+    const uint32_t coolantTempUpdateIntervalMs = 1000;
+
+    TemperatureUnit currentUnit = CELSIUS;
+    float galdenTemperatureCelsius = 0.0f;
+    float coolantTemperatureCelsius = 0.0f;
+
+    void handleTickEvent();
+    void updateCoolantTemperatureLabel();
+    void updatePCBTemperatureLabel();
+    void updateGaldenTemperatureLabel();
+    void updateCurrentState();
+    void updateLogging();
+    void updateTemperatureGraph();
+    void updateTemperatureAndState();
+    void updateButtonStates();
+    void updateEnabledBitmapsOnly(touchgfx::ImageButtonStyle<touchgfx::TouchButtonTrigger>* button, bool shouldBeEnabled,
+    		const touchgfx::Bitmap& bmpReleased, const touchgfx::Bitmap& bmpPressed,
+    		const touchgfx::Bitmap& bmpDisabled, bool* enabledState);
+    void updateEnabled(touchgfx::ImageButtonStyle<touchgfx::TouchButtonTrigger> * button, bool shouldBeEnabled,
+    		const touchgfx::Bitmap& bmpReleased, const touchgfx::Bitmap& bmpPressed,
+    		const touchgfx::Bitmap& bmpDisabled);
+    void updateVisibility(touchgfx::ImageButtonStyle<touchgfx::TouchButtonTrigger>* widget, bool desiredVisibility);
+    void updateScrollWheel();
+    void updateSolderProfiles();
+    void updateSelftest();
 
     void updateItemCallbackHandler(touchgfx::DrawableListItemsInterface* items, int16_t containerIndex, int16_t itemIndex);
-//    void textureMapperAnimationEndedCallbackHandler(touchgfx::AnimationTextureMapper& src);
+
+
+
+
 
 };
 

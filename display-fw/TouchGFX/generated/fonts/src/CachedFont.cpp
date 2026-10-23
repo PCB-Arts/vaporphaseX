@@ -7,30 +7,27 @@ namespace touchgfx
 {
 const uint8_t* CachedFont::getPixelData(const GlyphNode* glyph) const
 {
-    //if glyph is cached, then data is present just after the GlyphNode
+    // If glyph is cached, then data is present just after the GlyphNode
     if (FontCache::isCached(glyph))
     {
         const uint8_t* data = FontCache::getPixelData(glyph);
         return data;
     }
-    else
-    {
-        return flashFont->getPixelData(glyph);
-    }
+    return flashFont->getPixelData(glyph);
 }
 
 const GlyphNode* CachedFont::getGlyph(Unicode::UnicodeChar unicode, const uint8_t*& pixelData, uint8_t& bitsPerPixel) const
 {
-    //look first in internal flash font
+    // Look first in internal flash font
     const GlyphNode* n = flashFont->find(unicode);
 
     if ((n == 0) && (cache != 0))
     {
-        //now look in FontCache table
+        // Now look in FontCache table
         n = cache->getGlyph(unicode, fontId);
     }
 
-    //revert to normal behaviour if still not found
+    // Revert to normal behaviour if still not found
     if (n == 0 && unicode != 0 && unicode != '\n')
     {
         Unicode::UnicodeChar fallbackChar = flashFont->getFallbackChar();
@@ -52,7 +49,7 @@ const GlyphNode* CachedFont::getGlyph(Unicode::UnicodeChar unicode, const uint8_
 
 int8_t CachedFont::getKerning(Unicode::UnicodeChar prevChar, const GlyphNode* glyph) const
 {
-    //Kerning is not supported by Font Caching
+    // Kerning is not supported by Font Caching
     return 0;
 }
-}
+} // namespace touchgfx

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>PCBArts VaporPhaseOne CoreFW</name>
+	<name>core-fw</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -20,33 +20,25 @@
 	</buildSpec>
 	<natures>
 		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
-		<nature>org.eclipse.cdt.core.ccnature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUCubeProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUAdvancedStructureProjectNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUEndUserDisabledTrustZoneProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCUSingleCpuProjectNature</nature>
 		<nature>com.st.stm32cube.ide.mcu.MCURootProjectNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
-		<nature>com.st.stm32cube.ide.mcu.MCUCubeIdeServicesRevAev2ProjectNature</nature>
 	</natures>
 	<linkedResources>
 		<link>
-			<name>STM32F3xx_HAL_Driver</name>
+			<name>shared</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/upstream/STM32CubeF3/Drivers/STM32F3xx_HAL_Driver/Src</locationURI>
+			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>shared_sources</name>
+			<name>shared/core_com</name>
 			<type>2</type>
-			<locationURI>PARENT-1-PROJECT_LOC/shared/src</locationURI>
-		</link>
-		<link>
-			<name>tinyprintf</name>
-			<type>2</type>
-			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/upstream/tinyprintf</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/shared/core_com</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

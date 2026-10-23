@@ -1,51 +1,97 @@
-Out of date! Just for reference!
+PCB Arts VPX Firmware
+=====================
 
-PCB Arts Vapor Phase One (VPO) Core Controller Firmware
-=======================================================
+Firmware for the PCB Arts VPX vapor phase soldering oven.
 
-.. image:: VPO.jpg
+======================  =========  =========================================
+Project                 MCU        Purpose
+======================  =========  =========================================
+``core-bootloader``     STM32F302  Bootloader of the core (controller) board
+``core-fw``             STM32F302  Core firmware (oven control)
+``display-bootloader``  STM32U5A9  Bootloader, flashes signed update files
+``display-fw``          STM32U5A9  TouchGFX user interface
+======================  =========  =========================================
 
-This repository contains the firmware source code for the `Vapor Phase One 
-<https://pcb-arts.com/en/vapor_phase_one>`_ by PCB Arts.
+Requirements
+------------
 
-#####################
-Want a tested and certified Vapor Phase One?
-#####################
+The projects can be built either via make or directly in STM32CubeIDE.
+Both produce the same build.
+Either way, Python 3 with ``tools/requirements.txt``
+(``pip install -r tools/requirements.txt``)
+is needed for the keys and signing (see `Signing`_).
 
-Checkout: https://shop.pcb-arts.com/products/vapor-phase-one
+Via make
+   - STM32CubeIDE (its headless builder is used)
+   - STM32CubeProgrammer (``make flash``)
+   - STM32CubeMX (``make generate`` only)
+   - ``arm-none-eabi`` binutils (``make hex``, ``flash`` and ``size`` only)
 
-#########
-Checkout
-#########
+   Python is run via ``uv run python`` by default.
+   Use ``PYTHON=python3`` for a plain Python installation.
+   The ST tool paths are pinned in ``tools/common.mk``
+   and can be overridden with ``CUBEIDE=``, ``PROGRAMMER=`` and ``CUBEMX=``
+   (see ``make -C <project> help``).
 
-This repository includes some upstream ST code as submodules. When cloning or pulling this repo, pass
-``--recurse-submodules`` to git: ``git clone --recurse-submodules [...]``.
+Via STM32CubeIDE
+   - STM32CubeIDE (includes the toolchain and CubeMX code generation)
+   - STM32CubeProgrammer (only for flashing via ``STM32_Programmer_CLI``)
 
-#####################
-Building and Signing
-#####################
+Building
+--------
 
-Building the project STM32CubeIDE is required.
+``display-bootloader`` needs the public key of the signing key compiled in,
+so create it once before the first build (see `Signing`_).
 
-In general you have to loosely follow these steps to build and sign images for the bootloaders.
+Via make
+   ``make`` builds all projects, ``make <project>`` a single one
+   (``BUILD_CONFIG=Debug|Release``).
+   This runs CubeIDE's headless builder, i.e. the same build as in the IDE.
 
-1. Import the projects into a workspace.
-2. Generate a key for image signing. For development this can be achieved by running ``generate_dev_key.sh`` from the tools folder of the display bootloader. 
-3. Build the bootloaders.
-4. Flash the bootloaders. e.g. using STM32CubeProgrammer, or using the RUN command
-5. Build the user application firmwares.
-6. (Option 1) Directly flash the firmwares onto devices (use the the output elf file).  e.g. using STM32CubeProgrammer, or using the RUN command
-7. (Option 2) Sign the images by running ``sign_all_images.sh`` from the tools folder of the display bootloader.
-8. (Option 2) Copy the signed (without _unsigned) `.BIN` files onto an SD card. And flash using the bootloader.
+Via STM32CubeIDE
+   Build the projects as usual in the IDE.
 
-#####################
 Flashing
-#####################
+--------
 
-#####################
-Display
-#####################
+All projects are flashed over SWD.
 
-Flash the display with the STM32CubeProgrammer, as external Loader use the MT25QL128A_STM32469I-DK. Flash the Bootloader and then the .elf file in bootloader-production folder.
+Via make
+   ``make -C <project> flash`` builds and programs the project,
+   for ``display-fw`` including the external OSPI flash.
 
-If building the Image for the Bootloader, there must be a difference between the display bootloaders, since multiple versions of LCD displays are on the STM32F469I - DISCO Board. A Symbol "USE_STM32469I_DISCO_REVC" have to be set for all newer Displays (DK32F469I$AU1 Label at the back of the PCB) within the projects definitions. The TouchGFX source data we're generated with TouchGFX 4.16, the Middlewares/ST also needs to be from this version (Just copying from a new project in TouchGFX 4.16 is fine). Same coping is necessary for TouchGFX/target, this source files will be generated with the help of the STM32CubeMX Programmer. 
+Via STM32CubeIDE
+   Create a run/debug configuration (STM32 C/C++ Application).
+   For ``display-fw`` add the external loader
+   ``display-fw/MX25LM51245G_STM32U599J-DK.stldr`` for its OSPI content.
+
+Via STM32_Programmer_CLI
+   .. code-block:: sh
+
+      STM32_Programmer_CLI -c port=SWD -d <project>/Debug/<project>.elf -hardRst
+
+   For ``display-fw`` add ``-el display-fw/MX25LM51245G_STM32U599J-DK.stldr``.
+
+Signing
+-------
+
+Updates are installed by ``display-bootloader`` from signed update files
+on an SD card.
+Keys, images and signing are handled by ``tools/imgtool.py``.
+
+Via make
+   .. code-block:: sh
+
+      make privkey   # create the signing key keys/key.pem (once)
+      make pubkey    # write public key for display-bootloader to
+                     # keys/include/fw_update_sig_pk.c_inc (rebuild to apply)
+      make sign      # build + sign update files -> out/<config>/signed/
+
+   ``make hash`` creates update files with a zero signature instead,
+   accepted only with the third party jumper on the core board.
+
+Via Python
+   The same commands without make, e.g. on Windows after building in CubeIDE:
+   ``python tools/imgtool.py privkey``, ``pubkey`` and
+   ``sign --config Debug|Release``.
+   ``python tools/imgtool.py --help`` lists all commands and options.

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="texts.xsd" Version="4.23.2">
+  <Languages>
+    <Language Id="GB" />
+  </Languages>
+  <Texts>
+    <TextGroup Id="Group1" />
+    <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_611K" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Profile aborted</Translation>
+      </Text>
+      <Text Id="LidBlockedBody" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="LidBlockedTitle" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">New Text</Translation>
+      </Text>
+      <Text Id="ComErrorBody" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">An error occured in the communication with the core controller. The displayed values might be incorrect.</Translation>
+      </Text>
+      <Text Id="ComErrorTitle" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">Core Communication Error</Translation>
+      </Text>
+      <Text Id="CoolantOtpErrorBody" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Coolant UTP/OTP</Translation>
+      </Text>
+      <Text Id="CoolantOtpErrorTitle" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">Under temperature protection or over temperature protection detected. Please read manual. Don't turn off the Vapor Phase.</Translation>
+      </Text>
+      <Text Id="HeaterOtpErrorBody" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Heater temperature sensor problem detected, please read manual. Don't turn off the Vapor Phase.</Translation>
+      </Text>
+      <Text Id="HeaterOtpErrorTitle" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">Heater OTP</Translation>
+      </Text>
+      <Text Id="LidOcpErrorBody" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Lid over current event detected. Lid was blocked, please remove blockage and power cycle device.</Translation>
+      </Text>
+      <Text Id="LidOcpErrorTitle" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">Lid OCP</Translation>
+      </Text>
+      <Text Id="LidConditionErrorBody" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">due to xy</Translation>
+      </Text>
+      <Text Id="LidConditionErrorTitle" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">Lid Open condition not met</Translation>
+      </Text>
+      <Text Id="StartConditionErrorBody" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Start condition not met:&#10;Please check:&#10;- x&#10;- y</Translation>
+      </Text>
+      <Text Id="StartConditionErrorTitle" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">Start reflow condition not met</Translation>
+      </Text>
+      <Text Id="ProcessCancelTitle" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">Cancel Reflow</Translation>
+      </Text>
+      <Text Id="ProcessCancelBody" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Are you sure?</Translation>
+      </Text>
+      <Text Id="__SingleUse_H01O" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">ModalTitle&#10;</Translation>
+      </Text>
+      <Text Id="__SingleUse_53ZW" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text&#10;&#10;</Translation>
+      </Text>
+      <Text Id="__SingleUse_GDGM" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">New Text&#10;&#10;</Translation>
+      </Text>
+      <Text Id="__SingleUse_59JM" Alignment="Left" TypographyId="Default_fat">
+        <Translation Language="GB">ModalTitle&#10;</Translation>
+      </Text>
+      <Text Id="__SingleUse_CDRO" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">test.csv</Translation>
+      </Text>
+      <Text Id="__SingleUse_O2K6" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_FCSJ" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Solder profile</Translation>
+      </Text>
+      <Text Id="__SingleUse_W2EE" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Open temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_TT7P" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">SD card</Translation>
+      </Text>
+      <Text Id="__SingleUse_6SGZ" Alignment="Left" TypographyId="medium_14">
+        <Translation Language="GB">Version: &lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_I4P2" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">C</Translation>
+      </Text>
+      <Text Id="__SingleUse_IJ5R" Alignment="Left" TypographyId="medium_14">
+        <Translation Language="GB">°&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_TIUU" Alignment="Left" TypographyId="medium_14">
+        <Translation Language="GB">Time in Seconds</Translation>
+      </Text>
+      <Text Id="__SingleUse_JNOU" Alignment="Right" TypographyId="Small">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_67IK" Alignment="Left" TypographyId="Small">
+        <Translation Language="GB">&lt;&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_LMRV" Alignment="Left" TypographyId="text_graph_size">
+        <Translation Language="GB">DEFAULT</Translation>
+      </Text>
+      <Text Id="__SingleUse_3O9T" Alignment="Left" TypographyId="Default">
+        <Translation Language="GB">Displayed Unit</Translation>
+      </Text>
+      <Text Id="__SingleUse_H126" Alignment="Left" TypographyId="text_graph_size">
+        <Translation Language="GB">&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_QQQH" Alignment="Left" TypographyId="text_graph_size">
+        <Translation Language="GB">Galden: &lt;value&gt; °&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_P9LG" Alignment="Left" TypographyId="text_graph_size">
+        <Translation Language="GB">PCB: &lt;value&gt; °&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_XQY0" Alignment="Left" TypographyId="text_graph_size">
+        <Translation Language="GB">Cooling: &lt;value&gt; °&lt;value&gt;</Translation>
+      </Text>
+      <Text Id="__SingleUse_CS3D" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Vapor Phase</Translation>
+      </Text>
+    </TextGroup>
+  </Texts>
+  <Typographies>
+    <Typography Id="Default" Font="arial.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="/_#-" WildcardCharacterRanges="0-9,A-Z,a-z" />
+    <Typography Id="Large" Font="arial.ttf" Size="40" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Small" Font="arial.ttf" Size="10" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WidgetWildcardCharacters="-., 0123456789" WildcardCharacterRanges="0-9,A-Z,a-z" />
+    <Typography Id="text_graph_size" Font="arial.ttf" Size="16" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacterRanges="a-z,A-Z,0-9" />
+    <Typography Id="medium_14" Font="arial.ttf" Size="14" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" WildcardCharacters="-., 0123456789" WildcardCharacterRanges="0-9,A-Z,a-z" />
+    <Typography Id="Default_fat" Font="arialbd.ttf" Size="20" Bpp="4" IsVector="no" Direction="LTR" FallbackCharacter="?" />
+  </Typographies>
+</TextDatabase>

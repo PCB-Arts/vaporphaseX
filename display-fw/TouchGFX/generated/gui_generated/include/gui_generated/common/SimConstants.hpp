@@ -6,6 +6,6 @@
 
 static unsigned short SIM_WIDTH = 800;
 static unsigned short SIM_HEIGHT = 480;
-#define SIM_TITLE "STM32F469I-DISCO"
+#define SIM_TITLE "New_Display_VPX"
 
 #endif // SIMCONSTANTS_HPP
