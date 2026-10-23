@@ -718,6 +718,14 @@ void menuView::modalWindowDecisionNo_btn_onClick(){
 
 }
 
+void menuView::options_lid_service_button_onClick(){
+	//callback function --> send command to core to move to service position
+}
+
+void menuView::options_sd_card_button_export_onClick(){
+	//callback function --> export values of profile to sd card
+}
+
 void menuView::updateLogging(){
 	if(CoreCom_HasNewMonitor() && !CoreCom_CoreState().selftest_active){
 		auto monitor = CoreCom_GetMonitorState();

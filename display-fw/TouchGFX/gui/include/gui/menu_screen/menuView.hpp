@@ -72,6 +72,9 @@ protected:
     void modalWindowInformationClose_btn_onClick();
     void modalWindowDecisionYes_btn_onClick();
     void modalWindowDecisionNo_btn_onClick();
+    void options_lid_service_button_onClick();
+    void options_sd_card_button_export_onClick();
+
 
 
     void drawSetHeatProfileGraph();
